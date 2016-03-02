@@ -20,6 +20,7 @@
       <link rel="import" href="css.html">
   </head>
   <body>
+
       <!-- Side Menu -->
       <script>
           var doc = document.querySelector('link[rel="import"]').import;
@@ -34,6 +35,7 @@
       <!-- =================== THE MARKDOWN DISPLAY =================== -->
       <div id="markdown" style="visibility: hidden;"></div>
 
+      <!-- =================== JAVASCRIPT ============================= -->
       <link rel="import" href="javascript.html">
       <script>
           $(document).ready(function() {
@@ -52,8 +54,12 @@
               url = url+'?'+Date.now();
               $.get(url, "", function(response) {
                   highlightMenu("#"+md.replace('.','-').replace(/_/g,'-'));
-                  var txt = document.getElementById('markdown').innerHTML.replace(/&gt;/g,'>').replace(/&lt;/g,'<');
+                  /*var txt = document.getElementById('markdown').innerHTML
+                  .replace(/&gt;/g,'>')
+                  .replace(/&lt;/g,'<');*/
+
                   document.getElementById('markdownDisplay').innerHTML = marked(response);
+                  Prism.highlightAll(true, function(){console.log("PRISM DONE");})
               });
           });
 
