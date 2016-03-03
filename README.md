@@ -9,5 +9,5 @@ Currently working on a mockup https://mockingbot.com/app/661ae9f6b43f83ad675b8c2
 ## Documentation
 
 This repository hosts a
-[GitHub (gh-pages)](http://blog.kirtan.io/audio-streaming-apis)]
- site with full Documentation.
+[GitHub (gh-pages) site ](http://blog.kirtan.io/audio-streaming-apis)
+ with full Documentation.
