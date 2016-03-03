@@ -9,12 +9,10 @@ Instead, the API responds with 404 Not Found. This may cause
 problems for HTTP libraries that assume a 401 Unauthorized response.
 The solution is to manually craft the Authorization header.
 
-Calls for authentication that do not use SLL will receive a 404 Not Found error. This is also
-to prevent the disclosure of user data.
 
+```bash
+curl -v -u account:password --header "Accept-Version: 1.0.0" https://localhost:8081/playlists | python -mjson.tool
 
-<pre style="margin-left:30px"><code class="language-bash line-numbers">// BASH
-curl -v -u account:password --header "Accept-Version: 1.0.0" https://localhost:8081/playlists | python -m json.tool
 
 // Request Header sent
 ...
@@ -25,6 +23,6 @@ curl -v -u account:password --header "Accept-Version: 1.0.0" https://localhost:8
 > Accept: */*
 > Accept-Version: 1.0.0
 ...
-</code></pre>
+```
 
 ___

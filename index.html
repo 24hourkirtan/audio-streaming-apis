@@ -58,6 +58,14 @@
                   .replace(/&gt;/g,'>')
                   .replace(/&lt;/g,'<');*/
 
+                  response = response.replace(/```javascript/g, '<pre style="margin-left:30px"><code class="language-javascript line-numbers">// javascript\n')
+                  .replace(/```typescript/g, '<pre style="margin-left:30px"><code class="language-typescript line-numbers">// typescript\n')
+                  .replace(/```bash/g, '<pre style="margin-left:30px"><code class="language-bash line-numbers">// bash\n')
+                  .replace(/```css/g, '<pre style="margin-left:30px"><code class="language-css line-numbers">// css\n')
+                  .replace(/```html/g, '<pre style="margin-left:30px"><code class="language-css line-numbers">// html\n')
+                  .replace(/```/g, '</code></pre>');
+                  console.log(response);
+
                   document.getElementById('markdownDisplay').innerHTML = marked(response);
                   Prism.highlightAll(true, function(){console.log("PRISM DONE");})
               });

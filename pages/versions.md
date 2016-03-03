@@ -2,13 +2,40 @@
   <h1  id="page-title">Versions</h1>
 </div>
 
-Currently there is one version of the API: the v1.0.0 version.
-By default, all requests receive the v1.0.0 version  
-however it is best to request a specific version via the Accept header.  This would allow
-for an easier migration path to future releases.
+Currently the default version of the API is 1.0.0.
+Any request that does not specify a version will receive the default version.
+It is best to request a specific version via the Accept-Version header for expected behavior and    
+allow for an easier migration path to future releases.
+If an invalid version is in the Accept-Version header an error (HTTP/1.1 400 Bad Request) is returned.
 
-<pre style="margin-left:30px"><code class="language-bash line-numbers">// BASH
-curl -v --header "Accept-Version: 1.0.0" https://localhost:8081/playlists  | python -m json.tool  
+<br/>
+<table id="tbl">
+<colgroup>
+    <col>
+    <col>
+    <col>
+    <col>
+  </colgroup>
+  <tr>
+    <th>Version</th>
+    <th>Default</th>
+    <th>Status</th>
+    <th>Header</th>
+  </tr>
+  <tr>
+    <td>v1.0.0</td>
+    <td>X</td>
+    <td>Alpha</td>
+    <td>"Accept-Version: 1.0.0"</td>
+  </tr>
+</table>
+
+
+
+___
+#### CURL example valid Accept-Version  
+```bash
+curl -v -u <user>:<pswd> --header "Accept-Version: 1.0.0" https://localhost:8081/playlists  | python -mjson.tool  
 
 * Connected to localhost (::1) port 8081 (#0)
 > GET /playlists HTTP/1.1
@@ -39,8 +66,36 @@ curl -v --header "Accept-Version: 1.0.0" https://localhost:8081/playlists  | pyt
     ],
     "owner_id": "123412e123e-2d223d32-d23d2f23f"
 }
+```
 
-</code></pre>
+
+
+___
+#### CURL example invalid Accept-Version
+```bash
+curl -v -u <user>:<pswd> --header "Accept-Version: 1.0.1" https://localhost:8081/playlists  | python -mjson.tool  
+
+* Connected to localhost (::1) port 8081 (#0)
+> GET /playlists HTTP/1.1
+> Host: localhost:8081
+> User-Agent: curl/7.43.0
+> Accept: */*
+> Accept-Version: 1.0.1
+>
+< HTTP/1.1 400 Bad Request
+< Content-Type: application/json
+< Content-Length: 78
+< Date: Thu, 03 Mar 2016 13:22:37 GMT
+< Connection: keep-alive
+<
+{ [78 bytes data]
+100    78  100    78    0     0   3542      0 --:--:-- --:--:-- --:--:--  3714
+* Connection #0 to host localhost left intact
+{
+    "code": "InvalidVersion",
+    "message": "1.0.1 is not supported by GET /playlists"
+}
+```
 
 
 
@@ -52,7 +107,7 @@ Ionic v1 and v2.
 
 <br/>
 Ionic v1
-<pre style="margin-left:30px;"><code class="language-javascript line-numbers">// Javascript
+```javascript
 var version = '1.0.0';
 
 load = function(url) {
@@ -68,12 +123,12 @@ load = function(url) {
         ...
     });
 }
-</code></pre>
+```
 
 
 <br/>
 Ionic v2
-<pre style="margin-left:30px;"><code class="language-javascript line-numbers">// Javascript
+```javascript
 import {Http, Headers} from 'angular2/http';
 ...
 
@@ -91,7 +146,7 @@ load = function(url:string) {
         });
     });
 }
-</code></pre>
+```
 
 
 ___

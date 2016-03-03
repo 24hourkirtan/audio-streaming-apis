@@ -48,6 +48,4 @@ ___
     <td>DELETE /playlist/:playlist</td>
     <td>deletes a playlist for the current user</td>
   </tr>
-
-
 </table>
