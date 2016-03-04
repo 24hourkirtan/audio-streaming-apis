@@ -168,7 +168,7 @@ mongod --shutdown
 ___
 #### Useful commands
 
-Mongo > db.serverStatus().connections
+mongo > db.serverStatus().connections
 
 
 ___

@@ -8,17 +8,21 @@ The audio-streaming-apis project requires the following NPM modules.
 
 ```json
 "dependencies": {
-    "async": "^1.5.2",
-    "jsmediatags": "^3.0.5",
-    "mongodb": "^2.1.7",
-    "path": "^0.12.7",
-    "recursive-readdir": "^1.3.0",
-    "restify": "^4.0.4"
+  "async": "^1.5.2",
+  "co": "^4.6.0",
+  "jsmediatags": "^3.0.5",
+  "mongodb": "^2.1.7",
+  "path": "^0.12.7",
+  "recursive-readdir": "^1.3.0",
+  "restify": "^4.0.4"
   }
 ```
 
 * ##### async
 Used to make parallel async calls to the database.
+
+* ##### co
+Generator based control flow for Nodejs, using promises, allows non-blocking code.
 
 * ##### jsmediatags
 Used to parse mp3 files to extract ID3 tags.
@@ -46,5 +50,6 @@ npm install mongodb --save
 npm install path --save
 npm install recursive --save
 npm install restify --save
+npm install co --save
 ```
 ___
