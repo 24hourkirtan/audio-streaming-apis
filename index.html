@@ -49,25 +49,25 @@
               }
               var md = $.urlParam('md');
               var url = md.replace(/_/g, '/');
-              console.log(url);
+
               // Add timestamp to prevent github page caching
               url = url+'?'+Date.now();
+              console.log(url);
               $.get(url, "", function(response) {
                   highlightMenu("#"+md.replace('.','-').replace(/_/g,'-'));
-                  /*var txt = document.getElementById('markdown').innerHTML
-                  .replace(/&gt;/g,'>')
-                  .replace(/&lt;/g,'<');*/
 
-                  response = response.replace(/```javascript/g, '<pre style="margin-left:30px"><code class="language-javascript line-numbers">// javascript\n')
-                  .replace(/```typescript/g, '<pre style="margin-left:30px"><code class="language-typescript line-numbers">// typescript\n')
-                  .replace(/```bash/g, '<pre style="margin-left:30px"><code class="language-bash line-numbers">// bash\n')
-                  .replace(/```css/g, '<pre style="margin-left:30px"><code class="language-css line-numbers">// css\n')
-                  .replace(/```html/g, '<pre style="margin-left:30px"><code class="language-css line-numbers">// html\n')
+                  response = response.replace(/```javascript/g, '<pre style="margin-left:30px"><code class="language-javascript line-numbers">')
+                  .replace(/```typescript/g, '<pre style="margin-left:30px"><code class="language-typescript line-numbers">')
+                  .replace(/```bash/g, '<pre style="margin-left:30px"><code class="language-bash line-numbers">')
+                  .replace(/```css/g, '<pre style="margin-left:30px"><code class="language-css line-numbers">')
+                  .replace(/```html/g, '<pre style="margin-left:30px"><code class="language-html line-numbers">')
+                  .replace(/```json/g, '<pre style="margin-left:30px"><code class="language-json line-numbers">')
+                  .replace(/```xml/g, '<pre style="margin-left:30px"><code class="language-html line-numbers">')
+                  .replace(/```none/g, '<pre style="margin-left:30px"><code class="language-bash line-numbers">')
                   .replace(/```/g, '</code></pre>');
-                  console.log(response);
 
                   document.getElementById('markdownDisplay').innerHTML = marked(response);
-                  Prism.highlightAll(true, function(){console.log("PRISM DONE");})
+                  Prism.highlightAll(true, function(){})
               });
           });
 

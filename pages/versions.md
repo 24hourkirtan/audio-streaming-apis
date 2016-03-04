@@ -69,7 +69,6 @@ curl -v -u <user>:<pswd> --header "Accept-Version: 1.0.0" https://localhost:8081
 ```
 
 
-
 ___
 #### CURL example invalid Accept-Version
 ```bash

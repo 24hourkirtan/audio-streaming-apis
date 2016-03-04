@@ -2,7 +2,7 @@
   <h1  id="page-title">Playlists</h1>
 </div>
 
-Each user can create multiple playlists containing unlimited MP3 file.
+Each user can create multiple playlists containing unlimited MP3 files.
 
 
 
