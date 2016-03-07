@@ -27,12 +27,12 @@ module.exports = {
      * @return {nothing}
      */
     run: function(directoryPath) {
-        console.log('\n >>> ---- Indexer run ----------\n',directoryPath, process.cwd(), '\n-----------------------------')
+        console.log('\n>>> ---- Indexer run ----------------------------','\n>>> '+directoryPath, '\n>>> '+process.cwd(), '\n------------------------------------------------')
 
         recursive(directoryPath, function (err, files) {
             // Files is an array of filename
             if(typeof files == 'undefined' || files == null){
-                console.log('ERROR: path invalid')
+                //console.log('ERROR: path invalid');
                 return;
             }
             files.forEach(function(file){
@@ -55,20 +55,27 @@ module.exports = {
 
 // Modify and return the modified document
 function upsertID3(file, id3){
-  console.log(file)
+  console.log("       ",file)
   var collection = db.conn.collection('id3');
   co(function* () {
       var result = collection.findOneAndUpdate({path:file},
-            {$set: {title: id3.tags.title,artist: id3.tags.artist}},
+            {$set: {title: id3.tags.title,
+                    artist: id3.tags.artist,
+                    year: id3.tags.year,
+                    genre: id3.tags.genre,
+                    picture:{format:id3.tags.picture.format,
+                             data:id3.tags.picture.data
+                            }
+                   }
+            },
             {returnOriginal: false, upsert: true}
       );
       return result;
   }).then(function (data) {
-      console.log(data.value.title);
+      //console.log(data.value.title);
   }, function (err) {
       //console.error(err.stack);
       console.error(err);
   });
-
 
 }
