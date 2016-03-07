@@ -22,7 +22,7 @@ Simple endpoint to verifiy the API server is alive.
 ```bash
 GET /ping
 
-curl -v --header "Accept-Version: 1.0.0" http://localhost:8081/ping
+curl -v -k --header "Accept-Version: 1.0.0" https://localhost:8081/ping
 ```
 
 <br/>
