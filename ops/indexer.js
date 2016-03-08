@@ -55,20 +55,30 @@ module.exports = {
 
 // Modify and return the modified document
 function upsertID3(file, id3){
-  console.log("       ",file)
-  var collection = db.conn.collection('id3');
+  //console.log("--------------------------",id3)
+  var collection = db.conn.collection('mp3s');
   co(function* () {
       var result = collection.findOneAndUpdate({path:file},
             {$set: {title: id3.tags.title,
                     artist: id3.tags.artist,
+                    album: id3.tags.album,
                     year: id3.tags.year,
                     genre: id3.tags.genre,
+                    size: id3.size,
                     picture:{format:id3.tags.picture.format,
                              data:id3.tags.picture.data
-                            }
-                   }
+                           }
+                   },
+              $setOnInsert: { trash: Array(2000).join("-")}
+
             },
             {returnOriginal: false, upsert: true}
+      );
+      // Remove trash key used for padding
+      var result2 = collection.findOneAndUpdate({path:file},
+            {$unset: {trash:""}
+            },
+            {returnOriginal: false, upsert: false}
       );
       return result;
   }).then(function (data) {

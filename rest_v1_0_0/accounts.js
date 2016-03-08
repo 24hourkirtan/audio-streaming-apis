@@ -12,7 +12,7 @@ module.exports = {
       if(1==1){
           var token = jwt.getToken(username);
           console.log(token);
-          res.send(200, {_id: 89asjasdujsd9ud9as9asdu, email:username, jwt:token});
+          res.send(200, {_id: "89asjasdujsd9ud9as9asdu", email:username, jwt:token});
           return next();
       }
       else{

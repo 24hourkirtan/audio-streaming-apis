@@ -18,7 +18,7 @@ module.exports = {
                 throw new Error("Failed to generate jwt token: "+err.toString());
             }
 	  },
-    verifyToken: function(req){
+    verifyToken: function(req, res, next){
           try{
               var token = req.headers.jwt;
               console.log('verifyToken', token);
@@ -26,15 +26,23 @@ module.exports = {
               console.log("|----> verifyToken: "+JSON.stringify(decoded));
               if(decoded.appKey != APPKEY){
                   console.log("appKey wrong or missing");
-                  throw new Error("Try loggin out and back in again: appKey wrong or missing: bad jwt token");
+                  res.send(401, 'NOT AUTH');
+                  return null;
+                  //next();
+                  //throw new Error("Try loggin out and back in again: appKey wrong or missing: bad jwt token");
               }
               return decoded.aid;
           }
           catch(err){
               console.log("|----> JWT Error, verifyToken");
               console.log(err);
-              throw new Error("jwt token verification error: "+err.toString());
+              res.send(401, err);
+              return null;
+              //throw new Error("jwt token verification error: "+err.toString());
           }
+    },
+    getNotAuthMsg(){
+        return 'not authoized';
     }
 
 };

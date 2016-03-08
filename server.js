@@ -2,6 +2,7 @@ var restify = require('restify'),
 utils_1_0_0 = require('./rest_v1_0_0/utils'),
 utils_2_0_0 = require('./rest_v2_0_0/utils'),
 playlists_1_0_0 = require('./rest_v1_0_0/playlists'),
+mp3s_1_0_0 = require('./rest_v1_0_0/mp3s'),
 accounts_1_0_0 = require('./rest_v1_0_0/accounts'),
 fs = require('fs'),
 indexer = require('./ops/indexer'),
@@ -63,6 +64,8 @@ var port = (process.env.NODE_ENV === 'production' ? 443 : 8081);
 console.log('>>>  port selection', process.env.NODE_ENV, port);
 server.listen(port);
 
+server.use(restify.queryParser());
+
 // ------------------------------------------------
 // Stops anything that may not be using SSL
 server.use(function checkSLL(req, res, next) {
@@ -93,6 +96,7 @@ server.get({path: "/account/token", version: '1.0.0'}, accounts_1_0_0.token);
 // -----------------------------------------------------
 // AUTH ROUTES - (requires auth) w/Accept-Version header
 //server.use(users_1_0_0.authorize);
+server.get({path: "/mp3s", version: '1.0.0'}, mp3s_1_0_0.getAll);
 server.get({path: "/playlists", version: '1.0.0'}, playlists_1_0_0.playlists);
 server.get({path: "/playlist/:id", version: '1.0.0'}, function(req, res, next){
     res.send(200, {});
@@ -111,4 +115,5 @@ var interval = setInterval(function() {
     config.mp3_paths.forEach(function(path){
         indexer.run(path);
     });
-}, 3000);*/
+}, 3000);
+*/
