@@ -36,9 +36,10 @@ GET /playlists
 curl -v -k -H "$(cat headers.txt)" https://localhost:8081/playlists | python -mjson.tool
 
 // Ionic v1
+var version = '1.0.0', token = localstorage.get('jwt');
 $http({ method: 'GET', url: '/playlists',
         timeout:10000,
-        headers:{"jwt": token, "Accept-Version": '1.0.0'}
+        headers:{"jwt": token, "Accept-Version": version}
     })
 ```
 
