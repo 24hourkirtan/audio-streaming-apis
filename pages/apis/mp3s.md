@@ -1,8 +1,9 @@
 <div class="page-header">
-  <h1  id="page-title">MP3s</h1>
+  <h1  id="page-title">APIs > MP3s</h1>
 </div>
 
-There is only one endpoint in MP3s, a list of mp3 files. The results are limited to 10 records per request by default.
+The mp3s collection holds all id3 information extracted from the available mp3 files
+on the fie system. Records are read only and have been written to this collection by the Indexer.
 
 <table id="tbl">
   <colgroup>
@@ -16,29 +17,15 @@ There is only one endpoint in MP3s, a list of mp3 files. The results are limited
     <th>Summary</th>
   </tr>
   <tr><td>GET</td><td>/mp3s</td><td>list of available mp3 files</td></tr>
+  <tr><td>GET</td><td>/mp3s/:id</td><td>a single mp3 file by id</td></tr>
 </table>
 
 
-
+<br/>
 ___
-### GET /playlists
+### GET /mp3s
 
-List all playlists owned by the current user using the JWT token in the header.
-
-#### Endpoint
-
-```bash
-GET /playlists
-
-curl -v -k -H "$(cat headers.txt)" https://localhost:8081/playlists | python -mjson.tool
-
-// Ionic v1
-var version = '1.0.0', token = localstorage.get('jwt');
-$http({ method: 'GET', url: '/playlists',
-        timeout:10000,
-        headers:{"jwt": token, "Accept-Version": version}
-    })
-```
+List all mp3 records using the JWT token in the header.
 
 <br/>
 #### Parameters
@@ -58,6 +45,7 @@ $http({ method: 'GET', url: '/playlists',
   <tr><td>skip</td><td>string</td><td>Number of records to skip over before starting the limit count. Default: 0.</td></tr>
   <tr><td>sort</td><td>string</td><td>The sort field. One of title, album, or artist. Default: title.</td></tr>
   <tr><td>order</td><td>string</td><td>The sort order if sort parameter is provided. One of asc or desc. Default: desc.</td></tr>
+  <tr><td>image</td><td>string</td><td>Used to exclude or include the image data for the mp3 file. Default: true.</td></tr>
 </table>
 
 
@@ -103,12 +91,75 @@ $http({ method: 'GET', url: '/playlists',
 Return mp3s, limit of 10 records, skipping 0 records, sorting by key title in desc order.
 ```bash
 curl -v -k -H "$(cat headers.txt)" "https://localhost:8081/mp3s" | python -mjson.tool
+
+// excludes image data
+curl -v -k -H "$(cat headers.txt)" "https://localhost:8081/mp3s?image=false" | python -mjson.tool
 ```
 
 <br/>
-Return all mp3s with the search word hour, limit of 4 records, skipping 0 records, sorting by key album in desc order.
+Return all mp3s with the search word hour, limit of 4 records, skipping 0 records, sorting by key album in desc order, no image data.
 ```bash
-curl -v -k -H "$(cat headers.txt)" "https://localhost:8081/mp3s?q=2012&limit=4&skip=0&sort=album&order=desc" | python -mjson.tool
+curl -v -k -H "$(cat headers.txt)" "https://localhost:8081/mp3s?q=2012&limit=4&skip=0&sort=album&order=desc&image=false" | python -mjson.tool
 ```
+
+
+
+
+<br/>
+___
+### GET /mp3s/:id
+
+Gets a specific mp3 record using the id.
+
+<br/>
+#### Parameters
+<table id="tbl">
+  <colgroup>
+    <col>
+    <col>
+    <col>
+  </colgroup>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+  </tr>
+  <tr><td>image</td><td>string</td><td>Used to exclude or include the image data for the mp3 file. Default: true.</td></tr>
+</table>
+
+<br/>
+#### Returns
+```bash
+{
+    "_id": "56e018fdbfdfb90c61e60285",
+    "album": "Akhanda Nam I",
+    "artist": "Govinda",
+    "genre": "Kirtan",
+    "image": {
+        "format": "image/jpeg"
+    },
+    "path": "/Users/warren/Downloads/mp3-id3-tag-samples/studio/govinda-prabhu/akhanda-nam/01 Madhukosh 4.01.mp3",
+    "size": 181526,
+    "title": "Madhukosh",
+    "year": "2011"
+}
+```
+
+
+<br/>
+#### Examples
+
+<br/>
+Return a single mp3 record with image data.
+```bash
+curl -v -k -H "$(cat headers.txt)" "https://localhost:8081/mp3s/56e018fdbfdfb90c61e60285" | python -mjson.tool
+
+// excludes image data
+curl -v -k -H "$(cat headers.txt)" "https://localhost:8081/mp3s/56e018fdbfdfb90c61e60285?image=false" | python -mjson.tool
+```
+
+
+
+
 
 ___

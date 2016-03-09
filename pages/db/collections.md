@@ -32,14 +32,14 @@ ___
         "_id": ObjectId("eru845j99jj-35g4-34ut86"),
         "aid": ObjectId("23423r23f2-232f-2f2f2ff"),
         "name": "Monday After Work",
-        "songs": [ObjectId("934834u3j34j-4343-ffd89fud"), ObjectId("9234923423i4j-4234-dfsdfn")]
+        "mp3s": [ObjectId("934834u3j34j-4343-ffd89fud"), ObjectId("9234923423i4j-4234-dfsdfn")]
     }
 ```
 * __ _id:__ (Object ID) MongoDB system ID.
 * __aid:__ (Object ID) MongoDB system ID of the owner from the accounts collection.
 * __name:__ (string) User defined name of a playlist.
 The pswd is never returned to any client via any endpoint. It is only for internal API use.
-* __songs:__ (array) List of system IDs from teh songs collection.
+* __mp3s:__ (array) List of system IDs from the mp3s collection.
 
 
 
@@ -55,7 +55,7 @@ ___
   	"year" : "2012",
   	"genre" : "Kirtan",
   	"size" : 508587,
-  	"picture" : {
+  	"image" : {
     		"format" : "image/jpeg",
             "data": "..."
   	}
@@ -68,7 +68,7 @@ ___
 * __year:__ (number)
 * __genre:__ (string)
 * __size:__ (number)
-* __picture:__ ({format, data}) The image content (data) and format of the picture.
+* __image:__ ({format, data}) The image content (data) and format of the picture.
 
 
 

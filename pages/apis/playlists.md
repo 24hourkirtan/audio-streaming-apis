@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1  id="page-title">Playlists</h1>
+  <h1  id="page-title">APIs > Playlists</h1>
 </div>
 
 Each user can create multiple playlists containing unlimited MP3 files.
