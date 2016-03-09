@@ -10,7 +10,7 @@ var APPKEY = "hosdji8sjjkjsd999sd9sd"; // Try not to change the app key or every
 
 module.exports = {
 
- 	  getToken: function (aid, adminFlag) {
+ 	  getToken: function (aid) {
             try{
                   return jsonwebtoken.sign({aid:aid,appKey:APPKEY}, SECRET);
             }
@@ -28,8 +28,6 @@ module.exports = {
                   console.log("appKey wrong or missing");
                   res.send(401, 'NOT AUTH');
                   return null;
-                  //next();
-                  //throw new Error("Try loggin out and back in again: appKey wrong or missing: bad jwt token");
               }
               return decoded.aid;
           }
@@ -38,7 +36,6 @@ module.exports = {
               console.log(err);
               res.send(401, err);
               return null;
-              //throw new Error("jwt token verification error: "+err.toString());
           }
     },
     getNotAuthMsg(){

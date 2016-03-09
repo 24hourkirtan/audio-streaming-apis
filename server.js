@@ -49,13 +49,14 @@ process.on('SIGINT', function () {
   });
 });
 
+
 // -------------------------------------------------
 // Defines the Restify HTTPS server process to start
 console.log(config.ssl_cert);
 var server = restify.createServer({
-  certificate: fs.readFileSync(config.ssl_cert),
-  key: fs.readFileSync(config.ssl_key),
-  name: 'apis-kirtan.io',
+    certificate: fs.readFileSync(config.ssl_cert),
+    key: fs.readFileSync(config.ssl_key),
+    name: 'apis-kirtan.io',
 });
 
 // ----------------------------------
@@ -65,10 +66,13 @@ console.log('>>>  port selection', process.env.NODE_ENV, port);
 server.listen(port);
 
 server.use(restify.queryParser());
+server.use(restify.bodyParser());
+
 
 // ------------------------------------------------
 // Stops anything that may not be using SSL
 server.use(function checkSLL(req, res, next) {
+  //res.setHeader('Access-Control-Allow-Methods', '*');
     if(!req.isSecure()){
         res.send(403, {message:"the APIs are only available using SSL (https)"});
     }
@@ -89,7 +93,12 @@ server.use(function send(req, res, next) {
 server.get({path: "/ping", version: '1.0.0'}, utils_1_0_0.ping);
 server.get({path: "/ping", version: '2.0.0'}, utils_2_0_0.ping);
 server.get({path: "/license", version: '1.0.0'}, utils_1_0_0.license);
-server.get({path: "/account/token", version: '1.0.0'}, accounts_1_0_0.token);
+
+
+server.get({path: "/account/token", version: '1.0.0'}, accounts_1_0_0.getToken);
+server.post({path: "/account", version: '1.0.0'}, accounts_1_0_0.create);
+server.patch({path: "/account", version: '1.0.0'}, accounts_1_0_0.update);
+
 
 
 
@@ -97,11 +106,13 @@ server.get({path: "/account/token", version: '1.0.0'}, accounts_1_0_0.token);
 // AUTH ROUTES - (requires auth) w/Accept-Version header
 //server.use(users_1_0_0.authorize);
 server.get({path: "/mp3s", version: '1.0.0'}, mp3s_1_0_0.getAll);
-server.get({path: "/playlists", version: '1.0.0'}, playlists_1_0_0.playlists);
-server.get({path: "/playlist/:id", version: '1.0.0'}, function(req, res, next){
-    res.send(200, {});
-    return next();
-});
+server.get({path: "/mp3s/:id", version: '1.0.0'}, mp3s_1_0_0.get);
+
+server.get({path: "/playlists", version: '1.0.0'}, playlists_1_0_0.getAll);
+server.post({path: "/playlist", version: '1.0.0'}, playlists_1_0_0.create);
+server.patch({path: "/playlist", version: '1.0.0'}, playlists_1_0_0.modify);
+server.del({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.delete);
+
 
 
 // ----------------
@@ -111,9 +122,8 @@ var interval = setInterval(function() {
         indexer.run(path);
     });
 }, 360000);
-/*var timeout = setTimeout(function() {
+var timeout = setTimeout(function() {
     config.mp3_paths.forEach(function(path){
         indexer.run(path);
     });
-}, 3000);
-*/
+}, 6000);

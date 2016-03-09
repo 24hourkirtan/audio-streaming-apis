@@ -65,7 +65,7 @@ function upsertID3(file, id3){
                     year: id3.tags.year,
                     genre: id3.tags.genre,
                     size: id3.size,
-                    picture:{format:id3.tags.picture.format,
+                    image:{format:id3.tags.picture.format,
                              data:id3.tags.picture.data
                            }
                    },
