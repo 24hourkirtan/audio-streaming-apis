@@ -17,7 +17,7 @@ on the fie system. Records are read only and have been written to this collectio
     <th>Summary</th>
   </tr>
   <tr><td>GET</td><td>/mp3s</td><td>list of available mp3 files</td></tr>
-  <tr><td>GET</td><td>/mp3s/:id</td><td>a single mp3 file by id</td></tr>
+  <tr><td>GET</td><td>/mp3s/:\_id</td><td>a single mp3 file by \_id</td></tr>
 </table>
 
 

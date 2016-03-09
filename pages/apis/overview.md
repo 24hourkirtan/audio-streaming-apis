@@ -2,11 +2,11 @@
   <h1  id="page-title">APIs > Overview</h1>
 </div>
 
-The below quick list reflects a brief summary of all the RESTful services available
-in the system for version 1.0.0. The state column indicates the endpoint is ready for use during
-the development stage of the displayed version.
+The below quick list reflects a brief summary of all the RESTful endpoints available
+in the system for version 1.0.0. The second column indicates the endpoint is ready for use during
+the development stage of the displayed version. All endpoints use https (SSL) only, http is not supported.
+All endpoints return a JSON object or an array of JSON objects.
 
-All RESTful services return JSON object.
 
 
 ___
@@ -17,107 +17,100 @@ ___
     <col>
     <col>
     <col>
-    <col>
   </colgroup>
   <tr>
     <th>Endpoint</th>
     <th>v1.0.0 (active)</th>
-    <th>Authentication</th>
-    <th>SSL</th>
+    <th>JWT</th>
     <th>Description</th>
   </tr>
   <tr>
     <td>POST /ping</td>
     <td>X</td>
     <td></td>
-    <td></td>
     <td>is alive test</td>
   </tr>
 
   <!-- ACCOUNTS ------------ -->
   <tr>
-    <td>POST /account/:account</td>
-    <td></td>
-    <td>JWT token</td>
-    <td></td>
-    <td>creates a new account with JSON object passed, returns jwt token</td>
-  </tr>
-  <tr>
-    <td>GET /account/token</td>
+    <td NOWRAP>GET /account/token</td>
     <td></td>
     <td>Basic</td>
-    <td></td>
-    <td>returns a user's JWT token, user/pswd in header required</td>
+    <td>authentication: returns a user's JWT token, Basic Auth in header required</td>
   </tr>
   <tr>
-    <td>GET /account</td>
+    <td NOWRAP>GET /account</td>
     <td></td>
-    <td>JWT token</td>
-    <td></td>
+    <td>X</td>
     <td>gets account information for the current user</td>
   </tr>
-
-
-
-  <tr>
-    <td><a href="index.html?md=pages_apis_playlists.md">GET /playlists</a></td>
+    <td NOWRAP>POST /account</td>
     <td></td>
-    <td>JWT token</td>
+    <td>Basic</td>
+    <td>creates a new account with Basic Auth header credentials, returns jwt token</td>
+  </tr>
+    <td NOWRAP>PATCH /account</td>
+    <td></td>
     <td>X</td>
-    <td>gets all playlists for the current user</td>
+    <td>updates the account for the current</td>
   </tr>
 
 
+
+  <!-- PLAYLISTS ----------------------------------- -->
   <tr>
-    <td>GET /playlist/:id</td>
+    <td NOWRAP>GET /playlists</td>
     <td></td>
-    <td>JWT token</td>
+    <td>X</td>
+    <td>gets all playlists for the current user, includes filtering/sort/paging options</td>
+  </tr>
+
+  <tr>
+    <td NOWRAP>GET /playlist/:\_id</td>
+    <td></td>
     <td>X</td>
     <td>gets a single playlist for the current user</td>
   </tr>
   <tr>
-    <td>PUT /playlist/:id</td>
+    <td NOWRAP>POST /playlist</td>
     <td></td>
-    <td>JWT token</td>
     <td>X</td>
     <td>creates a playlist for the current user</td>
   </tr>
   <tr>
-    <td>POST /playlist/:id</td>
+    <td NOWRAP>PATCH /playlist</td>
     <td></td>
-    <td>JWT token</td>
     <td>X</td>
-    <td>update a playlist for the current user</td>
+    <td>updates a playlist for the current user</td>
   </tr>
   <tr>
-    <td>DELETE /playlist/:id</td>
+    <td NOWRAP>DELETE /playlist/:\_id</td>
     <td></td>
-    <td>JWT token</td>
     <td>X</td>
     <td>deletes a playlist for the current user</td>
   </tr>
+
   <!-- MP3s ----------------------- -->
   <tr>
-    <td>GET /mp3s</td>
+    <td NOWRAP>GET /mp3s</td>
     <td>X</td>
-    <td>JWT token</td>
     <td>X</td>
-    <td>gets a list of mp3 records with optional parameters</td>
+    <td>gets a list of mp3 records for the current user, includes filtering/sort/paging options</td>
   </tr>
   <tr>
-    <td>GET /mp3s/:id</td>
+    <td NOWRAP>GET /mp3s/:\_id</td>
     <td>X</td>
-    <td>JWT token</td>
     <td>X</td>
-    <td>gets a single mp3 record by id</td>
+    <td>gets a single mp3 record for the current user</td>
   </tr>
+
 </table>
 
 <br/>
 #### Ionic GET example
 The response (res) in the examples below carry the following objects:
 * __config__: configuration of the request
-* __data__: data from the request
+* __data__: data requested
 * __headers__: retrieve response header info such as content-type: res.headers('content-type')
 * __status__: http status code - ex: 200
 * __statusText__: status description
