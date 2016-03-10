@@ -7,10 +7,42 @@ in the system for version 1.0.0. The second column indicates the endpoint is rea
 the development stage of the displayed version. All endpoints use https (SSL) only, http is not supported.
 All endpoints return a JSON object or an array of JSON objects.
 
+<!-- http://www.restapitutorial.com/lessons/httpmethods.html -->
+___
+#### Using HTTP Methods for RESTful Services
+The HTTP verbs comprise a major portion of our “uniform interface” constraint and provide us the action counterpart to the noun-based resource. The primary or most-commonly-used HTTP verbs (or methods, as they are properly called) are POST, GET, PUT, PATCH, and DELETE. These correspond to create, read, update, and delete (or CRUD) operations, respectively. There are a number of other verbs but they are utilized less frequently. Of those less-frequent methods, OPTIONS and HEAD are used more often than others.
+
+Below is a list summarizing the return values of the primary HTTP methods used.
+
+Note that PUT is not currently used by these APIs. PATCH more accurately reflects the update/modify mode of a MongoDB database
+which is not normally an update/replace db engine. In addition the APIs do not delete and recreate records during modify.
+
+__Entire Collection__ (e.g. GET /playlists)  
+__Specific Item__ (e.g. GET /playlist/:\_id)  
+
+* __ _Verb POST_ __  
+  __CRUD:__ Create  
+  __Entire Collection:__ 201 (Created), 'Location' header with link to /playlists/:\_id containing new ID.  
+  __Specific Item:__ 404 (Not Found), 409 (Conflict) if resource already exists.  
+
+* __ _Verb GET_ __    
+  __CRUD:__ Read  
+  __Entire Collection:__ 200 (OK), list of playlists. Use pagination, sorting and filtering to navigate big lists.  
+  __Specific Item:__ 200 (OK), single playlist. 404 (Not Found), if ID not found or invalid.  
+
+* __ _Verb PATCH_ __    
+  __CRUD:__ Update/Modify  
+  __Entire Collection:__ 404 (Not Found), unless modifying the collection itself.  
+  __Specific Item:__ 200 (OK) or 204 (No Content). 404 (Not Found), if ID not found or invalid.
+
+* __ _Verb DELETE_ __    
+  __CRUD:__ Delete  
+  __Entire Collection:__ 404 (Not Found), unless deleting the whole collection — not often desirable.  
+  __Specific Item:__ 200 (OK). 404 (Not Found), if ID not found or invalid.
 
 
 ___
-#### Summary
+#### Endpoint Summary
 
 <table id="tbl">
 <colgroup>
