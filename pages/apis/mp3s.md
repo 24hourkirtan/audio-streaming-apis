@@ -16,8 +16,8 @@ on the fie system. Records are read only and have been written to this collectio
     <th>Endpoint</th>
     <th>Summary</th>
   </tr>
-  <tr><td>GET</td><td>/mp3s</td><td>list of available mp3 files</td></tr>
-  <tr><td>GET</td><td>/mp3s/:\_id</td><td>a single mp3 file by \_id</td></tr>
+  <tr><td>GET</td><td>/mp3s</td><td>gets a list of mp3 records for the current user, includes filtering/sort/paging options</td></tr>
+  <tr><td>GET</td><td>/mp3s/:\_id</td><td>gets a single mp3 record for the current user</td></tr>
 </table>
 
 
@@ -25,7 +25,8 @@ on the fie system. Records are read only and have been written to this collectio
 ___
 ### GET /mp3s
 
-List all mp3 records using the JWT token in the header.
+List all mp3 records using the JWT token in the header. Use of query, filter, and sort options can alter the returned
+data set.
 
 <br/>
 #### Parameters
@@ -51,33 +52,52 @@ List all mp3 records using the JWT token in the header.
 
 <br/>
 #### Returns
+
+* __\_next:__ Pre-formed url to get the next batch of record. If null then the current position is at the start of the data set.
+* __\_prev:__ Pre-formed url to get the previous batch of record. If null then the current position is at the end of the data set.
+* __\_remainingCnt:__ The total number of records available after the current data set (next total).
+* __\_totalCnt:__ The total number of records found by the request but not necessarily returned.
+* __mp3s:__ The data set.
+* ...
+
 ```bash
 {
-    "_collectionCnt": 12,
     "_limit": 2,
-    "_remainingCnt": 5,
+    "_next": "/mp3s?q=&limit=2&skip=8&sort=title&order=desc&image=false",
+    "_order": 1,
+    "_prev": "/mp3s?q=&limit=2&skip=4&sort=title&order=desc&image=false",
+    "_q": "",
+    "_remainingCnt": 4,
     "_returnedCnt": 2,
-    "_skip": 5,
-    "data": [
+    "_skip": 6,
+    "_sort": "title",
+    "_totalCnt": 12,
+    "mp3s": [
         {
-            "_id": "56debc54bfdfb90c61e6027e",
-            "album": "Canberra",
-            "artist": "Amala Kirtan",
+            "_id": "56e018fdbfdfb90c61e60288",
+            "album": "Akhanda Nam II",
+            "artist": "Govinda",
             "genre": "Kirtan",
-            "path": "/Users/warren/Downloads/mp3-id3-tag-samples/worldwide-old/2012/2012-canberra-24-hour-kirtan/14-Amala Kirtan Das.mp3",
-            "size": 508587,
-            "title": "Canberra 24 Hour Kirtan 2012 Track 14",
-            "year": "2012"
+            "image": {
+                "format": "image/jpeg"
+            },
+            "path": "/Users/warren/Downloads/mp3-id3-tag-samples/studio/govinda-prabhu/akhanda-nam-2/Track # 1-Khamaj-Master-2 (master).mp3",
+            "size": 124181,
+            "title": "Khamaj",
+            "year": "2010"
         },
         {
-            "_id": "56debc54bfdfb90c61e6027f",
-            "album": "Bhakti Fest",
-            "artist": "Prema Hara",
+            "_id": "56e018fdbfdfb90c61e60285",
+            "album": "Akhanda Nam I",
+            "artist": "Govinda",
             "genre": "Kirtan",
-            "path": "/Users/warren/Downloads/mp3-id3-tag-samples/worldwide-old/2012/2012-bhakti-fest/prema-hara-maha-mantra.mp3",
-            "size": 239654,
-            "title": "Bhakti Fest Maha Mantra Kirtan 09/2012",
-            "year": "2012"
+            "image": {
+                "format": "image/jpeg"
+            },
+            "path": "/Users/warren/Downloads/mp3-id3-tag-samples/studio/govinda-prabhu/akhanda-nam/01 Madhukosh 4.01.mp3",
+            "size": 181526,
+            "title": "Madhukosh",
+            "year": "2011"
         }
     ]
 }
@@ -88,28 +108,63 @@ List all mp3 records using the JWT token in the header.
 #### Examples
 
 <br/>
-Return mp3s, limit of 10 records, skipping 0 records, sorting by key title in desc order.
+Return mp3s, limit of 10 records, skipping 0 records, sorting by title in desc order.
 ```bash
-curl -v -k -H "$(cat headers.txt)" "https://localhost:8081/mp3s" | python -mjson.tool
+curl -v -k -H "$(cat headers.txt)" \
+"https://localhost:8081/mp3s" \
+| python -mjson.tool
 
 // excludes image data
-curl -v -k -H "$(cat headers.txt)" "https://localhost:8081/mp3s?image=false" | python -mjson.tool
+curl -v -k -H "$(cat headers.txt)" \
+"https://localhost:8081/mp3s?image=false" \
+| python -mjson.tool
+```
+```javascript
+$http.defaults.headers.common['jwt'] = jwt;
+$http.defaults.headers.common['Accept-Version'] = '1.0.0';
+$http.defaults.headers.common['Content-Type'] = 'application/json';
+$http({ method:'GET',
+        url:'https://localhost:8081/mp3s'})
+.then(
+    function successCallback(res) {
+        console.log(res.data);
+    },
+    function errorCallback(res) {
+        console.log(res);
+    }
+);
 ```
 
 <br/>
-Return all mp3s with the search word hour, limit of 4 records, skipping 0 records, sorting by key album in desc order, no image data.
+Return all mp3s with the search word "2012", limit of 4 records, skipping 0 records, sorting by "album" in desc order, no image data.
 ```bash
-curl -v -k -H "$(cat headers.txt)" "https://localhost:8081/mp3s?q=2012&limit=4&skip=0&sort=album&order=desc&image=false" | python -mjson.tool
+curl -v -k -H "$(cat headers.txt)" \
+"https://localhost:8081/mp3s?q=2012&limit=4&skip=0&sort=album&order=desc&image=false" \
+| python -mjson.tool
 ```
-
+```javascript
+$http.defaults.headers.common['jwt'] = jwt;
+$http.defaults.headers.common['Accept-Version'] = '1.0.0';
+$http.defaults.headers.common['Content-Type'] = 'application/json';
+$http({ method:'GET',
+        url:'localhost:8081/mp3s?q=2012&limit=4&skip=0&sort=album&order=desc&image=false'})
+.then(
+    function successCallback(res) {
+        console.log(res.data);
+    },
+    function errorCallback(res) {
+        console.log(res);
+    }
+);
+```
 
 
 
 <br/>
 ___
-### GET /mp3s/:id
+### GET /mp3s/:\_id
 
-Gets a specific mp3 record using the id.
+Gets a specific mp3 record using the \_id.
 
 <br/>
 #### Parameters
@@ -152,10 +207,29 @@ Gets a specific mp3 record using the id.
 <br/>
 Return a single mp3 record with image data.
 ```bash
-curl -v -k -H "$(cat headers.txt)" "https://localhost:8081/mp3s/56e018fdbfdfb90c61e60285" | python -mjson.tool
+curl -v -k -H "$(cat headers.txt)" \
+"https://localhost:8081/mp3s/56e018fdbfdfb90c61e60285" \
+| python -mjson.tool
 
 // excludes image data
-curl -v -k -H "$(cat headers.txt)" "https://localhost:8081/mp3s/56e018fdbfdfb90c61e60285?image=false" | python -mjson.tool
+curl -v -k -H "$(cat headers.txt)" \
+"https://localhost:8081/mp3s/56e018fdbfdfb90c61e60285?image=false" \
+| python -mjson.tool
+```
+```javascript
+$http.defaults.headers.common['jwt'] = jwt;
+$http.defaults.headers.common['Accept-Version'] = '1.0.0';
+$http.defaults.headers.common['Content-Type'] = 'application/json';
+$http({ method:'GET',
+        url:'https://localhost:8081/mp3s/56e018fdbfdfb90c61e60285?image=false'})
+.then(
+    function successCallback(res) {
+        console.log(res.data);
+    },
+    function errorCallback(res) {
+        console.log(res);
+    }
+);
 ```
 
 

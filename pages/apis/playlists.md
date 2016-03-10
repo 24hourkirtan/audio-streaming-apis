@@ -18,7 +18,7 @@ Each user can create multiple playlists containing unlimited MP3 files.
   <tr><td>GET</td><td>/playlists</td><td>gets all playlists for the current user, includes filtering/sort/paging options</td></tr>
   <tr><td>GET</td><td>/playlist/:\_id</td><td>gets a single playlist for the current user</td></tr>
   <tr><td>POST</td><td>/playlist</td><td>creates a playlist for the current user</td></tr>
-  <tr><td>PATCH</td><td>/playlist</td><td>update a playlist for the current user</td></tr>
+  <tr><td>PATCH</td><td>/playlist/:\_id</td><td>update a playlist for the current user</td></tr>
   <tr><td>DELETE</td><td>/playlist/:\_id</td><td>delete a playlist for the current user</td></tr>
 </table>
 

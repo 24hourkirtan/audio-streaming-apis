@@ -13,7 +13,7 @@ Allows for text search on all keys in the mp3s collection.
 ```javascript
 use kirtan
 
-db.mp3s.createIndex( { "$**": "text" } );
+db.mp3s.createIndex( { "$**": "text" }, {name: "mp3s_text"} );
 
 // Results
 {

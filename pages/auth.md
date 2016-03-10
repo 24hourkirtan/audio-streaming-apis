@@ -14,7 +14,9 @@ convert the credential to a header osbject while the version is set directly int
 
 <br/>
 ```bash
-curl -v -k -u user:pswd -H "Accept-Version: 1.0.0" https://localhost:8081/account/token | python -mjson.tool
+curl -v -k -u user:pswd \
+-H "Accept-Version: 1.0.0" \
+https://localhost:8081/account/token | python -mjson.tool
 
 * Connected to localhost (::1) port 8081 (#0)
 * TLS 1.2 connection using TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256

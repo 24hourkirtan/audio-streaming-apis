@@ -49,10 +49,10 @@ ___
     <td>Basic</td>
     <td>creates a new account with Basic Auth header credentials, returns jwt token</td>
   </tr>
-    <td NOWRAP>PATCH /account</td>
+    <td NOWRAP>PATCH /account/:\_id</td>
     <td></td>
     <td>X</td>
-    <td>updates the account for the current</td>
+    <td>updates the account for the current user</td>
   </tr>
 
 
@@ -78,7 +78,7 @@ ___
     <td>creates a playlist for the current user</td>
   </tr>
   <tr>
-    <td NOWRAP>PATCH /playlist</td>
+    <td NOWRAP>PATCH /playlist/:\_id</td>
     <td></td>
     <td>X</td>
     <td>updates a playlist for the current user</td>
