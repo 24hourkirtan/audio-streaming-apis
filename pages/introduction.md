@@ -12,6 +12,8 @@ Restify is a Node.js module to build real REST web services.
 <div style="margin:0 auto;text-align:center;">
 ![alt text](img/nodejs.png)
 ![alt text](img/restify.png)
+![alt text](img/mongodb-logo.png)
+
 </div>
 
 <!-- http://www.restapitutorial.com/lessons/httpmethods.html -->
