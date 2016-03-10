@@ -32,6 +32,7 @@ module.exports = {
                 var remainingCnt = (cnt-skip-limit < 0) ? 0 : cnt-skip-limit;
                 var sort = (req.params.sort) ? req.params.sort : 'title';
                 var order = (req.params.order == 'asc') ? -1 : 1;
+                var orderTxt = (req.params.order) ? req.params.order : 'desc';
                 var image = (req.params.image) ? req.params.image : true;
                 var query = (req.params.q) ? {$text:{$search:req.params.q}} : {};
 
@@ -44,9 +45,9 @@ module.exports = {
                 // Get record count from possible queries
                 var cnt = 0;
                 if(query.$text)
-                    cnt = yield col.count(query);
+                    cnt = yield col.count(query); // Uses collection scan
                 else
-                    cnt = yield col.count();
+                    cnt = yield col.count(); // Uses system metadata
 
                 // Next and Prev
                 var q = '';
@@ -54,10 +55,10 @@ module.exports = {
                     q = req.params.q;
                 var next = null;
                 if(skip+limit < cnt)
-                    next = '/mp3s?q='+q+'&limit='+limit+'&skip='+(skip+limit)+'&sort='+sort+'&order='+order+'&image='+image;
+                    next = '/mp3s?q='+q+'&limit='+limit+'&skip='+(skip+limit)+'&sort='+sort+'&order='+orderTxt+'&image='+image;
                 var prev = null;
                 if(skip >= limit)
-                    prev = '/mp3s?q='+q+'&limit='+limit+'&skip='+(skip-limit)+'&sort='+sort+'&order='+order+'&image='+image;
+                    prev = '/mp3s?q='+q+'&limit='+limit+'&skip='+(skip-limit)+'&sort='+sort+'&order='+orderTxt+'&image='+image;
 
                 // Sort
                 var sortSyntax = {};
@@ -73,7 +74,7 @@ module.exports = {
                                 _remainingCnt:remainingCnt,
                                 _returnedCnt:docs.length,
                                 _sort:sort,
-                                _order:order,
+                                _order:orderTxt,
                                 _next:next,
                                 _prev:prev,
                                 mp3s:docs});

@@ -7,12 +7,7 @@ var ObjectID = require('mongodb').ObjectID;
 module.exports = {
 
   getAll: function(req, res, next) {
-
-        console.log('playlists-v1')
-
-        // Kicks out an error that Restify will handle
-        //throw new Error('error inside Restify route scope using /playylists')
-
+      console.log('------------------ /playlists.getAll: ', req.params);
         var aid = jwt.verifyToken(req);
         console.log(aid);
 
@@ -27,30 +22,21 @@ module.exports = {
   },
 
   create: function(req, res, next) {
-      console.log('\n------------------ CREATE:', req.params);
       var item = req.params;
       var aid = jwt.verifyToken(req, res, next);
-
+      console.log('------------------ /playlists.create: ', req.params);
       co(function*() {
           if(aid != null){
               var col = db.conn.collection('playlists');
               var doc = yield col.insertOne(
                     { aid: ObjectID(aid),
                       name: item.name,
-                      mp3s:item.mp3s,
-                      trash: Array(2000).join("-")
+                      mp3s:item.mp3s
                      }
               );
               assert.ok((doc.insertedCount == 1), 'the playlist was not created');
 
-              // Remove trash key used for padding
-              var result2 = yield col.findOneAndUpdate({_id:doc.ops[0]._id},
-                    {$unset: {trash:""}
-                    },
-                    {returnOriginal: false, upsert: false}
-              );
-              assert.ok((result2.lastErrorObject.n == 1), 'the playlist was created but the playlist padding field was not removed');
-              res.send(200, result2.value);
+              res.send(200, doc.ops[0]);
               return next();
           }
       }).catch(function(err) {
@@ -61,21 +47,20 @@ module.exports = {
   },
 
   modify: function(req, res, next) {
-      console.log(req.params)
       var item = req.params;
       var aid = jwt.verifyToken(req, res, next);
+      console.log('------------------ /playlists.modify:\n', req.params);
       co(function*() {
           if(aid != null){
               var col = db.conn.collection('playlists');
-              var docs = yield col.findOneAndUpdate({_id:ObjectID(item._id)},
+              var docs = yield col.findOneAndUpdate({_id:ObjectID(item._id), aid:ObjectID(aid)},
                     {$set: {name: item.name,
-                            aid: ObjectID(aid),
                             mp3s:[]}
                     },
                     {returnOriginal: false, upsert: false}
               );
-              console.log('UPDATE: ', docs)
-              assert.ok((docs.updatedCount == 1), 'the playlist was not updated');
+              console.log('MODIFY: ', docs.value.name)
+              assert.ok((docs.value.name), 'the playlist was not updated');
               res.send(200, docs);
               return next();
           }
@@ -86,12 +71,12 @@ module.exports = {
   },
 
   delete: function(req, res, next) {
-      console.log(req.params)
       var aid = jwt.verifyToken(req, res, next);
+      console.log('------------------ /playlists.delete:', req.params);
       co(function*() {
           if(aid != null){
               var col = db.conn.collection('playlists');
-              var docs = yield col.deleteOne( {_id:ObjectID(req.params._id)} );
+              var docs = yield col.deleteOne( {_id:ObjectID(req.params._id), aid:ObjectID(aid)} );
               console.log('DELETE: ', docs.deletedCount)
               assert.ok((docs.deletedCount == 1), 'the playlist was not deleted');
               res.send(200, docs);

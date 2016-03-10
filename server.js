@@ -97,7 +97,7 @@ server.get({path: "/license", version: '1.0.0'}, utils_1_0_0.license);
 
 server.get({path: "/account/token", version: '1.0.0'}, accounts_1_0_0.getToken);
 server.post({path: "/account", version: '1.0.0'}, accounts_1_0_0.create);
-server.patch({path: "/account", version: '1.0.0'}, accounts_1_0_0.update);
+server.patch({path: "/account/:_id", version: '1.0.0'}, accounts_1_0_0.update);
 
 
 
@@ -110,7 +110,7 @@ server.get({path: "/mp3s/:id", version: '1.0.0'}, mp3s_1_0_0.get);
 
 server.get({path: "/playlists", version: '1.0.0'}, playlists_1_0_0.getAll);
 server.post({path: "/playlist", version: '1.0.0'}, playlists_1_0_0.create);
-server.patch({path: "/playlist", version: '1.0.0'}, playlists_1_0_0.modify);
+server.patch({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.modify);
 server.del({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.delete);
 
 

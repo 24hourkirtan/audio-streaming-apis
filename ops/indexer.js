@@ -27,7 +27,9 @@ module.exports = {
      * @return {nothing}
      */
     run: function(directoryPath) {
-        console.log('\n>>> ---- Indexer run ----------------------------','\n>>> '+directoryPath, '\n>>> '+process.cwd(), '\n------------------------------------------------')
+        console.log('\n>>> ---- Indexer run ----------------------------',
+          '\n>>> '+directoryPath, '\n>>> '+process.cwd(),
+          '\n------------------------------------------------')
 
         recursive(directoryPath, function (err, files) {
             // Files is an array of filename
@@ -58,7 +60,8 @@ function upsertID3(file, id3){
   //console.log("--------------------------",id3)
   var collection = db.conn.collection('mp3s');
   co(function* () {
-      var result = collection.findOneAndUpdate({path:file},
+      //console.log('start: '+file)
+      var result = yield collection.findOneAndUpdate({path:file},
             {$set: {title: id3.tags.title,
                     artist: id3.tags.artist,
                     album: id3.tags.album,
@@ -68,18 +71,11 @@ function upsertID3(file, id3){
                     image:{format:id3.tags.picture.format,
                              data:id3.tags.picture.data
                            }
-                   },
-              $setOnInsert: { trash: Array(2000).join("-")}
-
+                   }
             },
             {returnOriginal: false, upsert: true}
       );
-      // Remove trash key used for padding
-      var result2 = collection.findOneAndUpdate({path:file},
-            {$unset: {trash:""}
-            },
-            {returnOriginal: false, upsert: false}
-      );
+      //console.log('end: '+file)
       return result;
   }).then(function (data) {
       //console.log(data.value.title);
