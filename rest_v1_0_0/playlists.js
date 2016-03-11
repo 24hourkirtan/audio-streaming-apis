@@ -9,16 +9,33 @@ module.exports = {
   getAll: function(req, res, next) {
       console.log('------------------ /playlists.getAll: ', req.params);
         var aid = jwt.verifyToken(req);
-        console.log(aid);
+        co(function*() {
+            var col = db.conn.collection('playlists');
+            var docs = yield col.find({aid:ObjectID(aid)}).sort({name:1}).toArray();
+            res.send(200, docs);
+            return next();
+        }).catch(function(err) {
+            console.log('\nERROR:', err);
+            res.send(500, err);
+            return next();
+        });
+  },
 
-        var playlist = {};
-        playlist._id = "23423r23f2-232f-2f2f2ff";
-        playlist.owner_id = "123412e123e-2d223d32-d23d2f23f";
-        playlist.name = "my_playlist";
-        playlist.mp3 = [{"_id": "1212312-d123d23d23-d3d233"}, {"_id": "7897789-34f234t23t-r34r3434v34"}];
-
-        res.send(200, [playlist]);
-        return next();
+  get: function(req, res, next) {
+      var aid = jwt.verifyToken(req, res, next);
+      var p = req.params;
+      co(function*() {
+          var col = db.conn.collection('playlists');
+          var doc = yield col.findOne( {_id:ObjectID(p._id), aid:ObjectID(aid)});
+          console.log(doc)
+          assert.ok((doc.aid), 'playlist not found');
+          res.send(200, doc);
+          return next();
+      }).catch(function(err) {
+          console.log('\nERROR:', err);
+          res.send(500, err);
+          return next();
+      });
   },
 
   create: function(req, res, next) {
@@ -36,7 +53,7 @@ module.exports = {
               );
               assert.ok((doc.insertedCount == 1), 'the playlist was not created');
 
-              res.send(200, doc.ops[0]);
+              res.send(201, doc.ops[0]);
               return next();
           }
       }).catch(function(err) {
@@ -60,7 +77,7 @@ module.exports = {
                     {returnOriginal: false, upsert: false}
               );
               console.log('MODIFY: ', docs.value.name)
-              assert.ok((docs.value.name), 'the playlist was not updated');
+              assert.ok((docs.value.name), 'the playlist was not modified');
               res.send(200, docs);
               return next();
           }

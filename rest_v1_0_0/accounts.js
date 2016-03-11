@@ -49,7 +49,24 @@ module.exports = {
           res.send(500, err);
           return next();
       });
+  },
 
+  get: function(req, res, next) {
+      var aid = jwt.verifyToken(req, res, next);
+
+      co(function*() {
+          var col = db.conn.collection('accounts');
+          var doc = yield col.findOne( {_id:ObjectID(aid)});
+          console.log(doc)
+          assert.ok((doc.email), 'account not found');
+          delete doc.pswd;
+          res.send(200, doc);
+          return next();
+      }).catch(function(err) {
+          console.log('\nERROR:', err);
+          res.send(500, err);
+          return next();
+      });
   },
 
 
@@ -75,10 +92,11 @@ module.exports = {
                        }
                 );
                 assert.ok((doc.insertedCount == 1), 'the account was not created');
-                console.log(doc)
+                //console.log(doc)
                 var token = jwt.getToken(doc.ops[0]._id, doc.ops[0].type);
                 doc.ops[0].jwt = token;
-                res.send(200, doc.ops[0]);
+                delete doc.ops[0]['pswd'];
+                res.send(201, doc.ops[0]);
                 return next();
             }
         }).catch(function(err) {
@@ -89,8 +107,42 @@ module.exports = {
   },
 
 
-  update: function(req, res, next) {
+  modify: function(req, res, next) {
+    var aid = jwt.verifyToken(req, res, next);
 
+    console.log('modify ACCOUNT:', req.params)
+    var account = req.params;
+    // Validate data
+    var proceed = true;
+    if(account._id && aid != account._id){
+      proceed = false;
+      res.send(409, {message:'invalid modify attempt'});
+      return next();
+    }
+    if(!validateModifyData(account)){
+      proceed = false;
+      res.send(409, {message:'submission data missing or invalid'});
+      return next();
+    }
+
+    co(function*() {
+        if(proceed){
+            var col = db.conn.collection('accounts');
+            var doc = yield col.findOneAndUpdate({_id:ObjectID(aid)},
+                  {$set: {email: account.email}},
+                  {returnOriginal: false, upsert: false}
+            );
+            console.log(doc)
+            assert.ok((doc.value), 'the account was not modified, was the proper _id passed');
+            delete doc.value['pswd'];
+            res.send(200, doc.value);
+            return next();
+        }
+    }).catch(function(err) {
+        console.log('\nERROR:', err);
+        res.send(500, err);
+        return next();
+    });
 
   }
 
@@ -99,6 +151,11 @@ module.exports = {
 };
 
 
+function validateModifyData(account){
+    if(!account.email) return false;
+    else if( account.email.indexOf('@') == -1) return false;
+    return true;
+}
 
 function validateCreateData(account){
     if(!account.email || !account.pswd) return false;
