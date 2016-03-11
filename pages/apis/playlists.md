@@ -134,7 +134,7 @@ $http({ method:'GET',
 
 <br/>
 #### Returns
-```bash
+```json
 {
     "_id": "56e2c5643f59a7751947ceda",
     "aid": "56e1d499a9689c1b09d8c4b5",
@@ -146,6 +146,80 @@ $http({ method:'GET',
 ```
 
 
+
+
+<a name="post.playlist"></a>
+<!-- POST /playlist ----------------------------------------- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<br/>
+___
+## POST /playlist
+
+Create a new playlist for the current user.
+
+<br/>
+#### Parameters
+* None
+
+<br/>
+#### Inputs
+<table id="tbl">
+  <colgroup><col><col><col></colgroup>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td>name</td><td>string</td><td>The name of the playlist.</td></tr>
+  <tr><td>mp3s</td><td>array&lt;string></td><td>Array of system \_id elements that represent MP3s.</td></tr>
+</table>
+
+##### Example Input
+```json
+{
+  "name": "My Playlist",
+  "mp3s": ["56e1e47847a5b1d9098e43fb","56e018fdbfdfb90c61e6028e"]
+}
+```
+
+<br/>
+#### Returns
+```json
+{
+	"_id" : "56e1e47847a5b1d9098e43fb",
+	"aid" : "56e1d499a9689c1b09d8c4b5",
+	"name" : "My Playlist",
+	"mp3s" : ["56e1e47847a5b1d9098e43fb","56e018fdbfdfb90c61e6028e"]
+}
+```
+
+<br/>
+#### Examples
+
+<br/>
+Create a new playlist.
+```bash
+curl -v -k -X POST \
+-H "$(cat headers.txt)" \
+-d '{"name":"My Playlist", "mp3s":["56e1e47847a5b1d9098e43fb","56e018fdbfdfb90c61e6028e"]}' \
+"https://localhost:8081/playlist" | python -mjson.tool
+```
+
+```javascript
+$http.defaults.headers.common['jwt'] = jwt;
+$http.defaults.headers.common['Accept-Version'] = '1.0.0';
+$http.defaults.headers.common['Content-Type'] = 'application/json';
+var mp3s = ["56e1e47847a5b1d9098e43fb","56e018fdbfdfb90c61e6028e"];
+$http({ method:'POST',
+        url:'https://localhost:8081/account',
+        data:{name:'My Playlist', mp3s:mp3s}})
+.then(
+    function successCallback(res) {
+        console.log(res.data);
+    },
+    function errorCallback(res) {
+        console.log(res);
+    }
+);
+```
 
 ___
 <div style="margin:0 auto;text-align:center;">END</div>

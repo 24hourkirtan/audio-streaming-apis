@@ -68,7 +68,7 @@ data set.
 * __mp3s:__ The data set.
 * ...
 
-```bash
+```json
 {
     "_limit": 2,
     "_next": "/mp3s?q=&limit=2&skip=8&sort=title&order=desc&image=false",
@@ -200,7 +200,7 @@ Gets a specific mp3 record using the \_id.
 
 <br/>
 #### Returns
-```bash
+```json
 {
     "_id": "56e018fdbfdfb90c61e60285",
     "album": "Akhanda Nam I",

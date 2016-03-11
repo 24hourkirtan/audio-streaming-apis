@@ -43,12 +43,13 @@ are part of the request header as Authentication Basic. This endpoint is used fo
 #### Parameters
 * None
 
+<br/>
 #### Inputs
 * None
 
 <br/>
 #### Returns
-```bash
+```json
 {
     "_id": "56e15c6744c32f686f031d2c",
     "email": "ted@domain.com",
@@ -60,7 +61,7 @@ are part of the request header as Authentication Basic. This endpoint is used fo
 #### Examples
 
 <br/>
-Gets the user's jwt token using their credentials included in the request header.
+Gets the user's JWT token using their credentials included in the request header.
 ```bash
 curl -v -k -X GET -u email:pswd \
 -H "Accept-Version: 1.0.0" \
@@ -104,12 +105,13 @@ Returns the user's account record less the password.
 #### Parameters
 * None
 
+<br/>
 #### Inputs
 * None
 
 <br/>
 #### Returns
-```bash
+```json
 {
     "_id": "56e15c6744c32f686f031d2c",
     "email": "ted@domain.com",
@@ -181,7 +183,7 @@ Returns the user's JWT token and account record less the password.
 
 <br/>
 #### Returns
-```bash
+```json
 {
     "_id": "56e15c6744c32f686f031d2c",
     "email": "ted@domain.com",
@@ -202,7 +204,6 @@ curl -v -k -X POST \
 ```
 
 ```javascript
-$http.defaults.headers.common['jwt'] = jwt;
 $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
 $http({ method:'POST',
@@ -258,7 +259,7 @@ Returns the user's account record less the password.
 
 <br/>
 #### Returns
-```bash
+```json
 {
     "_id": "56e15c6744c32f686f031d2c",
     "email": "ted@domain.com",
@@ -318,7 +319,7 @@ Returns the user's account record less the password.
 </table>
 ##### Example Parameter
 ```bash
-/account/passowrd/56e15c6744c32f686f031d2c
+/account/password/56e15c6744c32f686f031d2c
 ```
 
 <br/>
@@ -337,7 +338,7 @@ Returns the user's account record less the password.
 
 <br/>
 #### Returns
-```bash
+```json
 {
     "_id": "56e15c6744c32f686f031d2c",
     "email": "ted@domain.com",
