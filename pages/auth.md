@@ -14,14 +14,15 @@ convert the credential to a header osbject while the version is set directly int
 
 <br/>
 ```bash
-curl -v -k -u user:pswd \
+curl -v -k -X GET \
+-u email@wdomain.com:pswd \
 -H "Accept-Version: 1.0.0" \
 https://localhost:8081/account/token | python -mjson.tool
 
 * Connected to localhost (::1) port 8081 (#0)
 * TLS 1.2 connection using TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
 * Server certificate: Anderson
-* Server auth using Basic with user 'account'
+* Server auth using Basic with user 'email@wdomain.com'
 > GET /account/token HTTP/1.1
 > Host: localhost:8081
 > Authorization: Basic YWNjb3VudDpwYXNzd29yZA==
@@ -39,7 +40,9 @@ https://localhost:8081/account/token | python -mjson.tool
 100   182  100   182    0     0   3890      0 --:--:-- --:--:-- --:--:--  3956
 * Connection #0 to host localhost left intact
 {
-    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhaWQiOiJhY2NvdW50IiwiYXBwS2V5IjoiaG9zZGppOHNqamtqc2Q5OTlzZDlzZCIsImlhdCI6MTQ1NzM3OTk2Nn0.dDqMQXD4m5kXxBu-cgW-noJl9s-bnNt24fFgVH2cNpU"
+   "_id": "56e1d499a9689c1b09d8c4b5",
+   "email": "email@wdomain.com",
+   "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
 }
 ```
 

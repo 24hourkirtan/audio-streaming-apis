@@ -16,11 +16,19 @@ on the fie system. Records are read only and have been written to this collectio
     <th>Endpoint</th>
     <th>Summary</th>
   </tr>
-  <tr><td>GET</td><td>/mp3s</td><td>gets a list of mp3 records for the current user, includes filtering/sort/paging options</td></tr>
-  <tr><td>GET</td><td>/mp3s/:\_id</td><td>gets a single mp3 record for the current user</td></tr>
+  <tr><td>GET</td><td><a href="#get.mp3s">/mp3s</a></td><td>gets a list of mp3 records for the current user, includes filtering/sort/paging options</td></tr>
+  <tr><td>GET</td><td><a href="#get.mp3">/mp3/:\_id</a></td><td>gets a single mp3 record for the current user</td></tr>
 </table>
 
 
+
+
+
+<a name="get.mp3s"></a>
+<!-- GET /mp3s ----------------------------------------- -->
+<!-- -->
+<!-- -->
+<!-- -->
 <br/>
 ___
 ### GET /mp3s
@@ -110,7 +118,8 @@ data set.
 <br/>
 Return mp3s, limit of 10 records, skipping 0 records, sorting by title in desc order.
 ```bash
-curl -v -k -H "$(cat headers.txt)" \
+curl -v -k -X GET \
+-H "$(cat headers.txt)" \
 "https://localhost:8081/mp3s" \
 | python -mjson.tool
 
@@ -138,7 +147,8 @@ $http({ method:'GET',
 <br/>
 Return all mp3s with the search word "2012", limit of 4 records, skipping 0 records, sorting by "album" in desc order, no image data.
 ```bash
-curl -v -k -H "$(cat headers.txt)" \
+curl -v -k -X GET \
+-H "$(cat headers.txt)" \
 "https://localhost:8081/mp3s?q=2012&limit=4&skip=0&sort=album&order=desc&image=false" \
 | python -mjson.tool
 ```
@@ -160,9 +170,14 @@ $http({ method:'GET',
 
 
 
+<a name="get.mp3"></a>
+<!-- GET /mp3 ----------------------------------------- -->
+<!-- -->
+<!-- -->
+<!-- -->
 <br/>
 ___
-### GET /mp3s/:\_id
+### GET /mp3/:\_id
 
 Gets a specific mp3 record using the \_id.
 
@@ -179,6 +194,7 @@ Gets a specific mp3 record using the \_id.
     <th>Type</th>
     <th>Description</th>
   </tr>
+  <tr><td>\_id</td><td>string</td><td>The unique \_id assigned to the mp3. Part of the URI.</td></tr>
   <tr><td>image</td><td>string</td><td>Used to exclude or include the image data for the mp3 file. Default: true.</td></tr>
 </table>
 
@@ -207,13 +223,15 @@ Gets a specific mp3 record using the \_id.
 <br/>
 Return a single mp3 record with image data.
 ```bash
-curl -v -k -H "$(cat headers.txt)" \
-"https://localhost:8081/mp3s/56e018fdbfdfb90c61e60285" \
+curl -v -k - X GET \
+-H "$(cat headers.txt)" \
+"https://localhost:8081/mp3/56e018fdbfdfb90c61e60285" \
 | python -mjson.tool
 
 // excludes image data
-curl -v -k -H "$(cat headers.txt)" \
-"https://localhost:8081/mp3s/56e018fdbfdfb90c61e60285?image=false" \
+curl -v -k -X GET \
+-H "$(cat headers.txt)" \
+"https://localhost:8081/mp3/56e018fdbfdfb90c61e60285?image=false" \
 | python -mjson.tool
 ```
 ```javascript
@@ -221,7 +239,7 @@ $http.defaults.headers.common['jwt'] = jwt;
 $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
 $http({ method:'GET',
-        url:'https://localhost:8081/mp3s/56e018fdbfdfb90c61e60285?image=false'})
+        url:'https://localhost:8081/mp3/56e018fdbfdfb90c61e60285?image=false'})
 .then(
     function successCallback(res) {
         console.log(res.data);
@@ -236,4 +254,6 @@ $http({ method:'GET',
 
 
 
+___
+<div style="margin:0 auto;text-align:center;">END</div>
 ___

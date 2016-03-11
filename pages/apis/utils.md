@@ -4,25 +4,46 @@
 
 
 
+<table id="tbl">
+  <colgroup>
+    <col>
+    <col>
+    <col>
+  </colgroup>
+  <tr>
+    <th>Verb</th>
+    <th>Endpoint</th>
+    <th>Summary</th>
+  </tr>
+  <tr><td>GET</td><td><a href="#get.ping">/ping</a></td><td>simple endpoint to verifiy the API server is alive</td></tr>
+  <tr><td>GET</td><td><a href="#get.license">/license</a></td><td>retrieves API the license type</td></tr>
+</table>
 
 
-1. /ping
-2. /license
 
 
-
+<a name="get.ping"></a>
+<!-- GET /ping ----------------------------------------- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<br/>
 ___
-### /ping
+## /ping
 Simple endpoint to verifiy the API server is alive.
-* Requires authentication: false
-* http: true
-* https: true
+
+<br/>
+#### Parameters
+* None
+
+#### Inputs
+* None
 
 <br/>
 ```bash
 GET /ping
 
-curl -v -k --header "Accept-Version: 1.0.0" https://localhost:8081/ping
+curl -v -k -H "Accept-Version: 1.0.0" https://localhost:8081/ping
 ```
 
 <br/>
@@ -53,19 +74,29 @@ Response
 
 
 
-
+<a name="get.license"></a>
+<!-- GET /license ----------------------------------------- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<br/>
 ___
-### /license
+___
+## /license
 Retrieves the license type.
-* Requires authentication: false
-* http: true
-* https: true
+
+<br/>
+#### Parameters
+* None
+
+#### Inputs
+* None
 
 <br/>
 ```bash
 GET /license
 
-curl -v --header "Accept-Version: 1.0.0" http://localhost:8081/license
+curl -v _H "Accept-Version: 1.0.0" http://localhost:8081/license
 ```
 
 <br/>
@@ -93,3 +124,10 @@ __Response__
 * Connection #0 to host localhost left intact
 {"license":"GNU GENERAL PUBLIC LICENSE"}
 ```
+
+
+
+
+___
+<div style="margin:0 auto;text-align:center;">END</div>
+___

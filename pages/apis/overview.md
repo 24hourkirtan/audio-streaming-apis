@@ -45,16 +45,9 @@ ___
 #### Endpoint Summary
 
 <table id="tbl">
-<colgroup>
-    <col>
-    <col>
-    <col>
-  </colgroup>
+<colgroup><col><col><col></colgroup>
   <tr>
-    <th>Endpoint</th>
-    <th>v1.0.0 (active)</th>
-    <th>JWT</th>
-    <th>Description</th>
+    <th>Endpoint</th><th>v1.0.0 (active)</th><th>JWT</th><th>Description</th>
   </tr>
   <tr>
     <td>POST /ping</td>
@@ -66,25 +59,31 @@ ___
   <!-- ACCOUNTS ------------ -->
   <tr>
     <td NOWRAP>GET /account/token</td>
-    <td></td>
+    <td>X</td>
     <td>Basic</td>
-    <td>authentication: returns a user's JWT token, Basic Auth in header required</td>
+    <td>login: returns a user's JWT token, email/password in header required</td>
   </tr>
   <tr>
     <td NOWRAP>GET /account</td>
-    <td></td>
+    <td>X</td>
     <td>X</td>
     <td>gets account information for the current user</td>
   </tr>
     <td NOWRAP>POST /account</td>
-    <td></td>
+    <td>X</td>
     <td>Basic</td>
     <td>creates a new account with Basic Auth header credentials, returns jwt token</td>
   </tr>
     <td NOWRAP>PATCH /account/:\_id</td>
-    <td></td>
     <td>X</td>
-    <td>updates the account for the current user</td>
+    <td>X</td>
+    <td>modify the account for the current user</td>
+  </tr>
+  </tr>
+    <td NOWRAP>PATCH /account/password/:\_id</td>
+    <td>X</td>
+    <td>X</td>
+    <td>modify the account password for the current user</td>
   </tr>
 
 
@@ -96,7 +95,6 @@ ___
     <td>X</td>
     <td>gets all playlists for the current user, includes filtering/sort/paging options</td>
   </tr>
-
   <tr>
     <td NOWRAP>GET /playlist/:\_id</td>
     <td></td>
@@ -113,7 +111,7 @@ ___
     <td NOWRAP>PATCH /playlist/:\_id</td>
     <td></td>
     <td>X</td>
-    <td>updates a playlist for the current user</td>
+    <td>modify a playlist for the current user</td>
   </tr>
   <tr>
     <td NOWRAP>DELETE /playlist/:\_id</td>
@@ -130,7 +128,7 @@ ___
     <td>gets a list of mp3 records for the current user, includes filtering/sort/paging options</td>
   </tr>
   <tr>
-    <td NOWRAP>GET /mp3s/:\_id</td>
+    <td NOWRAP>GET /mp3/:\_id</td>
     <td>X</td>
     <td>X</td>
     <td>gets a single mp3 record for the current user</td>
@@ -152,10 +150,14 @@ The response (res) in the examples below carry the following objects:
 var version = '1.0.0';
 var token = localstorage.get('jwt');
 $http({ method: 'GET', url: '/playlists',
-    headers:{"jwt": token, "Accept-Version": version}
+        headers:{"jwt": token,
+        "Accept-Version": version,
+        "Content-Type":"application/json"
+      }
 })
 
 // OR
+
 // Ionic v1 headers declared (best practice)
 $scope.mps3 = [];
 $scope.collectionCnt = [];
@@ -163,6 +165,7 @@ $scope.collectionCnt = [];
 $scope.getAllMp3s =  function(){
     $http.defaults.headers.common['jwt'] = localstorage.get('jwt');
     $http.defaults.headers.common['Accept-Version'] = '1.0.0';
+    $http.defaults.headers.common['Content-Type'] = 'application/json';
     $http({method:'GET', url:'https://localhost:8081/mp3s?image=false'})
     .then(
         function successCallback(res) {
@@ -176,4 +179,6 @@ $scope.getAllMp3s =  function(){
 }
 ```
 
+___
+<div style="margin:0 auto;text-align:center;">END</div>
 ___
