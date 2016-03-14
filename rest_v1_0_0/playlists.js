@@ -13,7 +13,9 @@ module.exports = {
 
     getAll: function(req, res, next) {
         res.setHeader('X-Version', '1.0.0');
-        var aid = jwt.verifyToken(req);
+        console.log('=================+++++++++++++++++++')
+        var aid = jwt.verifyToken(req, res, next);
+        console.log('---------------------------+++++++++++++++++++++')
         co(function*() {
             var col = db.conn.collection('playlists');
             var docs = yield col.find({aid:ObjectID(aid)}).sort({name:1}).toArray();
