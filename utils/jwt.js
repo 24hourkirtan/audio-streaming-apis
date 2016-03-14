@@ -4,7 +4,7 @@ var SECRET = config.jwt_secret;
 var APPKEY = config.jwt_appkey; // Try not to change the app key or everyone gets logged out
 
 /**
- * Export all functions that manage JWT tokns
+ * Export all functions that manage JWT tokens
  * @type {Object}
  */
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
 	  },
 
     /**
-     * Extractes the JWT token from the request header and verifies it is valid. This
+     * Extracts the JWT token from the request header and verifies it is valid. This
      * function is not exposed to any API endpoint and is only used by endpoints
      * to valid the user.
      * @param  {object}   req   request
