@@ -3,75 +3,64 @@ var db = require('../ops/db'),
 const assert = require('assert');
 var jwt = require("../utils/jwt.js");
 var ObjectID = require('mongodb').ObjectID;
+var db = require('../ops/db');
 
+/**
+ * Export all functions that manage the database ACCOUNTS collection
+ * @type {Object}
+ */
 module.exports = {
 
-  /*
-  Use utf8
+    getToken: function(req, res, next) {
+        res.setHeader('X-Version', '1.0.0');
+        var encoded = req.headers.authorization.replace('Basic ', '').replace('basic ', '');
+        var decoded = new Buffer(encoded, 'base64').toString('utf8').split(':');
+        var email = decoded[0], pswd = decoded[1];
+        //console.log(email, pswd);
+        pswd = new Buffer(pswd, 'base64').toString('utf8')
+        //console.log(pswd);
 
-  new Buffer("Hello World").toString('base64')
-  SGVsbG8gV29ybGQ=
-  new Buffer("SGVsbG8gV29ybGQ=", 'base64').toString('ascii')
-  new Buffer("SGVsbG8gV29ybGQ=", 'base64').toString('utf8')
-  Hello World
+        co(function*() {
+            var col = db.conn.collection('accounts');
+            var docs = yield col.find( {email:email, pswd:pswd}).toArray();
 
-  'ascii' - for 7 bit ASCII data only. This encoding method is very fast, and will strip the high bit if set.
-  'utf8' - Multi byte encoded Unicode characters. Many web pages and other document formats use UTF-8.
-  */
+            if(docs.length == 1){
+                var token = jwt.getToken(docs[0]._id, docs[0].type);
+                //console.log(token);
+                res.send(200, {_id: docs[0]._id, email:docs[0].email, jwt:token});
+                return next();
+            }
+            else{
+                res.send(401, {message:'Not authorized'});
+                return next();
+            }
+        }).catch(function(err) {
+            db.insertLogs('ERROR: (accounts.getToken) '+err);
+            res.send(500, err);
+            return next();
+        });
+    },
 
+    get: function(req, res, next) {
+        res.setHeader('X-Version', '1.0.0');
+        var aid = jwt.verifyToken(req, res, next);
 
-  getToken: function(req, res, next) {
-      //console.log(req.headers.authorization)
+        co(function*() {
+            var col = db.conn.collection('accounts');
+            var doc = yield col.findOne( {_id:ObjectID(aid)});
+            assert.ok((doc.email), 'account not found');
+            delete doc.pswd;
+            res.send(200, doc);
+            return next();
+        }).catch(function(err) {
+            db.insertLogs('ERROR: (accounts.get) '+err);
+            res.send(500, err);
+            return next();
+        });
+    },
 
-      var encoded = req.headers.authorization.replace('Basic ', '').replace('basic ', '');
-      var decoded = new Buffer(encoded, 'base64').toString('utf8').split(':');
-      var email = decoded[0], pswd = decoded[1];
-      //console.log(email, pswd);
-      pswd = new Buffer(pswd, 'base64').toString('utf8')
-      //console.log(pswd);
-
-      co(function*() {
-          var col = db.conn.collection('accounts');
-          var docs = yield col.find( {email:email, pswd:pswd}).toArray();
-
-          if(docs.length == 1){
-              var token = jwt.getToken(docs[0]._id, docs[0].type);
-              //console.log(token);
-              res.send(200, {_id: docs[0]._id, email:docs[0].email, jwt:token});
-              return next();
-          }
-          else{
-              res.send(401, {message:'Not authorized'});
-              return next();
-          }
-      }).catch(function(err) {
-          console.log('\nERROR:', err);
-          res.send(500, err);
-          return next();
-      });
-  },
-
-  get: function(req, res, next) {
-      var aid = jwt.verifyToken(req, res, next);
-
-      co(function*() {
-          var col = db.conn.collection('accounts');
-          var doc = yield col.findOne( {_id:ObjectID(aid)});
-          console.log(doc)
-          assert.ok((doc.email), 'account not found');
-          delete doc.pswd;
-          res.send(200, doc);
-          return next();
-      }).catch(function(err) {
-          console.log('\nERROR:', err);
-          res.send(500, err);
-          return next();
-      });
-  },
-
-
-  create: function(req, res, next) {
-        console.log('create ACCOUNT:', req.params)
+    create: function(req, res, next) {
+        res.setHeader('X-Version', '1.0.0');
         var account = req.params;
         // Validate data
         var proceed = true;
@@ -100,54 +89,48 @@ module.exports = {
                 return next();
             }
         }).catch(function(err) {
-            console.log('\nERROR:', err);
+            db.insertLogs('ERROR: (accounts.create) '+err);
             res.send(500, err);
             return next();
         });
-  },
+    },
 
 
-  modify: function(req, res, next) {
-    var aid = jwt.verifyToken(req, res, next);
-
-    console.log('modify ACCOUNT:', req.params)
-    var account = req.params;
-    // Validate data
-    var proceed = true;
-    if(account._id && aid != account._id){
-      proceed = false;
-      res.send(409, {message:'invalid modify attempt'});
-      return next();
-    }
-    if(!validateModifyData(account)){
-      proceed = false;
-      res.send(409, {message:'submission data missing or invalid'});
-      return next();
-    }
-
-    co(function*() {
-        if(proceed){
-            var col = db.conn.collection('accounts');
-            var doc = yield col.findOneAndUpdate({_id:ObjectID(aid)},
-                  {$set: {email: account.email}},
-                  {returnOriginal: false, upsert: false}
-            );
-            console.log(doc)
-            assert.ok((doc.value), 'the account was not modified, was the proper _id passed');
-            delete doc.value['pswd'];
-            res.send(200, doc.value);
-            return next();
+    modify: function(req, res, next) {
+        res.setHeader('X-Version', '1.0.0');
+        var aid = jwt.verifyToken(req, res, next);
+        var account = req.params;
+        // Validate data
+        var proceed = true;
+        if(account._id && aid != account._id){
+          proceed = false;
+          res.send(409, {message:'invalid modify attempt'});
+          return next();
         }
-    }).catch(function(err) {
-        console.log('\nERROR:', err);
-        res.send(500, err);
-        return next();
-    });
+        if(!validateModifyData(account)){
+          proceed = false;
+          res.send(409, {message:'submission data missing or invalid'});
+          return next();
+        }
 
-  }
-
-
-
+        co(function*() {
+            if(proceed){
+                var col = db.conn.collection('accounts');
+                var doc = yield col.findOneAndUpdate({_id:ObjectID(aid)},
+                      {$set: {email: account.email}},
+                      {returnOriginal: false, upsert: false}
+                );
+                assert.ok((doc.value), 'the account was not modified, was the proper _id passed');
+                delete doc.value['pswd'];
+                res.send(200, doc.value);
+                return next();
+            }
+        }).catch(function(err) {
+            db.insertLogs('ERROR: (accounts.modify) '+err);
+            res.send(500, err);
+            return next();
+        });
+    }
 };
 
 
