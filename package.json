@@ -13,8 +13,8 @@
     "url": "https://github.com/24hourkirtan/audio-streaming-apis"
   },
   "dependencies": {
-    "async": "^1.5.2",
     "co": "^4.6.0",
+    "forEachAsync": "^3.0.0",
     "jsmediatags": "^3.0.5",
     "jsonwebtoken": "^5.7.0",
     "mongodb": "^2.1.7",
