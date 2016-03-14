@@ -26,14 +26,6 @@ module.exports = {
 	  },
 
     /**
-     * Gets a sinlge mp3 record using the record id
-     * @param  {object}   req   request
-     * @param  {object}   res   respone
-     * @param  {next}     next  restify route pattern
-     * @return {next}           restify route pattern
-     */
-
-    /**
      * Extractes the JWT token from the request header and verifies it is valid. This
      * function is not exposed to any API endpoint and is only used by endpoints
      * to valid the user.
