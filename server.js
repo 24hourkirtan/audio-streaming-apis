@@ -49,10 +49,9 @@ process.on('SIGINT', function () {
   });
 });
 
-
 // -------------------------------------------------
 // Defines the Restify HTTPS server process to start
-console.log(config.ssl_cert);
+console.log('>>>  Certificate: ',config.ssl_cert);
 var server = restify.createServer({
     certificate: fs.readFileSync(config.ssl_cert),
     key: fs.readFileSync(config.ssl_key),
@@ -65,14 +64,15 @@ var port = (process.env.NODE_ENV === 'production' ? 443 : 8081);
 console.log('>>>  port selection', process.env.NODE_ENV, port);
 server.listen(port);
 
+// -------
+// Parsers
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
 
-// ------------------------------------------------
+// ----------------------------------------
 // Stops anything that may not be using SSL
 server.use(function checkSLL(req, res, next) {
-  //res.setHeader('Access-Control-Allow-Methods', '*');
     if(!req.isSecure()){
         res.send(403, {message:"the APIs are only available using SSL (https)"});
     }
@@ -89,21 +89,23 @@ server.use(function send(req, res, next) {
     return next();
 });
 
+// -------------------------------------------------
 // PUBLIC ROUTES - (no auth) w/Accept-Version header
 server.get({path: "/ping", version: '1.0.0'}, utils_1_0_0.ping);
 server.get({path: "/ping", version: '2.0.0'}, utils_2_0_0.ping);
 server.get({path: "/license", version: '1.0.0'}, utils_1_0_0.license);
 
 
+// -----------------------------------------------------------
+// BASIC ROUTES - (requires Bsic auth) w/Accept-Version header
 server.get({path: "/account/token", version: '1.0.0'}, accounts_1_0_0.getToken);
+
+// ----------------------------------------------------
+// AUTH ROUTES - (requires JWT) w/Accept-Version header
 server.get({path: "/account", version: '1.0.0'}, accounts_1_0_0.get);
 server.post({path: "/account", version: '1.0.0'}, accounts_1_0_0.create);
 server.patch({path: "/account/:_id", version: '1.0.0'}, accounts_1_0_0.modify);
 
-
-// -----------------------------------------------------
-// AUTH ROUTES - (requires auth) w/Accept-Version header
-//server.use(users_1_0_0.authorize);
 server.get({path: "/mp3s", version: '1.0.0'}, mp3s_1_0_0.getAll);
 server.get({path: "/mp3/:id", version: '1.0.0'}, mp3s_1_0_0.get);
 
@@ -113,16 +115,22 @@ server.post({path: "/playlist", version: '1.0.0'}, playlists_1_0_0.create);
 server.patch({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.modify);
 server.del({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.delete);
 
-
 // ----------------
 // Indexer interval
-var interval = setInterval(function() {
-    config.mp3_paths.forEach(function(path){
+var intervalSecs = 4.32e+7; // 12 hours
+config.mp3_paths.forEach(function(path){
+    intervalSecs = (intervalSecs + 60000);
+    setInterval(function() {
         indexer.run(path);
-    });
-}, 360000);
-var timeout = setTimeout(function() {
-    config.mp3_paths.forEach(function(path){
+    }, intervalSecs);
+});
+
+// -----------------------
+// Indexer startup timeout
+var timeoutSecs = 6000; // 6 seconds
+config.mp3_paths.forEach(function(path){
+    timeoutSecs = (timeoutSecs + 6000);
+    setTimeout(function() {
         indexer.run(path);
-    });
-}, 6000);
+    }, timeoutSecs);
+});
