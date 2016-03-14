@@ -14,11 +14,24 @@ request that is not authorized.
 
 
 ```javascript
-res.send(401, {"documentation_url": "http://http://blog.kirtan.io/audio-streaming-apis/index.html?md=pages_auth.md",
-          "message": "Requires authentication"});
+// endpoint response
+res.send(401, {message:'invalid token'});
 return next();
+
+// Response received
+< HTTP/1.1 401 Unauthorized
+< Content-Type: application/json
+< X-Version: 1.0.0
+< Content-Length: 27
+< Date: Mon, 14 Mar 2016 21:17:06 GMT
+< Connection: keep-alive
+<
+{
+    "message": "invalid token"
+}
 ```
 
+<br/>
 ___
 #### UncaughtExceptions (inside route scope)
 When an unexpected error occurs inside the scope (execution path) of a Restify route the error
@@ -44,8 +57,6 @@ curl -v --header "Accept-Version: 1.0.0" http://localhost:8081/playlists  | pyth
 < Date: Thu, 03 Mar 2016 14:28:01 GMT
 < Connection: keep-alive
 <
-{ [87 bytes data]
-100    87  100    87    0     0   3263      0 --:--:-- --:--:-- --:--:--  3346
 * Connection #0 to host localhost left intact
 {
     "code": "InternalError",
@@ -55,7 +66,7 @@ curl -v --header "Accept-Version: 1.0.0" http://localhost:8081/playlists  | pyth
 
 
 
-
+<br/>
 ___
 #### UncaughtExceptions (outside route scope)
 When an unexpected error occurs outside the scope (execution path) of a Restify route the error
@@ -88,5 +99,28 @@ Error: Indexer ouch
 ****************** END uncaughtException ********************
 ```
 
+
+
+<br/>
+___
+#### How Ionic responds
+When Ionic receives a status code that is not 200 or 201 the errorCallback() function
+will fire.
+
+```javascript
+$http.defaults.headers.common['jwt'] = jwt;
+$http.defaults.headers.common['Accept-Version'] = '1.0.0';
+$http.defaults.headers.common['Content-Type'] = 'application/json';
+$http({ method:'GET',
+        url:'https://localhost:8081/account'})
+.then(
+    function successCallback(res) {
+        // Status codes 200 and 201 land here
+    },
+    function errorCallback(res) {
+        // All other status codes land here
+    }
+);
+```
 
 ___

@@ -2,20 +2,26 @@
   <h1  id="page-title">Versions</h1>
 </div>
 
-Currently the default version of the API is 1.0.0.
+Currently the default version of the API is 1.0.0. The version number is returned
+to all endpoint calls in the response header as __X-Version__.
+
+```bash
+< HTTP/1.1 200 OK
+< Content-Type: application/json
+< X-Version: 1.0.0
+< Content-Length: 58
+< Date: Mon, 14 Mar 2016 20:10:52 GMT
+< Connection: keep-alive
+```
+
 Any request that does not specify a version will receive the default version.
-It is best to request a specific version via the Accept-Version header for expected behavior and    
+It is best to request a specific version via the Accept-Version header for expected behavior and
 allow for an easier migration path to future releases.
 If an invalid version is in the Accept-Version header an error (HTTP/1.1 400 Bad Request) is returned.
 
 <br/>
 <table id="tbl">
-<colgroup>
-    <col>
-    <col>
-    <col>
-    <col>
-  </colgroup>
+<colgroup><col><col><col><col></colgroup>
   <tr>
     <th>Version</th>
     <th>Default</th>
@@ -25,8 +31,14 @@ If an invalid version is in the Accept-Version header an error (HTTP/1.1 400 Bad
   <tr>
     <td>v1.0.0</td>
     <td>X</td>
-    <td>Alpha</td>
+    <td>Beta</td>
     <td>"Accept-Version: 1.0.0"</td>
+  </tr>
+  <tr>
+    <td>v2.0.0</td>
+    <td></td>
+    <td>Design</td>
+    <td>"Accept-Version: 2.0.0"</td>
   </tr>
 </table>
 
@@ -46,6 +58,7 @@ curl -v -u <user>:<pswd> --header "Accept-Version: 1.0.0" https://localhost:8081
 >
 < HTTP/1.1 200 OK
 < Content-Type: application/json
+< X-Version: 1.0.0
 < Content-Length: 184
 < Date: Wed, 02 Mar 2016 12:04:58 GMT
 < Connection: keep-alive
@@ -107,20 +120,19 @@ Ionic v1 and v2.
 <br/>
 Ionic v1
 ```javascript
-var version = '1.0.0';
-
-load = function(url) {
-    $http({ method: 'POST', url: url,
-        data: {"key":value},
-        timeout:10000,
-        headers:{"jwt": "23423423f23r23", "Accept-Version": version}
-    })
-    .success(function (data, status, headers, config) {
-        ...
-    })
-    .error(function (err, code, status, headers, config) {
-        ...
-    });
+$http.defaults.headers.common['jwt'] = jwt;
+$http.defaults.headers.common['Accept-Version'] = '1.0.0';
+$http.defaults.headers.common['Content-Type'] = 'application/json';
+$http({ method:'GET',
+        url:'https://localhost:8081/account'})
+.then(
+    function successCallback(res) {
+        console.log(res.data);
+    },
+    function errorCallback(res) {
+        console.log(res);
+    }
+);
 }
 ```
 
@@ -130,10 +142,11 @@ Ionic v2
 ```javascript
 import {Http, Headers} from 'angular2/http';
 ...
-
 this.header = new Headers();
-this.header.set('jwt', "23423423f23r23");
+this.header.set('jwt', jwt);
 this.header.set('Accept-Version', '1.0.0');
+this.header.set('Content-Type', 'application/json');
+...
 
 load = function(url:string) {
     return new Promise(resolve => {

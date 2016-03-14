@@ -63,13 +63,17 @@ Response
 >
 < HTTP/1.1 200 OK
 < Content-Type: application/json
+< X-Version: 1.0.0
 < Status: 200
 < Content-Length: 49
 < Date: Fri, 04 Mar 2016 11:21:45 GMT
 < Connection: keep-alive
 <
 * Connection #0 to host localhost left intact
-{"answer":"you pinged version 1.0.0","params":{}}
+{
+    "answer": "hello",
+    "version": "1.0.0"
+}
 ```
 
 
@@ -80,7 +84,6 @@ Response
 <!-- -->
 <!-- -->
 <br/>
-___
 ___
 ## /license
 Retrieves the license type.
@@ -116,13 +119,17 @@ __Response__
 >
 < HTTP/1.1 200 OK
 < Content-Type: application/json
+< X-Version: 1.0.0
 < Status: 200
 < Content-Length: 40
 < Date: Fri, 04 Mar 2016 11:32:45 GMT
 < Connection: keep-alive
 <
 * Connection #0 to host localhost left intact
-{"license":"GNU GENERAL PUBLIC LICENSE"}
+{
+    "license": "GNU GENERAL PUBLIC LICENSE",
+    "version": "1.0.0"
+}
 ```
 
 
