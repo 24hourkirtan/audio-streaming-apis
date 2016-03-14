@@ -3,10 +3,10 @@ var db = require('../ops/db'),
 const assert = require('assert');
 var jwt = require("../utils/jwt.js");
 var ObjectID = require('mongodb').ObjectID;
-
+var db = require('../ops/db');
 
 /**
- * Export all function that manage the database mp3s collection
+ * Export all functions that manage the database MP3S collection
  * @type {Object}
  */
 module.exports = {
@@ -19,6 +19,7 @@ module.exports = {
      * @return {next}           restify route pattern
      */
     getAll: function(req, res, next) {
+        res.setHeader('X-Version', '1.0.0');
         var aid = jwt.verifyToken(req, res, next);
 
         co(function*() {
@@ -81,6 +82,7 @@ module.exports = {
                 return next();
             }
         }).catch(function(err) {
+            db.insertLogs('ERROR: (mp3s.getAll) '+err);
             res.send(500, err);
             return next();
         });
@@ -94,6 +96,7 @@ module.exports = {
      * @return {next}           restify route pattern
      */
     get: function(req, res, next) {
+        res.setHeader('X-Version', '1.0.0');
         var id = (req.params.id);
         var aid = jwt.verifyToken(req, res, next);
         var projection = {"trash":0};
@@ -111,6 +114,7 @@ module.exports = {
                 return next();
             }
         }).catch(function(err) {
+            db.insertLogs('ERROR: (mp3s.get) '+err);
             res.send(500, err);
             return next();
         });
