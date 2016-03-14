@@ -3,50 +3,73 @@ var MongoClient = require('mongodb').MongoClient
 var database;
 var config = require("../config.json") [process.env.NODE_ENV];
 
-
+/**
+ * Export all functions that manage db connections and logs
+ * @type {Object}
+ */
 module.exports = {
 
-    init: function(directoryPath) {
+    /**
+     * Inits the database connection pool
+     * @return {none}
+     */
+    init: function() {
+        /**
+         * Calls internal function to creates a log entry in the LOGS collection.
+         * @param  {string}   message message to log
+         * @return {none}
+         */
+        module.exports.insertLogs = function(message) {
+            insertLogs(message);
+        }
+
         console.log('>>>  db.init: process.env.NODE_ENV: ', process.env.NODE_ENV);
         var url = config.db_kirtan.url;
         var maxPoolSize = config.db_kirtan.maxPoolSize;
-        // Use connect method to connect to the Server
         MongoClient.connect(url+'?maxPoolSize='+maxPoolSize, function(err, db) {
             assert.equal(null, err);
             console.log(">>>  Connected to:", url);
             database = db;
             database.on('close', dbCloseEvent );
             module.exports.conn = database;
-            insertLogs();
+            insertLogs('Database started (db.js)');
         });
 
+        /**
+         * Closes the connection pool
+         * @return {none}
+         */
         module.exports.close = function(){
             console.log(">>>  Closing database");
             database.close();
         };
-
-        module.exports.sec = ")]}',\n"; //")]}',\n";
     }
 };
 
+/**
+ * Event fired when the conneciton pool closes
+ * @return {none}
+ */
 function dbCloseEvent(){
     console.log(">>>  Event fired DB has been shut down")
 }
 
-
-
-var insertLogs = function() {
-    // Get the documents collection
+/**
+ * Creates a log entry in the LOGS collection. LOGS is a TTL collection.
+ * @param  {string}   message message to log
+ * @return {none}
+ */
+function insertLogs(message) {
     var collection = database.collection('logs');
     var dttm = new Date();
-    // Insert some documents
-    collection.insertMany([
-      {dttm : dttm, msg:'started database'}
-    ], function(err, result) {
-      assert.equal(err, null);
-      assert.equal(1, result.result.n);
-      //assert.equal(3, result.ops.length);
-      console.log(">>>  Inserted startup log entry: ", dttm);
-      //callback(result);
+    collection.insertOne({dttm : dttm, msg:message}, function(err, result) {
+        if(err){
+            console.log(">>>  ERROR: Inserted log entry:", dttm);
+            console.log("--- ",error);
+        }
+        else{
+            console.log("\n>>>  Inserted log entry:", dttm);
+            console.log("--- ",message);
+        }
     });
 }
