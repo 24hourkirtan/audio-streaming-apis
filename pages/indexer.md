@@ -1,9 +1,9 @@
 <div class="page-header">
-  <h1  id="page-title">ID3 Indexer</h1>
+  <h1  id="page-title">MP3 Indexer</h1>
 </div>
 
-The ID3 indexer runs on a regular basis to gather ID3 tag information
-on the file system and imports the information  
+The MP3 indexer runs on a regular basis to gather ID3 tag information from MP3 files
+in the file system and imports the information  
 into the database that the APIs use. The indexer runs once every 12 hours and reviews all ID3
 tags in the file system. The review performs the following CRUD operations.
 
@@ -13,6 +13,8 @@ tags in the file system. The review performs the following CRUD operations.
 
 The indexer is a simple self contain module that is run by an interval timer. It recursively reads
 the file system and validates the ID3 tag information in the database.
+
+
 
 ___
 ### Deleted tags

@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1  id="page-title">APIs > Overview</h1>
+  <h1  id="page-title">Endpoints > Overview</h1>
 </div>
 
 The below quick list reflects a brief summary of all the RESTful endpoints available

@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1  id="page-title">APIs > Accounts</h1>
+  <h1  id="page-title">Endpoints > Accounts</h1>
 </div>
 
 The mp3s collection holds all id3 information extracted from the available mp3 files

@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1  id="page-title">APIs > Utils</h1>
+  <h1  id="page-title">Endpoints > Utils</h1>
 </div>
 
 

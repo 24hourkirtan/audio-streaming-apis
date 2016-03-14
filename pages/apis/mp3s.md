@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1  id="page-title">APIs > MP3s</h1>
+  <h1  id="page-title">Endpoints > MP3s</h1>
 </div>
 
 The mp3s collection holds all id3 information extracted from the available mp3 files
@@ -56,6 +56,15 @@ data set.
   <tr><td>order</td><td>string</td><td>The sort order if sort parameter is provided. One of asc or desc. Default: desc.</td></tr>
   <tr><td>image</td><td>string</td><td>Used to exclude or include the image data for the mp3 file. Default: true.</td></tr>
 </table>
+
+##### Example Parameter
+```bash
+/mp3s?sort=name&image=false
+```
+
+<br/>
+#### Inputs
+* None
 
 
 <br/>
@@ -197,6 +206,15 @@ Gets a specific mp3 record using the \_id.
   <tr><td>\_id</td><td>string</td><td>The unique \_id assigned to the mp3. Part of the URI.</td></tr>
   <tr><td>image</td><td>string</td><td>Used to exclude or include the image data for the mp3 file. Default: true.</td></tr>
 </table>
+
+##### Example Parameter
+```bash
+/mp3/56e018fdbfdfb90c61e60285
+```
+
+<br/>
+#### Inputs
+* None
 
 <br/>
 #### Returns
