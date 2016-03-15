@@ -35,7 +35,7 @@ module.exports = {
                 var order = (req.params.order == 'asc') ? -1 : 1;
                 var orderTxt = (req.params.order) ? req.params.order : 'desc';
                 var image = (req.params.image) ? req.params.image : true;
-                var query = (req.params.q) ? {$text:{$search:req.params.q}} : {};
+                var query = (req.params.q) ? {orphaned:false, $text:{$search:req.params.q}} : {orphaned:false};
 
                 // Projection
                 var projection = {"trash":0};
@@ -43,17 +43,14 @@ module.exports = {
                     projection = {"trash":0,"image.data":0};
                 }
 
-                // Get record count from possible queries
-                var cnt = 0;
-                if(query.$text)
-                    cnt = yield col.count(query); // Uses collection scan
-                else
-                    cnt = yield col.count(); // Uses system metadata
+                // Get record count
+                var cnt = yield col.count(query);
 
-                // Next and Prev
                 var q = '';
                 if(query.$text)
                     q = req.params.q;
+
+                // Next and Prev
                 var next2 = null;
                 if(skip+limit < cnt)
                     next2 = '/mp3s?q='+q+'&limit='+limit+'&skip='+(skip+limit)+'&sort='+sort+'&order='+orderTxt+'&image='+image;
