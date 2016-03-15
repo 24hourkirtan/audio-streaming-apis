@@ -61,7 +61,7 @@ module.exports = {
                                 _order:orderTxt,
                                 _next:next2,
                                 _prev:prev,
-                                mp3s:docs});
+                                logs:docs});
                 return next();
             }
         }).catch(function(err) {
