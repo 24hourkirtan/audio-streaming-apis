@@ -4,7 +4,6 @@
 
 Create the following indexes manually for collections using the mongo CLI.
 
-
 ___
 #### Text search on mp3s
 
@@ -23,7 +22,6 @@ db.mp3s.createIndex( { "$**": "text" }, {name: "mp3s_text"} );
 	"ok" : 1
 }
 ```
-
 
 ___
 #### Unique email on accounts
@@ -44,7 +42,6 @@ db.accounts.createIndex( { email: 1 }, { unique: true }, {name: "accounts_email"
 }
 ```
 
-
 ___
 #### Unique aid/name on playlists
 
@@ -64,4 +61,28 @@ db.playlists.createIndex( { aid: 1, name:1 }, { unique: true }, {name: "playlist
 }
 ```
 
+
+
 ___
+#### TTL index on LOGS
+
+```javascript
+use kirtan
+
+db.logs.createIndex( { "dttm": 1 }, { expireAfterSeconds: 604800 }, {name: "logs_ttl_dttm"} );
+
+// Results
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+```
+
+
+
+
+
+___
+<div style="margin:0 auto;text-align:center;">END</div>

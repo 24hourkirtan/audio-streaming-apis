@@ -63,8 +63,6 @@ curl -v -u <user>:<pswd> --header "Accept-Version: 1.0.0" https://localhost:8081
 < Date: Wed, 02 Mar 2016 12:04:58 GMT
 < Connection: keep-alive
 <
-{ [184 bytes data]
-100   184  100   184    0     0  27255      0 --:--:-- --:--:-- --:--:-- 30666
 * Connection #0 to host localhost left intact
 {
     "_id": "23423r23f2-232f-2f2f2ff",
@@ -117,7 +115,7 @@ ___
 The following code samples show how the Accept-Version header might be set for both
 Ionic v1 and v2.
 
-<br/>
+
 Ionic v1
 ```javascript
 $http.defaults.headers.common['jwt'] = jwt;
@@ -162,3 +160,4 @@ load = function(url:string) {
 
 
 ___
+<div style="margin:0 auto;text-align:center;">END</div>

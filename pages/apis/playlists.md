@@ -30,19 +30,15 @@ Each user can create multiple playlists containing unlimited MP3 files.
 <!-- -->
 <!-- -->
 ___
-### GET /playlists
-
+## GET /playlists
 List all playlists owned by the current user identified by using the JWT token in the header.
 
-<br/>
 #### Parameters
 * None
 
-<br/>
 #### Inputs
 * None
 
-<br/>
 #### Returns
 ```bash
 [
@@ -57,9 +53,7 @@ List all playlists owned by the current user identified by using the JWT token i
 ]
 ```
 
-<br/>
 #### Examples
-<br/>
 ```bash
 curl -v -k -X GET \
 -H "$(cat headers.txt)" \
@@ -93,12 +87,10 @@ $http({ method:'PATCH',
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
 ### GET /playlist/:\_id
 Gets a single playlist owned by the current user.
 
-<br/>
 #### Parameters
 <table id="tbl">
   <colgroup>
@@ -119,11 +111,9 @@ Gets a single playlist owned by the current user.
 /playlist/56e2c5643f59a7751947ceda
 ```
 
-<br/>
 #### Inputs
 * None
 
-<br/>
 #### Returns
 ```json
 {
@@ -170,17 +160,14 @@ $http({ method:'GET',
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
 ## POST /playlist
 
 Create a new playlist for the current user.
 
-<br/>
 #### Parameters
 * None
 
-<br/>
 #### Inputs
 <table id="tbl">
   <colgroup><col><col><col></colgroup>
@@ -197,7 +184,6 @@ Create a new playlist for the current user.
 }
 ```
 
-<br/>
 #### Returns
 ```json
 {
@@ -208,10 +194,7 @@ Create a new playlist for the current user.
 }
 ```
 
-<br/>
 #### Examples
-
-<br/>
 Create a new playlist.
 ```bash
 curl -v -k -X POST \
@@ -248,14 +231,10 @@ $http({ method:'POST',
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
 ## PATCH /playlist/:\_id
-
 Modify a playlist for the current user.
 
-
-<br/>
 #### Parameters
 <table id="tbl">
   <colgroup>
@@ -277,7 +256,6 @@ Modify a playlist for the current user.
 ```
 
 
-<br/>
 #### Inputs
 <table id="tbl">
   <colgroup><col><col><col></colgroup>
@@ -294,8 +272,6 @@ Modify a playlist for the current user.
 }
 ```
 
-
-<br/>
 #### Returns
 ```json
 {
@@ -306,10 +282,7 @@ Modify a playlist for the current user.
 }
 ```
 
-<br/>
 #### Examples
-
-<br/>
 Create a new playlist.
 ```bash
 curl -v -k -X PATCH \
@@ -345,12 +318,10 @@ $http({ method:'POST',
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
 ### DELETE /playlist/:\_id
 Deletes a single playlist owned by the current user.
 
-<br/>
 #### Parameters
 <table id="tbl">
   <colgroup>
@@ -371,12 +342,9 @@ Deletes a single playlist owned by the current user.
 /playlist/56e2c5643f59a7751947ceda
 ```
 
-<br/>
 #### Inputs
 * None
 
-
-<br/>
 #### Returns
 
 * __n:__ Number of records deleted, should always be 1.
@@ -390,7 +358,6 @@ Deletes a single playlist owned by the current user.
 ```
 
 #### Examples
-
 ```bash
 curl -v -k -X DELETE \
 -H "$(cat headers.txt)" \
@@ -416,8 +383,5 @@ $http({ method:'DELETE',
 
 
 
-
-
 ___
 <div style="margin:0 auto;text-align:center;">END</div>
-___

@@ -27,31 +27,25 @@
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
-## /ping
+## GET /ping
 Simple endpoint to verifiy the API server is alive.
 
-<br/>
 #### Parameters
 * None
 
 #### Inputs
 * None
 
-<br/>
 ```bash
 GET /ping
 
 curl -v -k -H "Accept-Version: 1.0.0" https://localhost:8081/ping
 ```
 
-<br/>
 Parameters
   * none
 
-
-<br/>
 Response
 ```bash
 * Connected to localhost (::1) port 8081 (#0)
@@ -69,7 +63,6 @@ Response
 < Date: Fri, 04 Mar 2016 11:21:45 GMT
 < Connection: keep-alive
 <
-* Connection #0 to host localhost left intact
 {
     "answer": "hello",
     "version": "1.0.0"
@@ -83,31 +76,25 @@ Response
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
-## /license
+## GET /license
 Retrieves the license type.
 
-<br/>
 #### Parameters
 * None
 
 #### Inputs
 * None
 
-<br/>
 ```bash
 GET /license
 
 curl -v _H "Accept-Version: 1.0.0" http://localhost:8081/license
 ```
 
-<br/>
 __Parameters__
   * none
 
-
-<br/>
 __Response__
 ```bash
 * Connected to localhost (::1) port 8081 (#0)
@@ -125,7 +112,6 @@ __Response__
 < Date: Fri, 04 Mar 2016 11:32:45 GMT
 < Connection: keep-alive
 <
-* Connection #0 to host localhost left intact
 {
     "license": "GNU GENERAL PUBLIC LICENSE",
     "version": "1.0.0"
@@ -137,4 +123,3 @@ __Response__
 
 ___
 <div style="margin:0 auto;text-align:center;">END</div>
-___

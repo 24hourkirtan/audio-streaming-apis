@@ -23,6 +23,11 @@ ___
 The API endpoints provided are completely stand alone. They can be attached to and used to manipulate the database by any client
 including CURL.
 
-Currently the endpoints service the Ionic __[audio-streaming-app](https://github.com/24hourkirtan/audio-streaming-app)__ 
+Currently the endpoints service the Ionic __[audio-streaming-app](https://github.com/24hourkirtan/audio-streaming-app)__
 found on GitHub. The app can be downloaded on the App and Play Stores.
 ___
+
+
+
+___
+<div style="margin:0 auto;text-align:center;">END</div>

@@ -31,7 +31,7 @@ return next();
 }
 ```
 
-<br/>
+
 ___
 #### UncaughtExceptions (inside route scope)
 When an unexpected error occurs inside the scope (execution path) of a Restify route the error
@@ -66,7 +66,7 @@ curl -v --header "Accept-Version: 1.0.0" http://localhost:8081/playlists  | pyth
 
 
 
-<br/>
+
 ___
 #### UncaughtExceptions (outside route scope)
 When an unexpected error occurs outside the scope (execution path) of a Restify route the error
@@ -101,7 +101,7 @@ Error: Indexer ouch
 
 
 
-<br/>
+
 ___
 #### How Ionic responds
 When Ionic receives a status code that is not 200 or 201 the errorCallback() function
@@ -123,4 +123,6 @@ $http({ method:'GET',
 );
 ```
 
+
 ___
+<div style="margin:0 auto;text-align:center;">END</div>

@@ -27,27 +27,28 @@ on the fie system. Records are read only and have been written to this collectio
 
 
 
+
+
+
+
 <a name="get.account.token"></a>
 <!-- GET /account/token ----------------------------------------- -->
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
 ## GET /account/token
 
 Returns the user's jwt token after performing a database lookup of the user's email and password which
 are part of the request header as Authentication Basic. This endpoint is used for local login.
 
-<br/>
+
 #### Parameters
 * None
 
-<br/>
 #### Inputs
 * None
 
-<br/>
 #### Returns
 ```json
 {
@@ -57,10 +58,7 @@ are part of the request header as Authentication Basic. This endpoint is used fo
 }
 ```
 
-<br/>
 #### Examples
-
-<br/>
 Gets the user's JWT token using their credentials included in the request header.
 ```bash
 curl -v -k -X GET -u email:pswd \
@@ -95,21 +93,17 @@ $http({ method:'GET',
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
 ## GET /account
 
 Returns the user's account record less the password.
 
-<br/>
 #### Parameters
 * None
 
-<br/>
 #### Inputs
 * None
 
-<br/>
 #### Returns
 ```json
 {
@@ -119,10 +113,7 @@ Returns the user's account record less the password.
 }
 ```
 
-<br/>
 #### Examples
-
-<br/>
 Gets the user's record using the \_id in the JWT token.
 ```bash
 curl -v -k -X GET \
@@ -148,23 +139,22 @@ $http({ method:'GET',
 ```
 
 
+
+
 <a name="post.account"></a>
 <!-- POST /account ----------------------------------------- -->
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
 ## POST /account
 
 Create a new user account of type "local" using the email and password passed as inputs.
 Returns the user's JWT token and account record less the password.
 
-<br/>
 #### Parameters
 * None
 
-<br/>
 #### Inputs
 <table id="tbl">
   <colgroup><col><col><col></colgroup>
@@ -181,7 +171,6 @@ Returns the user's JWT token and account record less the password.
 }
 ```
 
-<br/>
 #### Returns
 ```json
 {
@@ -191,10 +180,7 @@ Returns the user's JWT token and account record less the password.
 }
 ```
 
-<br/>
 #### Examples
-
-<br/>
 Create a new account.
 ```bash
 curl -v -k -X POST \
@@ -219,19 +205,20 @@ $http({ method:'POST',
 );
 ```
 
+
+
+
 <a name="patch.account"></a>
 <!-- PATCH /account ----------------------------------------- -->
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
 ## PATCH /account/:\_id
 
 Modifies a user account of type "local". The password is not modified by this endpoint, see /account/password/:\_id.
 Returns the user's account record less the password.
 
-<br/>
 #### Parameters
 <table id="tbl">
   <colgroup><col><col><col></colgroup>
@@ -243,7 +230,6 @@ Returns the user's account record less the password.
 /account/56e15c6744c32f686f031d2c
 ```
 
-<br/>
 #### Inputs
 <table id="tbl">
   <colgroup><col><col><col></colgroup>
@@ -257,7 +243,6 @@ Returns the user's account record less the password.
 }
 ```
 
-<br/>
 #### Returns
 ```json
 {
@@ -267,10 +252,7 @@ Returns the user's account record less the password.
 }
 ```
 
-<br/>
 #### Examples
-
-<br/>
 Modifies an account.
 ```bash
 curl -v -k -X PATCH \
@@ -303,14 +285,12 @@ $http({ method:'PATCH',
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
 ## PATCH /account/password/:\_id
 
 Modifies a user's password of type "local".
 Returns the user's account record less the password.
 
-<br/>
 #### Parameters
 <table id="tbl">
   <colgroup><col><col><col></colgroup>
@@ -322,7 +302,6 @@ Returns the user's account record less the password.
 /account/password/56e15c6744c32f686f031d2c
 ```
 
-<br/>
 #### Inputs
 <table id="tbl">
   <colgroup><col><col><col></colgroup>
@@ -336,7 +315,6 @@ Returns the user's account record less the password.
 }
 ```
 
-<br/>
 #### Returns
 ```json
 {
@@ -346,10 +324,7 @@ Returns the user's account record less the password.
 }
 ```
 
-<br/>
 #### Examples
-
-<br/>
 Modifies an account.
 ```bash
 curl -v -k -X PATCH \
@@ -376,6 +351,6 @@ $http({ method:'PATCH',
 ```
 
 
+
 ___
 <div style="margin:0 auto;text-align:center;">END</div>
-___

@@ -4,3 +4,8 @@
 
 There are only two key components required to run the backend RESTful service.  Node.js
 which hosts the endpoints and MongoDB as the database engine.
+
+
+
+___
+<div style="margin:0 auto;text-align:center;">END</div>

@@ -8,6 +8,7 @@ the development stage of the displayed version. All endpoints use https (SSL) on
 All endpoints return a JSON object or an array of JSON objects.
 
 <!-- http://www.restapitutorial.com/lessons/httpmethods.html -->
+
 ___
 #### Using HTTP Methods for RESTful Services
 The HTTP verbs comprise a major portion of our “uniform interface” constraint and provide us the action counterpart to the noun-based resource. The primary or most-commonly-used HTTP verbs (or methods, as they are properly called) are POST, GET, PUT, PATCH, and DELETE. These correspond to create, read, update, and delete (or CRUD) operations, respectively. There are a number of other verbs but they are utilized less frequently. Of those less-frequent methods, OPTIONS and HEAD are used more often than others.
@@ -125,18 +126,18 @@ ___
     <td NOWRAP>GET /mp3s</td>
     <td>X</td>
     <td>X</td>
-    <td>gets a list of mp3 records for the current user, includes filtering/sort/paging options</td>
+    <td>gets a list of mp3 records for an authenticated user, includes filtering/sort/paging options</td>
   </tr>
   <tr>
     <td NOWRAP>GET /mp3/:\_id</td>
     <td>X</td>
     <td>X</td>
-    <td>gets a single mp3 record for the current user</td>
+    <td>gets a single mp3 record for an authenticated user</td>
   </tr>
 
 </table>
 
-<br/>
+___
 #### Ionic GET example
 The response (res) in the examples below carry the following objects:
 * __config__: configuration of the request
@@ -181,4 +182,3 @@ $scope.getAllMp3s =  function(){
 
 ___
 <div style="margin:0 auto;text-align:center;">END</div>
-___

@@ -24,17 +24,16 @@ ___
 Download the desired binary using curl.
 
 ```bash
-cd ~
-
-curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.2.3.tgz
+$ cd ~
+$ curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.2.3.tgz
 ```
 
 ___
 ### Extract file from download
 
 ```bash
-cd ~
-tar -zxvf mongodb-linux-x86_64-ubuntu1404-3.2.3.tgz
+$ cd ~
+$ tar -zxvf mongodb-linux-x86_64-ubuntu1404-3.2.3.tgz
 ```
 
 ___
@@ -50,17 +49,17 @@ ___
 This setup assumes you will be running mongod as the current user.
 
 ```bash
-cd ~
+$ cd ~
+$ nano .bashrc
 
-nano .bashrc
-
+# update the PATH
 export PATH=~/mongodb-linux-x86_64-ubuntu1404-3.0.5/bin:$PATH
 ```
 
 Reload the .bashrc file after updating the PATH or restart the console session.
 
 ```bash
-source ~/.bashrc
+$ source ~/.bashrc
 ```
 
 
@@ -77,9 +76,9 @@ the command. In this example a separate path (/data/logs) is used for logging. M
 been update in the bashrc file for the user receiving the permissions.
 
 ```bash
-sudo mkdir -p /data/db
-sudo mkdir -p /data/logs
-sudo chown -R $USER:$GROUP /data
+$ sudo mkdir -p /data/db
+$ sudo mkdir -p /data/logs
+$ sudo chown -R $USER:$GROUP /data
 ```
 
 
@@ -103,8 +102,9 @@ directories are set. Each DB gets its own directory including the kirtan databas
 binding must be changed to the proper IP addresses.
 
 ```bash
-sudo nano /etc/mongod.conf
+$ sudo nano /etc/mongod.conf
 
+# update the config file
 storage:
     dbPath: "/data/db"
     directoryPerDB: true
@@ -140,7 +140,7 @@ net:
 Change permission of config file to the user that will execute mongod.
 
 ```bash
-sudo chown $USER:$GROUP /etc/mongod.conf
+$ sudo chown $USER:$GROUP /etc/mongod.conf
 ```
 
 ___
@@ -151,6 +151,8 @@ __[Couchbase Blog](http://blog.couchbase.com/often-overlooked-linux-os-tweaks)__
 to learn more as these can impact MongoDB.
 
 
+
+
 ___
 ### Start/Stop MongoDB
 
@@ -158,8 +160,8 @@ Start MongoDB using a forked process with the configuration in the mongod.conf f
 the process with the --shutdown option.
 
 ```bash
-mongod --config /etc/mongod.conf
-mongod --shutdown
+$ mongod --config /etc/mongod.conf
+$ mongod --shutdown
 ```
 
 
@@ -171,4 +173,6 @@ ___
 mongo > db.serverStatus().connections
 
 
+
 ___
+<div style="margin:0 auto;text-align:center;">END</div>

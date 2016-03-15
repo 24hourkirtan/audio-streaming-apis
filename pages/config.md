@@ -17,7 +17,7 @@ environments (development, stage, and production).
 * __jwt_appkey:__ the appkey that is embedded inside a JWT token
 
 
-<br/>
+
 ```json
 {
   "development":{
@@ -48,7 +48,7 @@ environments (development, stage, and production).
 
 ```
 
-<br/>
+
 Starting the server without a config.json will result in  the following err.
 
 ```bash
@@ -74,3 +74,8 @@ Error: Cannot find module '../config.json'
     at Module.require (module.js:366:17)
     at require (module.js:385:17)
 ```
+
+
+
+___
+<div style="margin:0 auto;text-align:center;">END</div>

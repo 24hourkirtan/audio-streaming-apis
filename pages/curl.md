@@ -25,7 +25,7 @@ ___
 The following shows how to create a file with the header info to make CURL calls including a user's
 JWT Token.
 
-<br/>
+
 Get a user token.
 ```bash
 curl -v -k -u me@domain.com:xcd834 -H "Accept-Version: 1.0.0" https://localhost:8081/account/token | python -mjson.tool
@@ -37,7 +37,7 @@ curl -v -k -u me@domain.com:xcd834 -H "Accept-Version: 1.0.0" https://localhost:
 }
 ```
 
-<br/>
+
 Create a header.txt file (usually the home directory). Add the JWT token, Accept-Version, and Content-Type.
 ```bash
 cd ~
@@ -50,7 +50,7 @@ Accept-Version: 1.0.0
 Content-Type: application/json
 ```
 
-<br/>
+
 Now make all CURL calls using the header.
 ```bash
 cd ~
@@ -92,7 +92,7 @@ POST will require additional parameters to execute.
 
 
 ___
-####PATCH
+#### PATCH
 PATCH will require additional parameters to execute. DELETEs will carry :\_id in the url query string
 
 * __-X PATCH:__ indicating the curl execution is a PATCH
@@ -106,4 +106,6 @@ DELETE will require one additional parameter to execute. DELETEs will carry :\_i
 * __-X DELETE:__ indicating the curl execution is a DELETE
 
 
+
 ___
+<div style="margin:0 auto;text-align:center;">END</div>

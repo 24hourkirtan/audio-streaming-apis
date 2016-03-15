@@ -21,3 +21,8 @@ ___
 Tags that have been removed from the file system are not deleted from the database but rather marked as
 orphaned. This is to prevent accidental deletions due to any possible code errors. Orphaned ID3 tags will
 be re-activated if they are added back into the file system.
+
+
+
+___
+<div style="margin:0 auto;text-align:center;">END</div>

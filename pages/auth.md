@@ -12,7 +12,7 @@ secure endpoint must carry the token of the request header.
 The following curl example shows how to get a token using Basic Auth. The -u parameter will
 convert the credential to a header osbject while the version is set directly into the header.
 
-<br/>
+
 ```bash
 curl -v -k -X GET \
 -u email@wdomain.com:pswd \
@@ -35,10 +35,7 @@ https://localhost:8081/account/token | python -mjson.tool
 < Content-Length: 182
 < Date: Mon, 07 Mar 2016 19:46:06 GMT
 < Connection: keep-alive
-<
-{ [182 bytes data]
-100   182  100   182    0     0   3890      0 --:--:-- --:--:-- --:--:--  3956
-* Connection #0 to host localhost left intact
+
 {
    "_id": "56e1d499a9689c1b09d8c4b5",
    "email": "email@wdomain.com",
@@ -46,4 +43,8 @@ https://localhost:8081/account/token | python -mjson.tool
 }
 ```
 
+
+
+
 ___
+<div style="margin:0 auto;text-align:center;">END</div>

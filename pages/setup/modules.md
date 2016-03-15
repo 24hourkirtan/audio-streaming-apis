@@ -46,12 +46,15 @@ The --save will update the package.json file as the modules are download from th
 package manager.
 
 ```bash
-npm install async --save
-npm install jsmediatags --save
-npm install mongodb --save
-npm install path --save
-npm install recursive --save
-npm install restify --save
-npm install co --save
+$ npm install async --save
+$ npm install jsmediatags --save
+$ npm install mongodb --save
+$ npm install path --save
+$ npm install recursive --save
+$ npm install restify --save
+$ npm install co --save
 ```
+
+
 ___
+<div style="margin:0 auto;text-align:center;">END</div>

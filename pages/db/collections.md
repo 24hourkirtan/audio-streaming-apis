@@ -71,10 +71,22 @@ ___
 * __image:__ ({format, data}) The image content (data) and format of the picture.
 
 
+___
+#### logs
+The LOGS collection has an TTL index on dttm set for seven days.
 
-
-
+```json
+{
+	"_id" : ObjectId("56e71cebbf8b504546befd26"),
+	"dttm" : ISODate("2016-03-14T20:19:55.265Z"),
+	"msg" : "Indexer: All files finished for :/Users/warren//Downloads/mp3-id3-tag-samples"
+}
+```
+* __ _id:__ (Object ID) MongoDB system ID.
+* __dttm:__ (date) Date time of record creation (TTL seven days).
+* __msg:__ (string) Message loggd
 
 
 
 ___
+<div style="margin:0 auto;text-align:center;">END</div>

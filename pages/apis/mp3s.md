@@ -16,8 +16,8 @@ on the fie system. Records are read only and have been written to this collectio
     <th>Endpoint</th>
     <th>Summary</th>
   </tr>
-  <tr><td>GET</td><td><a href="#get.mp3s">/mp3s</a></td><td>gets a list of mp3 records for the current user, includes filtering/sort/paging options</td></tr>
-  <tr><td>GET</td><td><a href="#get.mp3">/mp3/:\_id</a></td><td>gets a single mp3 record for the current user</td></tr>
+  <tr><td>GET</td><td><a href="#get.mp3s">/mp3s</a></td><td>gets a list of mp3 records for an authenticated user, includes filtering/sort/paging options</td></tr>
+  <tr><td>GET</td><td><a href="#get.mp3">/mp3/:\_id</a></td><td>gets a single mp3 record for an authenticated user</td></tr>
 </table>
 
 
@@ -29,14 +29,11 @@ on the fie system. Records are read only and have been written to this collectio
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
-### GET /mp3s
-
+## GET /mp3s
 List all mp3 records using the JWT token in the header. Use of query, filter, and sort options can alter the returned
 data set.
 
-<br/>
 #### Parameters
 <table id="tbl">
   <colgroup>
@@ -62,12 +59,9 @@ data set.
 /mp3s?sort=name&image=false
 ```
 
-<br/>
 #### Inputs
 * None
 
-
-<br/>
 #### Returns
 
 * __\_next:__ Pre-formed url to get the next batch of record. If null then the current position is at the start of the data set.
@@ -121,11 +115,8 @@ data set.
 ```
 
 
-<br/>
 #### Examples
-
-<br/>
-Return mp3s, limit of 10 records, skipping 0 records, sorting by title in desc order.
+Return mp3s, limit of 10 records, skipping 0 records, sorting by title in desc order (uses all default parameters).
 ```bash
 curl -v -k -X GET \
 -H "$(cat headers.txt)" \
@@ -153,7 +144,6 @@ $http({ method:'GET',
 );
 ```
 
-<br/>
 Return all mp3s with the search word "2012", limit of 4 records, skipping 0 records, sorting by "album" in desc order, no image data.
 ```bash
 curl -v -k -X GET \
@@ -184,13 +174,10 @@ $http({ method:'GET',
 <!-- -->
 <!-- -->
 <!-- -->
-<br/>
 ___
-### GET /mp3/:\_id
-
+## GET /mp3/:\_id
 Gets a specific mp3 record using the \_id.
 
-<br/>
 #### Parameters
 <table id="tbl">
   <colgroup>
@@ -212,11 +199,9 @@ Gets a specific mp3 record using the \_id.
 /mp3/56e018fdbfdfb90c61e60285
 ```
 
-<br/>
 #### Inputs
 * None
 
-<br/>
 #### Returns
 ```json
 {
@@ -235,10 +220,7 @@ Gets a specific mp3 record using the \_id.
 ```
 
 
-<br/>
 #### Examples
-
-<br/>
 Return a single mp3 record with image data.
 ```bash
 curl -v -k - X GET \
@@ -274,4 +256,3 @@ $http({ method:'GET',
 
 ___
 <div style="margin:0 auto;text-align:center;">END</div>
-___
