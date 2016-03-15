@@ -8,15 +8,14 @@ Content-Type header values
 add even more complexity. A solution is to have CURL read Header values from a file.
 
 ```bash
-curl -v -k \
+$ curl -v -k \
 -H "jwt: eyJ0eXAiOiJKV1QiLCJwMzFkMmMiLCJhcHBLZXkiOiJmZzkmJWlmOCZea2FkczAyM2xkZnMrLS" \
 -H "Accept-Version: 1.0.0" \
 -H "Content-Type: application/json" \
 "https://localhost:8081/playlists" | python -mjson.tool
 
 # becomes
-
-curl -v -k -H "$(cat headers.txt)" https://localhost:8081/playlists | python -mjson.tool
+$ curl -v -k -H "$(cat headers.txt)" https://localhost:8081/playlists | python -mjson.tool
 ```
 
 ___
@@ -26,9 +25,9 @@ The following shows how to create a file with the header info to make CURL calls
 JWT Token.
 
 
-Get a user token.
+Get a user token with a valid __-u email/password__.
 ```bash
-curl -v -k -u me@domain.com:xcd834 -H "Accept-Version: 1.0.0" https://localhost:8081/account/token | python -mjson.tool
+$ curl -v -k -u me@domain.com:xcd834 -H "Accept-Version: 1.0.0" https://localhost:8081/account/token | python -mjson.tool
 
 {
   "_id": "56e15c6744c32f66f031d2c",
@@ -40,9 +39,9 @@ curl -v -k -u me@domain.com:xcd834 -H "Accept-Version: 1.0.0" https://localhost:
 
 Create a header.txt file (usually the home directory). Add the JWT token, Accept-Version, and Content-Type.
 ```bash
-cd ~
+$ cd ~
 
-nano headers.txt
+$ nano headers.txt
 
 # File contents
 jwt: token-receieved-goes-here
@@ -53,13 +52,15 @@ Content-Type: application/json
 
 Now make all CURL calls using the header.
 ```bash
-cd ~
+$ cd ~
 
-curl -v -k \
+$ curl -v -k \
 -H "$(cat headers.txt)" \
 "https://localhost:8081/playlists" \
 | python -mjson.tool
 
+
+# Results
 [
     {
         "_id": "23423r23f2-232f-2f2f2ff",

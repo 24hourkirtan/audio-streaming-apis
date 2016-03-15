@@ -8,41 +8,58 @@ The audio-streaming-apis project requires the following NPM modules.
 
 ```json
 "dependencies": {
-    "co": "^4.6.0",
-    "forEachAsync": "^3.0.0",
-    "jsmediatags": "^3.0.5",
-    "jsonwebtoken": "^5.7.0",
-    "mongodb": "^2.1.7",
-    "path": "^0.12.7",
-    "recursive-readdir": "^1.3.0",
-    "restify": "^4.0.4"
+  "co": "^4.6.0",
+  "forEachAsync": "^3.0.0",
+  "jsmediatags": "^3.0.5",
+  "jsonwebtoken": "^5.7.0",
+  "mongodb": "^2.1.7",
+  "path": "^0.12.7",
+  "recursive-readdir": "^1.3.0",
+  "restify": "^4.0.4"
+  }
+  ,
+"devDependencies": {
+  "mocha": "^2.4.5",
+  "should": "^8.2.2",
+  "supertest": "^1.2.0"
   }
 ```
 
-
-* ##### co
+#### dependencies
+* __co__<br/>
 Generator based control flow for Nodejs, using promises, allows non-blocking code.
 
-* ##### forEachAsync
+* __forEachAsync__<br/>
 Used by the Indexer to make async calls in series to the database.
 
-* ##### jsmediatags
+* __jsmediatags__<br/>
 Used to parse mp3 files to extract ID3 tags.
 
-* ##### mongodb
+* __mongodb__<br/>
 Driver for the MongoDB database.
 
-* ##### recursive-readdir
+* __recursive-readdir__<br/>
 Used to recursively read the files and directories by the Indexer which
 extracts the ID3 tag information.
 
-* ##### restify
+* __restify__<br/>
 The RESTful framework used to route the API endpoints.
+
+
+#### devDependencies
+* __mocha__<br/>
+Unit testing framework.
+
+* __supertest__<br/>
+High-level abstraction for testing HTTP.
+
+* __should__<br/>
+Test framework agnostic BDD-style assertions.
 
 
 ___
 #### Installing the modules
-The --save will update the package.json file as the modules are download from the NPM
+The --save and --save--dev parameters will update the package.json file as the modules are download with the NPM
 package manager.
 
 ```bash
@@ -53,6 +70,10 @@ $ npm install mongodb --save
 $ npm install path --save
 $ npm install recursive --save
 $ npm install restify --save
+
+$ npm install mocha --save--dev
+$ npm install supertest --save--dev
+$ npm install should --save--dev
 ```
 
 

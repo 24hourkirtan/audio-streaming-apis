@@ -53,7 +53,7 @@ $ cd ~
 $ nano .bashrc
 
 # update the PATH
-export PATH=~/mongodb-linux-x86_64-ubuntu1404-3.0.5/bin:$PATH
+$ export PATH=~/mongodb-linux-x86_64-ubuntu1404-3.0.5/bin:$PATH
 ```
 
 Reload the .bashrc file after updating the PATH or restart the console session.
@@ -92,9 +92,9 @@ __[sample YAML](http://dba.stackexchange.com/questions/82591/sample-yaml-configu
 sudo nano /etc/mongodb.conf) example on stackexchange.
 
 > #### Warning
-> Currently the database is running in a secure environment on port 27017. Since the port is not available
+> <div style="color:red;font-size:small;">Currently the database is running in a secure environment on port 27017. Since the port is not available
 > to an outside network the database is considered secure. If the port is exposed then authentication must
-> be enabled.
+> be enabled.</div>
 
 
 The following configuration uses the WiredTiger engine with compression. The data and logs

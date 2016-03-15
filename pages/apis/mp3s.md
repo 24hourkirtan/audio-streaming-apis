@@ -118,7 +118,7 @@ data set.
 #### Examples
 Return mp3s, limit of 10 records, skipping 0 records, sorting by title in desc order (uses all default parameters).
 ```bash
-curl -v -k -X GET \
+$ curl -v -k -X GET \
 -H "$(cat headers.txt)" \
 "https://localhost:8081/mp3s" \
 | python -mjson.tool
@@ -146,7 +146,7 @@ $http({ method:'GET',
 
 Return all mp3s with the search word "2012", limit of 4 records, skipping 0 records, sorting by "album" in desc order, no image data.
 ```bash
-curl -v -k -X GET \
+$ curl -v -k -X GET \
 -H "$(cat headers.txt)" \
 "https://localhost:8081/mp3s?q=2012&limit=4&skip=0&sort=album&order=desc&image=false" \
 | python -mjson.tool
@@ -223,13 +223,13 @@ Gets a specific mp3 record using the \_id.
 #### Examples
 Return a single mp3 record with image data.
 ```bash
-curl -v -k - X GET \
+$ curl -v -k - X GET \
 -H "$(cat headers.txt)" \
 "https://localhost:8081/mp3/56e018fdbfdfb90c61e60285" \
 | python -mjson.tool
 
 // excludes image data
-curl -v -k -X GET \
+$ curl -v -k -X GET \
 -H "$(cat headers.txt)" \
 "https://localhost:8081/mp3/56e018fdbfdfb90c61e60285?image=false" \
 | python -mjson.tool

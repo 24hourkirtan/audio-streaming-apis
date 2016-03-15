@@ -55,7 +55,7 @@ List all playlists owned by the current user identified by using the JWT token i
 
 #### Examples
 ```bash
-curl -v -k -X GET \
+$ curl -v -k -X GET \
 -H "$(cat headers.txt)" \
 "https://localhost:8081/playlists" \
 | python -mjson.tool
@@ -129,7 +129,7 @@ Gets a single playlist owned by the current user.
 #### Examples
 
 ```bash
-curl -v -k -X GET \
+$ curl -v -k -X GET \
 -H "$(cat headers.txt)" \
 "https://localhost:8081/playlist/56e2c5643f59a7751947ceda" \
 | python -mjson.tool
@@ -197,7 +197,7 @@ Create a new playlist for the current user.
 #### Examples
 Create a new playlist.
 ```bash
-curl -v -k -X POST \
+$ curl -v -k -X POST \
 -H "$(cat headers.txt)" \
 -d '{"name":"My Playlist", "mp3s":["56e1e47847a5b1d9098e43fb","56e018fdbfdfb90c61e6028e"]}' \
 "https://localhost:8081/playlist" | python -mjson.tool
@@ -285,7 +285,7 @@ Modify a playlist for the current user.
 #### Examples
 Create a new playlist.
 ```bash
-curl -v -k -X PATCH \
+$ curl -v -k -X PATCH \
 -H "$(cat headers.txt)" \
 -d '{"name":"My Playlist", "mp3s":["56e1e47847a5b1d9098e43fb","56e018fdbfdfb90c61e6028e"]}' \
 "https://localhost:8081/playlist/56e1e47847a5b1d9098e43fb" | python -mjson.tool
@@ -359,7 +359,7 @@ Deletes a single playlist owned by the current user.
 
 #### Examples
 ```bash
-curl -v -k -X DELETE \
+$ curl -v -k -X DELETE \
 -H "$(cat headers.txt)" \
 "https://localhost:8081/playlist/56e2c5643f59a7751947ceda" \
 | python -mjson.tool

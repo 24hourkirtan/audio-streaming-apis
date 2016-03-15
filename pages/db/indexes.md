@@ -10,9 +10,9 @@ ___
 Allows for text search on all keys in the mp3s collection.
 
 ```javascript
-use kirtan
+> use kirtan
 
-db.mp3s.createIndex( { "$**": "text" }, {name: "mp3s_text"} );
+> db.mp3s.createIndex( { "$**": "text" }, {name: "mp3s_text"} );
 
 // Results
 {
@@ -32,9 +32,9 @@ Only mp3s that are not orphaned are returned. The orphaned
 key is not considered for queries to GET /mp3/:\_id, the client must handle orphaned records received.
 
 ```javascript
-use kirtan
+> use kirtan
 
-db.mp3s.createIndex( { orphaned: 1 }, {name: "mp3s_orphaned"} );
+> db.mp3s.createIndex( { orphaned: 1 }, {name: "mp3s_orphaned"} );
 
 // Results
 {
@@ -51,9 +51,9 @@ ___
 Email addresses as logins are unique.
 
 ```javascript
-use kirtan
+> use kirtan
 
-db.accounts.createIndex( { email: 1 }, { unique: true }, {name: "accounts_email"} );
+> db.accounts.createIndex( { email: 1 }, { unique: true }, {name: "accounts_email"} );
 
 // Results
 {
@@ -70,9 +70,9 @@ ___
 The aid (\_id from accounts) and name is unique composite index.
 
 ```javascript
-use kirtan
+> use kirtan
 
-db.playlists.createIndex( { aid: 1, name:1 }, { unique: true }, {name: "playlists_aid_name"} );
+> db.playlists.createIndex( { aid: 1, name:1 }, { unique: true }, {name: "playlists_aid_name"} );
 
 // Results
 {
@@ -89,9 +89,9 @@ ___
 #### TTL index on LOGS
 
 ```javascript
-use kirtan
+> use kirtan
 
-db.logs.createIndex( { "dttm": 1 }, { expireAfterSeconds: 604800 }, {name: "logs_ttl_dttm"} );
+> db.logs.createIndex( { "dttm": 1 }, { expireAfterSeconds: 604800 }, {name: "logs_ttl_dttm"} );
 
 // Results
 {

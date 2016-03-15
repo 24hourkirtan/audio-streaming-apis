@@ -61,7 +61,7 @@ are part of the request header as Authentication Basic. This endpoint is used fo
 #### Examples
 Gets the user's JWT token using their credentials included in the request header.
 ```bash
-curl -v -k -X GET -u email:pswd \
+$ curl -v -k -X GET -u email:pswd \
 -H "Accept-Version: 1.0.0" \
 "https://localhost:8081/account/token" \
 | python -mjson.tool
@@ -116,7 +116,7 @@ Returns the user's account record less the password.
 #### Examples
 Gets the user's record using the \_id in the JWT token.
 ```bash
-curl -v -k -X GET \
+$ curl -v -k -X GET \
 -H "$(cat headers.txt)" \
 "https://localhost:8081/account" \
 | python -mjson.tool
@@ -183,7 +183,7 @@ Returns the user's JWT token and account record less the password.
 #### Examples
 Create a new account.
 ```bash
-curl -v -k -X POST \
+$ curl -v -k -X POST \
 -H "$(cat headers.txt)" \
 -d '{"email":"ted@mydomian.com", "pswd":"the-password"}' \
 "https://localhost:8081/account" | python -mjson.tool
@@ -255,7 +255,7 @@ Returns the user's account record less the password.
 #### Examples
 Modifies an account.
 ```bash
-curl -v -k -X PATCH \
+$ curl -v -k -X PATCH \
 -H "$(cat headers.txt)" \
 -d '{"email":"ted@mydomian.com"}' \
 "https://localhost:8081/account/56e15c6744c32f686f031d2c" | python -mjson.tool
@@ -327,7 +327,7 @@ Returns the user's account record less the password.
 #### Examples
 Modifies an account.
 ```bash
-curl -v -k -X PATCH \
+$ curl -v -k -X PATCH \
 -H "$(cat headers.txt)" \
 -d '{"pswd":"the-password"}' \
 "https://localhost:8081/account/56e15c6744c32f686f031d2c" | python -mjson.tool

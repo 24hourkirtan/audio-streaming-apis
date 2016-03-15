@@ -42,7 +42,7 @@ file that is in the Restify route execution path.
 
 
 ```bash
-curl -v --header "Accept-Version: 1.0.0" http://localhost:8081/playlists  | python -mjson.tool  
+$ curl -v --header "Accept-Version: 1.0.0" http://localhost:8081/playlists  | python -mjson.tool  
 
 * Connected to localhost (::1) port 8081 (#0)
 > GET /playlists HTTP/1.1
@@ -57,7 +57,6 @@ curl -v --header "Accept-Version: 1.0.0" http://localhost:8081/playlists  | pyth
 < Date: Thu, 03 Mar 2016 14:28:01 GMT
 < Connection: keep-alive
 <
-* Connection #0 to host localhost left intact
 {
     "code": "InternalError",
     "message": "error inside Restify route scope using /playylists"

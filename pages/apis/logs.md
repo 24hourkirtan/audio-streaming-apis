@@ -102,7 +102,7 @@ data set.
 #### Examples
 Return logs, limit of 10 records, skipping 0 records, sorting by dttm in desc order (uses all default parameters).
 ```bash
-curl -v -k -X GET \
+$ curl -v -k -X GET \
 -H "$(cat headers.txt)" \
 "https://localhost:8081/logs" \
 | python -mjson.tool
@@ -127,7 +127,7 @@ $http({ method:'GET',
 <br/>
 Return all logs, limit of 4 records, skipping 0 records, sorting by "msg" in desc order.
 ```bash
-curl -v -k -X GET \
+$ curl -v -k -X GET \
 -H "$(cat headers.txt)" \
 "https://localhost:8081/mp3s?limit=4&skip=0&sort=msg&order=desc" \
 | python -mjson.tool

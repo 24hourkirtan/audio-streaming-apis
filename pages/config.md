@@ -6,7 +6,8 @@ The API server will not start properly without the presence of a __config.json__
 not part of the project repository for security reasons. It must be created manually in the root of the project.
 
 The file can contain as many environments as desired. The example below uses three standard
-environments (development, stage, and production).
+environments (development, stage, and production). A separate object is used to describe the ip:port
+to run Unit Testing against.
 
 * __ssl_cert:__ path to the certificate
 * __ssl_key:__ path to the certificate PEM file (w/key)
@@ -15,6 +16,8 @@ environments (development, stage, and production).
 * __db_kirtan.maxPoolSize:__ number of max connections to the database that can be open
 * __jwt_secret:__ the secret or password to encrypt and decrypt JWT tokens
 * __jwt_appkey:__ the appkey that is embedded inside a JWT token
+* __unit_test.ip:__ the ip address of the server for unit testing
+* __unit_test.port:__ the port of the server for unit testing
 
 
 
@@ -43,16 +46,19 @@ environments (development, stage, and production).
     "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 20},
     "jwt_secret":"secret",
     "jwt_appkey":"appkey"
+},
+  "unit_test":{
+    "ip":"localhost",
+    "port":"8081"
   }
 }
-
 ```
 
 
 Starting the server without a config.json will result in  the following err.
 
 ```bash
-npm start
+$ npm start
 
 > api-kirtan@0.8.0 start /Users/warren/Development/audio-streaming-apis
 > node server.js
