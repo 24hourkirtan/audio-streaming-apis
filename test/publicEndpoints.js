@@ -8,7 +8,7 @@ var config = require("../config.json").unit_test;
 var server = supertest.agent("https://"+config.ip+":"+config.port);
 
 // UNIT test begin
-describe("Public GET Endpoints",function(){
+describe("Public GET Endpoints\n+++++++++++++++++++++++++++++++++++",function(){
 
     this.timeout(4000);
     it("should return GET /ping with status 200",function(done){
