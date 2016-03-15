@@ -41,18 +41,18 @@ The RESTful framework used to route the API endpoints.
 
 
 ___
-#### Updating the modules
+#### Installing the modules
 The --save will update the package.json file as the modules are download from the NPM
 package manager.
 
 ```bash
-$ npm install async --save
+$ npm install co --save
+$ npm install forEachAsync --save
 $ npm install jsmediatags --save
 $ npm install mongodb --save
 $ npm install path --save
 $ npm install recursive --save
 $ npm install restify --save
-$ npm install co --save
 ```
 
 

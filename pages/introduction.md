@@ -11,7 +11,7 @@ Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js 
 Restify is a Node.js module to build real REST web services.
 MongoDB is popular NoSQL database often used with Node.js and has a string Node.js driver.
 
-<div style="margin:0 auto;text-align:center;">
+<div style="margin:0 auto;text-align:center;margin-bottom:40px;">
 ![alt text](img/nodejs.png)
 ![alt text](img/restify.png)
 ![alt text](img/mongodb-logo.png)
@@ -19,13 +19,12 @@ MongoDB is popular NoSQL database often used with Node.js and has a string Node.
 </div>
 
 
-___
+
 The API endpoints provided are completely stand alone. They can be attached to and used to manipulate the database by any client
 including CURL.
 
 Currently the endpoints service the Ionic __[audio-streaming-app](https://github.com/24hourkirtan/audio-streaming-app)__
 found on GitHub. The app can be downloaded on the App and Play Stores.
-___
 
 
 

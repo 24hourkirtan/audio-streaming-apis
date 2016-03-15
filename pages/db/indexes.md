@@ -23,6 +23,28 @@ db.mp3s.createIndex( { "$**": "text" }, {name: "mp3s_text"} );
 }
 ```
 
+
+___
+#### Orphans on mp3s
+
+Queries to GET /mp3s filter on "orphaned". This index provides query optimization.
+Only mp3s that are not orphaned are returned. The orphaned
+key is not considered for queries to GET /mp3/:\_id, the client must handle orphaned records received.
+
+```javascript
+use kirtan
+
+db.mp3s.createIndex( { orphaned: 1 }, {name: "mp3s_orphaned"} );
+
+// Results
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 2,
+	"numIndexesAfter" : 3,
+	"ok" : 1
+}
+```
+
 ___
 #### Unique email on accounts
 

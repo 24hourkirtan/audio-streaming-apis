@@ -9,6 +9,16 @@ All endpoints return a JSON object or an array of JSON objects.
 
 <!-- http://www.restapitutorial.com/lessons/httpmethods.html -->
 
+* __[Accounts](/index.html?md=pages_apis_accounts.md)__
+
+* __[Playlists](/index.html?md=pages_apis_playlists.md)__
+
+* __[MP3s](/index.html?md=pages_apis_mp3s.md)__
+
+* __[Utils](/index.html?md=pages_apis_utils.md)__
+
+* __[Logs](/index.html?md=pages_apis_logs.md)__ 
+
 ___
 #### Using HTTP Methods for RESTful Services
 The HTTP verbs comprise a major portion of our “uniform interface” constraint and provide us the action counterpart to the noun-based resource. The primary or most-commonly-used HTTP verbs (or methods, as they are properly called) are POST, GET, PUT, PATCH, and DELETE. These correspond to create, read, update, and delete (or CRUD) operations, respectively. There are a number of other verbs but they are utilized less frequently. Of those less-frequent methods, OPTIONS and HEAD are used more often than others.
