@@ -54,9 +54,9 @@ module.exports = {
                 var q = '';
                 if(query.$text)
                     q = req.params.q;
-                var next = null;
+                var next2 = null;
                 if(skip+limit < cnt)
-                    next = '/mp3s?q='+q+'&limit='+limit+'&skip='+(skip+limit)+'&sort='+sort+'&order='+orderTxt+'&image='+image;
+                    next2 = '/mp3s?q='+q+'&limit='+limit+'&skip='+(skip+limit)+'&sort='+sort+'&order='+orderTxt+'&image='+image;
                 var prev = null;
                 if(skip >= limit)
                     prev = '/mp3s?q='+q+'&limit='+limit+'&skip='+(skip-limit)+'&sort='+sort+'&order='+orderTxt+'&image='+image;
@@ -76,7 +76,7 @@ module.exports = {
                                 _returnedCnt:docs.length,
                                 _sort:sort,
                                 _order:orderTxt,
-                                _next:next,
+                                _next:next2,
                                 _prev:prev,
                                 mp3s:docs});
                 return next();
