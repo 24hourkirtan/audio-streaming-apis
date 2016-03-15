@@ -3,6 +3,7 @@ utils_1_0_0 = require('./rest_v1_0_0/utils'),
 utils_2_0_0 = require('./rest_v2_0_0/utils'),
 playlists_1_0_0 = require('./rest_v1_0_0/playlists'),
 mp3s_1_0_0 = require('./rest_v1_0_0/mp3s'),
+logs_1_0_0 = require('./rest_v1_0_0/logs'),
 accounts_1_0_0 = require('./rest_v1_0_0/accounts'),
 fs = require('fs'),
 indexer = require('./ops/indexer'),
@@ -114,6 +115,8 @@ server.get({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.get);
 server.post({path: "/playlist", version: '1.0.0'}, playlists_1_0_0.create);
 server.patch({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.modify);
 server.del({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.delete);
+
+server.get({path: "/logs", version: '1.0.0'}, logs_1_0_0.getAll);
 
 // ----------------
 // Indexer interval
