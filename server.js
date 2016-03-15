@@ -118,8 +118,8 @@ server.del({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.delete);
 
 server.get({path: "/logs", version: '1.0.0'}, logs_1_0_0.getAll);
 
-// ----------------
-// Indexer interval
+// ----------------------
+// Indexer run() interval
 var intervalSecs = 4.32e+7; // 12 hours
 config.mp3_paths.forEach(function(path){
     intervalSecs = (intervalSecs + 60000);
@@ -128,8 +128,8 @@ config.mp3_paths.forEach(function(path){
     }, intervalSecs);
 });
 
-// -----------------------
-// Indexer startup timeout
+// -----------------------------
+// Indexer run() startup timeout
 var timeoutSecs = 6000; // 6 seconds
 config.mp3_paths.forEach(function(path){
     timeoutSecs = (timeoutSecs + 6000);
@@ -137,3 +137,17 @@ config.mp3_paths.forEach(function(path){
         indexer.run(path);
     }, timeoutSecs);
 });
+
+// ------------------------------
+// Indexer tagOrphaned() interval
+var intervalOrphanSecs = 4.32e+7; // 12 hours
+intervalOrphanSecs = (intervalOrphanSecs + 300000);
+setInterval(function() {
+    indexer.tagOrphans();
+}, intervalOrphanSecs);
+
+// -------------------------------------
+// Indexer tagOrphaned() startup timeout
+setTimeout(function() {
+    indexer.tagOrphans();
+}, 20000);// 20 seconds
