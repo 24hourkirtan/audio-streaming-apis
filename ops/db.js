@@ -32,7 +32,7 @@ module.exports = {
             database = db;
             database.on('close', dbCloseEvent );
             module.exports.conn = database;
-            insertLogs('Database started (db.js)');
+            insertLogs('Database connection pool started (db.js)');
         });
 
         /**
@@ -40,7 +40,7 @@ module.exports = {
          * @return {none}
          */
         module.exports.close = function(){
-            console.log(">>>  Closing database");
+            console.log(">>>  Closing database connection pool");
             database.close();
         };
     }
@@ -51,7 +51,7 @@ module.exports = {
  * @return {none}
  */
 function dbCloseEvent(){
-    console.log(">>>  Event fired DB has been shut down")
+    console.log(">>>  Event fired DB connection pool has been shut down")
 }
 
 /**
