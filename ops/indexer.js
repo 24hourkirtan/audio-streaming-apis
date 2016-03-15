@@ -3,6 +3,7 @@ var recursive = require('recursive-readdir');
 var fes = require('forEachAsync');
 var jsmediatags = require("jsmediatags");
 var ObjectID = require('mongodb').ObjectID;
+var fs = require("fs");
 var db = require('../ops/db'),
     co = require('co'),
     assert = require('assert');
@@ -32,7 +33,7 @@ module.exports = {
     run: function(directoryPath) {
         console.log('\n>>> ---- Indexer run ----------------------------',
           '\n>>> '+directoryPath,
-          '\n------------------------------------------------')
+          '\n------------------------------------------------');
 
         recursive(directoryPath, function (err, files) {
             // Files is an array of filename
@@ -59,6 +60,27 @@ module.exports = {
                 db.insertLogs('Indexer: All files finished for :'+directoryPath);
             });
         });
+    },
+
+    /**
+     * Steps through the mp3s database collection and checks the path of the record
+     * still exists in the file system. If it does not the record's orphaned key is set to
+     * true. Orphaned records are not included in GET /mp3s but are in GET /mp3:_id.
+     * @return {none}
+     */
+    tagOrphans(){
+        console.log('\n>>> ---- Indexer tagOrphans ----------------------------');
+        var col = db.conn.collection('mp3s');
+        col.find().forEach(function(doc){
+            fs.exists(doc.path,function(exists){
+                if (!exists){
+                    col.findOneAndUpdate({_id:ObjectID(doc._id)},
+                        {$set: {orphaned:true}},
+                        {returnOriginal: false, upsert: false}
+                    );
+                } // end if
+            }); // end fs.exists
+        }); // end col.find()
     }
 };
 
@@ -79,6 +101,7 @@ function upsertMP3(file, id3, callback){
                       year: id3.tags.year,
                       genre: id3.tags.genre,
                       size: id3.size,
+                      orphaned:false,
                       image:{format:id3.tags.picture.format,
                                data:id3.tags.picture.data
                              }
