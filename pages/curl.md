@@ -84,8 +84,8 @@ $ curl -v -k \
 
 
 ___
-#### POST and PATCH
-POST will require additional parameters to execute.
+#### POST
+Requires no parameters to execute. Uses inputs (-d).
 
 * __-X POST:__ indicating the curl execution is a POST
 * __-H "Content-Type: application/json":__ a second header indicator that the data passed is JSON
@@ -94,7 +94,7 @@ POST will require additional parameters to execute.
 
 ___
 #### PATCH
-PATCH will require additional parameters to execute. DELETEs will carry :\_id in the url query string
+PATCH requires one parameter to execute, the \_id. Uses inputs (-d);
 
 * __-X PATCH:__ indicating the curl execution is a PATCH
 * __-H "Content-Type: application/json":__ a second header indicator that the data passed is JSON
@@ -102,7 +102,7 @@ PATCH will require additional parameters to execute. DELETEs will carry :\_id in
 
 ___
 #### DELETE
-DELETE will require one additional parameter to execute. DELETEs will carry :\_id in the url query string.
+DELETE requires one parameter to execute, the \_id. Uses no inputs.
 
 * __-X DELETE:__ indicating the curl execution is a DELETE
 
