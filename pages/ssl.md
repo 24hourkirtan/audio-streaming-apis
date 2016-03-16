@@ -47,31 +47,39 @@ openssl x509 -req -in server-csr.pem -signkey server-key.pem -out server-cert.pe
 ___
 #### config.json
 
-Add the certificate location to the congif.json file.  This file is not part of the repo
-and must be created in the project root manually.
+Add the certificate paths to the config.json file.  This file is not part of the repo
+and must be created in the project root manually. See the
+__[config.json](/index.html?md=pages_config.md)__ section for more information.
 
-```bash
+```json
 {
   "development":{
-    "ssl_cert": "certs/server-cert.pem",
-    "ssl_key":"certs/server-key.pem",
-    "jwt":{"passcode":"password_here"},
-    "mp3_paths":["/Users/warren//Downloads/mp3-id3-tag-samples"],
-    "db_kirtan":{"url":"mongodb://address:port/db", "maxPoolSize": 5}
+    "ssl_cert": "certs/dev-server-cert.pem",
+    "ssl_key":"certs/dev-server-key.pem",
+    "mp3_paths":["/path"],
+    "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 5},
+    "jwt_secret":"secret",
+    "jwt_appkey":"appkey"
   },
   "stage":{
-    "ssl_cert": "path-to-cert",
-    "ssl_key":"path-to-key",
-    "jwt":{"passcode":"password_here"},
-    "mp3_paths":["path-here", "other-path-if-needed"],
-    "db_kirtan":{"url":"mongodb://address:port/db", "maxPoolSize": 10}
-  },
+    "ssl_cert": "/path",
+    "ssl_key":"/path",
+    "mp3_paths":["/path"],
+    "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 10},
+    "jwt_secret":"secret",
+    "jwt_appkey":"appkey"
+},
   "production":{
-    "ssl_cert": "path-to-cert",
-    "ssl_key":"path-to-key",
-    "jwt":{"passcode":"password_here"},
-    "mp3_paths":["path-here", "other-path-if-needed"],
-    "db_kirtan":{"url":"mongodb://address:port/db", "maxPoolSize": 20}
+    "ssl_cert": "/path",
+    "ssl_key":"/path",
+    "mp3_paths":["/path"],
+    "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 20},
+    "jwt_secret":"secret",
+    "jwt_appkey":"appkey"
+},
+  "unit_test":{
+    "ip":"localhost",
+    "port":"8081"
   }
 }
 ```
