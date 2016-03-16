@@ -17,7 +17,7 @@ All endpoints return a JSON object or an array of JSON objects.
 
 * __[Utils](/index.html?md=pages_apis_utils.md)__
 
-* __[Logs](/index.html?md=pages_apis_logs.md)__ 
+* __[Logs](/index.html?md=pages_apis_logs.md)__
 
 ___
 #### Using HTTP Methods for RESTful Services
@@ -102,31 +102,31 @@ ___
   <!-- PLAYLISTS ----------------------------------- -->
   <tr>
     <td NOWRAP>GET /playlists</td>
-    <td></td>
+    <td>X</td>
     <td>X</td>
     <td>gets all playlists for the current user, includes filtering/sort/paging options</td>
   </tr>
   <tr>
     <td NOWRAP>GET /playlist/:\_id</td>
-    <td></td>
+    <td>X</td>
     <td>X</td>
     <td>gets a single playlist for the current user</td>
   </tr>
   <tr>
     <td NOWRAP>POST /playlist</td>
-    <td></td>
+    <td>X</td>
     <td>X</td>
     <td>creates a playlist for the current user</td>
   </tr>
   <tr>
     <td NOWRAP>PATCH /playlist/:\_id</td>
-    <td></td>
+    <td>X</td>
     <td>X</td>
     <td>modify a playlist for the current user</td>
   </tr>
   <tr>
     <td NOWRAP>DELETE /playlist/:\_id</td>
-    <td></td>
+    <td>X</td>
     <td>X</td>
     <td>deletes a playlist for the current user</td>
   </tr>
@@ -143,6 +143,14 @@ ___
     <td>X</td>
     <td>X</td>
     <td>gets a single mp3 record for an authenticated user</td>
+  </tr>
+
+  <!-- MP3s ----------------------- -->
+  <tr>
+    <td NOWRAP>GET /logs</td>
+    <td>X</td>
+    <td>X</td>
+    <td>gets a list of log records for an authenticated user, includes sort and paging options</td>
   </tr>
 
 </table>
