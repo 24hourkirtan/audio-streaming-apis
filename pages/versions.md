@@ -66,7 +66,7 @@ $ curl -v -u <user>:<pswd> --header "Accept-Version: 1.0.0" https://localhost:80
 {
     "_id": "23423r23f2-232f-2f2f2ff",
     "name": "my_playlist",
-    "songs": [
+    "mp3s": [
         {
             "id3": "1212312-d123d23d23-d3d233"
         },
