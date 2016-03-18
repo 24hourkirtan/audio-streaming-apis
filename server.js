@@ -61,8 +61,8 @@ var server = restify.createServer({
 
 // ----------------------------------
 // Starts Restify as an HTTPS process
-var port = (process.env.NODE_ENV === 'production' ? 443 : 8081);
-console.log('>>>  port selection', process.env.NODE_ENV, port);
+var port = config.port | 8081
+console.log('>>>  Port: ', process.env.NODE_ENV, port);
 server.listen(port);
 
 // -------
