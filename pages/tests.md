@@ -3,11 +3,13 @@
 </div>
 
 Unit tests run against both public and secure endpoints. Prior to running the tests
-the ip and port of the server must be part of the config.json file.
+the address and port of the server must be part of the config.json file.
 
 #### Test tools
 The test tools are part of the dev-dependancies.
 * Mocha
+
+* Prompt
 
 * SuperTest
 
@@ -15,39 +17,28 @@ The test tools are part of the dev-dependancies.
 
 ___
 ## config.json
-Add or update the unit_test object with the required ip and port..
+Add or update the config.json file with the required address and port.
+See the
+__[config.json](/index.html?md=pages_config.md)__ section for more information.
 
 
 ```json
 {
   "development":{
-    "ssl_cert": "certs/dev-server-cert.pem",
-    "ssl_key":"certs/dev-server-key.pem",
-    "mp3_paths":["/path"],
-    "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 5},
-    "jwt_secret":"secret",
-    "jwt_appkey":"appkey"
+    ...
+    "port":8081,
+    "address":"localhost"
   },
   "stage":{
-    "ssl_cert": "/path",
-    "ssl_key":"/path",
-    "mp3_paths":["/path"],
-    "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 10},
-    "jwt_secret":"secret",
-    "jwt_appkey":"appkey"
+    ...
+    "port":443,
+    "address":"address"
 },
   "production":{
-    "ssl_cert": "/path",
-    "ssl_key":"/path",
-    "mp3_paths":["/path"],
-    "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 20},
-    "jwt_secret":"secret",
-    "jwt_appkey":"appkey"
-},
-  "unit_test":{
-    "ip":"localhost",
-    "port":"8081"
-  }
+    ...
+    "port":443,
+    "address":"address"
+ }
 }
 ```
 

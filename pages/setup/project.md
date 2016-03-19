@@ -53,11 +53,43 @@ to run the project. They must be added to each directory that represents a
 release tag. The config.json file must be updated to reflect the location
 of the certificate files.
 
+Best practice is to get an authenticate certificate from a signing authority.
+Otherwise create a __[new self-signed certificate](/index.html?md=pages_ssl.md)__
+ for stage and production.
+
+To use self-signed certificates from dev on stage copy the dev certificate to stage.
+
+```bash
+$ cd ~/[project]
+
+$ scp -i ~/.ssh/id_rsa   certs/dev-server-key.pem  \
+[user]@api.kirtan.io:/var/[project]/certs/stage-server-key.pem
+
+$ scp -i ~/.ssh/id_rsa   certs/dev-server-cert.pem  \
+[user]@api.kirtan.io:/var/[project]/certs/stage-server-cert.pem
+```
+
 
 ___
-## Start the Forever process
-__[Start](/index.html?md=pages_setup_forever.md)__
- the API server using Forever.
+## Start - development
+Verify the NODE_ENV environment variable is set to development. Set the variable if necessary then start
+Node.js using npm start.
+
+```bash
+$ echo $NODE_ENV
+development
+
+#set NODE_ENV if needed
+$ export NODE_ENV=development
+
+# start Node.js with npm
+$ npm start
+
+```
+
+___
+## Start - stage and production
+Start the project using __[Forever](/index.html?md=pages_setup_forever.md)__.
 
 
 

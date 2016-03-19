@@ -16,40 +16,42 @@ to run Unit Testing against.
 * __db_kirtan.maxPoolSize:__ number of max connections to the database that can be open
 * __jwt_secret:__ the secret or password to encrypt and decrypt JWT tokens
 * __jwt_appkey:__ the appkey that is embedded inside a JWT token
-* __unit_test.ip:__ the ip address of the server for unit testing
-* __unit_test.port:__ the port of the server for unit testing
+* __port:__ the port to start the server on
+* __address:__ the public address of the server, used for unit testing
 
 
 
 ```json
 {
   "development":{
-    "ssl_cert": "certs/dev-server-cert.pem",
-    "ssl_key":"certs/dev-server-key.pem",
+    "ssl_cert": "certs/server-cert.pem",
+    "ssl_key":"certs/server-key.pem",
     "mp3_paths":["/path"],
     "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 5},
     "jwt_secret":"secret",
-    "jwt_appkey":"appkey"
+    "jwt_appkey":"appkey",
+    "port":8081,
+    "address":"localhost"
   },
   "stage":{
-    "ssl_cert": "/path",
-    "ssl_key":"/path",
+    "ssl_cert": "certs/server-cert.pem",
+    "ssl_key":"certs/server-key.pem",
     "mp3_paths":["/path"],
     "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 10},
     "jwt_secret":"secret",
-    "jwt_appkey":"appkey"
-},
+    "jwt_appkey":"appkey",
+    "port":8081,
+    "address":"localhost"
+  },
   "production":{
-    "ssl_cert": "/path",
-    "ssl_key":"/path",
+    "ssl_cert": "certs/server-cert.pem",
+    "ssl_key":"certs/server-key.pem",
     "mp3_paths":["/path"],
     "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 20},
     "jwt_secret":"secret",
-    "jwt_appkey":"appkey"
-},
-  "unit_test":{
-    "ip":"localhost",
-    "port":"8081"
+    "jwt_appkey":"appkey",
+    "port":8081,
+    "address":"localhost"
   }
 }
 ```

@@ -32,4 +32,24 @@ Verify /usr/local/bin is in the PATH
 
 
 ___
+### Using privileged port (443)
+On production and stage the privileged port 443 would require starting the project using sudo.
+This is an obvious security risk. To run the project without sudo use "authbind" which is a simple
+utility for running apps giving them permission to listen on privileged ports (< 1024).
+After setting up authbind start the project using __[Forever](/index.html?md=pages_setup_forever.md)__.
+
+
+```bash
+# Install authbind in Debian/Ubuntu
+$ sudo apt-get install authbind
+
+# Configure authbind
+$ sudo touch /etc/authbind/byport/80
+$ sudo chown [user] /etc/authbind/byport/80
+$ sudo chmod 755 /etc/authbind/byport/80
+```
+
+
+
+___
 <div style="margin:0 auto;text-align:center;">END</div>

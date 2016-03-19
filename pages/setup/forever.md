@@ -17,24 +17,30 @@ $ [sudo] npm install forever -g
 ```
 
 ___
-## Start the API server w/Forever
-
-Start the API server using the required environment (development, stage, or production).
+## Start the project w/Forever
+Start the API server using the required environment (development, stage, or production) and authbind
+if using a privileged port.
 ```bash
 $ export SET NODE_ENV=production
-$ forever start app.js
+
+# non-privileged port
+$ forever start server.js
+
+# privileged port
+$ authbind --deep forever start server.js
 ```
 
 ___
 ## Tail logs (optional)
 ```bash
-$ forever logs
+$ forever list
 
-info:    Logs for running Forever processes
-data:        script    logfile                         
-data:    [0] server.js /Users/warren/.forever/UOrx.log
+info:    Forever processes running
+data:        uid  command         script    forever pid   id logfile                        uptime      
+data:    [0] sFcF /usr/bin/nodejs server.js 28321   28326    /home/warren/.forever/sFcF.log STOPPED     
+data:    [1] ldYN /usr/bin/nodejs server.js 28844   28849    /home/warren/.forever/ldYN.log 0:0:0:5.465
 
-$ tail -F [0] server.js /Users/warren/.forever/UOrx.log
+$ tail -F [0] server.js /Users/warren/.forever/ldYN.log
 ```
 
 ___
@@ -44,7 +50,11 @@ Stop all forever processes.
 $ forever stopall
 ```
 
-The server can be stopped by its PID if more than one instance of Node.js is running.
+The project can be stopped by its PID if more than one instance of Node.js is running.
+
+
+
+
 
 
 

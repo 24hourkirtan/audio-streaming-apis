@@ -31,18 +31,17 @@ $ curl -v -u user:password --header "Accept-Version: 1.0.0" http://localhost:808
 
 
 ___
-#### Self Signed cert for development
+#### Self Signed Cert for development
 
 A self signed certificate can be used for development.
 
 ```bash
 $ cd ../[project_root]/certs
 
-openssl genrsa -out server-key.pem 1024
-openssl req -new -key server-key.pem -out server-csr.pem
-openssl x509 -req -in server-csr.pem -signkey server-key.pem -out server-cert.pem
+$ openssl genrsa -out server-key.pem 1024
+$ openssl req -new -key server-key.pem -out server-csr.pem
+$ openssl x509 -req -in server-csr.pem -signkey server-key.pem -out server-cert.pem
 ```
-
 
 ___
 #### config.json
@@ -54,33 +53,20 @@ __[config.json](/index.html?md=pages_config.md)__ section for more information.
 ```json
 {
   "development":{
-    "ssl_cert": "certs/dev-server-cert.pem",
-    "ssl_key":"certs/dev-server-key.pem",
-    "mp3_paths":["/path"],
-    "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 5},
-    "jwt_secret":"secret",
-    "jwt_appkey":"appkey"
+    "ssl_cert": "certs/server-cert.pem",
+    "ssl_key":"certs/server-key.pem",
+    ...
   },
   "stage":{
-    "ssl_cert": "/path",
-    "ssl_key":"/path",
-    "mp3_paths":["/path"],
-    "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 10},
-    "jwt_secret":"secret",
-    "jwt_appkey":"appkey"
+    "ssl_cert": "certs/server-cert.pem",
+    "ssl_key":"certs/server-key.pem",
+    ...
 },
   "production":{
-    "ssl_cert": "/path",
-    "ssl_key":"/path",
-    "mp3_paths":["/path"],
-    "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 20},
-    "jwt_secret":"secret",
-    "jwt_appkey":"appkey"
-},
-  "unit_test":{
-    "ip":"localhost",
-    "port":"8081"
-  }
+    "ssl_cert": "certs/server-cert.pem",
+    "ssl_key":"certs/server-key.pem",
+    ...
+ }
 }
 ```
 

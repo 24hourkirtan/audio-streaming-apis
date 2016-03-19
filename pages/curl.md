@@ -38,6 +38,7 @@ $ curl -v -k -u me@domain.com:xcd834 -H "Accept-Version: 1.0.0" https://localhos
 
 
 Create a header.txt file (usually the home directory). Add the JWT token, Accept-Version, and Content-Type.
+<span style="color:red">Be careful not to allow blank lines at the beginning of the file contents.</span>
 ```bash
 $ cd ~
 
