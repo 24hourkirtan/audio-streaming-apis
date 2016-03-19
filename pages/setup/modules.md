@@ -20,6 +20,7 @@ The audio-streaming-apis project requires the following NPM modules.
   ,
 "devDependencies": {
   "mocha": "^2.4.5",
+  "prompt": "^1.0.0",
   "should": "^8.2.2",
   "supertest": "^1.2.0"
   }
