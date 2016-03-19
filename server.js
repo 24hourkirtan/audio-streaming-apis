@@ -53,6 +53,7 @@ process.on('SIGINT', function () {
 // -------------------------------------------------
 // Defines the Restify HTTPS server process to start
 console.log('>>>  Certificate: ',config.ssl_cert);
+console.log('>>>  Cert Key:    ',config.ssl_key);
 var server = restify.createServer({
     certificate: fs.readFileSync(config.ssl_cert),
     key: fs.readFileSync(config.ssl_key),
@@ -61,9 +62,9 @@ var server = restify.createServer({
 
 // ----------------------------------
 // Starts Restify as an HTTPS process
-var port = config.port | 8081
-console.log('>>>  Port: ', process.env.NODE_ENV, port);
-server.listen(port);
+console.log('>>>  ENV:         ', process.env.NODE_ENV);
+console.log('>>>  PORT:        ', config.port);
+server.listen(config.port);
 
 // -------
 // Parsers
