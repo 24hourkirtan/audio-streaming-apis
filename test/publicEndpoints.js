@@ -6,7 +6,6 @@ var config = require("../config.json") [process.env.NODE_ENV];
 
 // This agent refers to PORT where program is runninng.
 var server = supertest.agent("https://"+config.address+":"+config.port);
-console.log('server', server)
 
 // UNIT test begin
 describe("Public GET Endpoints\n+++++++++++++++++++++++++++++++++++",function(){
