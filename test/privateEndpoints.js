@@ -3,11 +3,11 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 var supertest = require("supertest");
 var should = require("should");
 var prompt = require('prompt');
-var config = require("../config.json").unit_test;
+var config = require("../config.json") [process.env.NODE_ENV];
 
 prompt.start();
 // This agent refers to PORT where program is runninng.
-var server = supertest.agent("https://"+config.ip+":"+config.port);
+var server = supertest.agent("https://"+config.address+":"+config.port);
 
 // UNIT test begin
 

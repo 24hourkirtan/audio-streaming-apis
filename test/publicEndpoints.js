@@ -2,10 +2,11 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 var supertest = require("supertest");
 var should = require("should");
-var config = require("../config.json").unit_test;
+var config = require("../config.json") [process.env.NODE_ENV];
 
 // This agent refers to PORT where program is runninng.
-var server = supertest.agent("https://"+config.ip+":"+config.port);
+var server = supertest.agent("https://"+config.address+":"+config.port);
+console.log('server', server)
 
 // UNIT test begin
 describe("Public GET Endpoints\n+++++++++++++++++++++++++++++++++++",function(){
