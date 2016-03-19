@@ -23,7 +23,7 @@ module.exports = {
             insertLogs(message);
         }
 
-        console.log('>>>  db.init: process.env.NODE_ENV: ', process.env.NODE_ENV);
+        console.log('>>>  db.init');
         var url = config.db_kirtan.url;
         var maxPoolSize = config.db_kirtan.maxPoolSize;
         MongoClient.connect(url+'?maxPoolSize='+maxPoolSize, function(err, db) {
