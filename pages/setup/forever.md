@@ -40,7 +40,7 @@ data:        uid  command         script    forever pid   id logfile            
 data:    [0] sFcF /usr/bin/nodejs server.js 28321   28326    /home/warren/.forever/sFcF.log STOPPED     
 data:    [1] ldYN /usr/bin/nodejs server.js 28844   28849    /home/warren/.forever/ldYN.log 0:0:0:5.465
 
-$ tail -F [0] server.js /Users/warren/.forever/ldYN.log
+$ tail -F /Users/warren/.forever/ldYN.log
 ```
 
 ___
