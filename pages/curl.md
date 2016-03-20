@@ -15,8 +15,16 @@ $ curl -v -k \
 "https://localhost:8081/playlists" | python -mjson.tool
 
 # becomes
-$ curl -v -k -H "$(cat headers.txt)" https://localhost:8081/playlists | python -mjson.tool
+$ curl -v -k -H "$(cat header-stage.txt)" https://localhost:8081/playlists | python -mjson.tool
 ```
+
+* __jwt:__ the JSON Web Token assigned to the user for the environment accessed (dev, stage, prod)
+* __Accept-Version:__ the API version of the endpoint to execute at the server
+* __Content-Type:__ the type of data sent in the body (JSON)
+
+> <span style="font-size:small;color:red;">A common error from endpoints (POST and PATCH) when an invalid
+or missing Content-Type is passed.<br/>
+"message": "submission data missing or invalid"</span>  
 
 ___
 #### Setting up a header file
@@ -24,11 +32,11 @@ ___
 The following shows how to create a file with the header info to make CURL calls including a user's
 JWT Token.
 
-
-Get a user token with a valid __-u email/password__.
+First get a user JWT token using a valid __-u email/password__ pair. The token is needed to place in the file.
 ```bash
 $ curl -v -k -u me@domain.com:xcd834 -H "Accept-Version: 1.0.0" https://localhost:8081/account/token | python -mjson.tool
 
+# account record with token is returned
 {
   "_id": "56e15c6744c32f66f031d2c",
   "email": "dude@domain.com",
@@ -36,13 +44,15 @@ $ curl -v -k -u me@domain.com:xcd834 -H "Accept-Version: 1.0.0" https://localhos
 }
 ```
 
+Next create a header file (usually the home directory). Add the JWT token, Accept-Version, and Content-Type.
+Optionally create a different header file for dev, stage, and prod as the JWT token returned is different for each.
 
-Create a header.txt file (usually the home directory). Add the JWT token, Accept-Version, and Content-Type.
-<span style="color:red">Be careful not to allow blank lines at the beginning of the file contents.</span>
+> <span style="font-size:small;color:red;">Be careful not to allow blank lines at the beginning of the file contents.</span>
+
 ```bash
 $ cd ~
 
-$ nano headers.txt
+$ nano header-stage.txt
 
 # File contents
 jwt: token-receieved-goes-here
@@ -51,12 +61,12 @@ Content-Type: application/json
 ```
 
 
-Now make all CURL calls using the header.
+Lastly make all CURL calls using the header file.
 ```bash
 $ cd ~
 
 $ curl -v -k \
--H "$(cat headers.txt)" \
+-H "$(cat header-stage.txt)" \
 "https://localhost:8081/playlists" \
 | python -mjson.tool
 
