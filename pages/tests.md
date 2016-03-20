@@ -6,7 +6,7 @@ Unit tests run against both public and secure endpoints. Prior to running the te
 the address and port of the server must be part of the config.json file.
 
 #### Test tools
-The test tools are part of the dev-dependancies.
+These test tools are part of the dev-dependancies.
 * Mocha
 
 * Prompt
@@ -32,7 +32,7 @@ __[config.json](/index.html?md=pages_config.md)__ section for more information.
   "stage":{
     ...
     "port":443,
-    "address":"address"
+    "address":"api.kirtan.io"
 },
   "production":{
     ...
