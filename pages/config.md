@@ -40,8 +40,8 @@ to run Unit Testing against.
     "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 10},
     "jwt_secret":"secret",
     "jwt_appkey":"appkey",
-    "port":8081,
-    "address":"localhost"
+    "port":443,
+    "address":"api.kirtan.io"
   },
   "production":{
     "ssl_cert": "certs/server-cert.pem",
@@ -50,7 +50,7 @@ to run Unit Testing against.
     "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 20},
     "jwt_secret":"secret",
     "jwt_appkey":"appkey",
-    "port":8081,
+    "port":443,
     "address":"localhost"
   }
 }
