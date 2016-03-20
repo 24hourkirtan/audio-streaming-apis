@@ -183,6 +183,14 @@ Returns the user's JWT token and account record less the password.
 #### Examples
 Create a new account.
 ```bash
+
+# without a header file
+$ curl -v -k -X POST \
+-H "Accept-Version: 1.0.0" -H "Content-Type: application/json" \
+-d '{"email":"ted@mydomian.com", "pswd":"the-password"}' \
+"https://localhost:8081/account" | python -mjson.tool
+
+# with a header file
 $ curl -v -k -X POST \
 -H "$(cat headers.txt)" \
 -d '{"email":"ted@mydomian.com", "pswd":"the-password"}' \
