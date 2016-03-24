@@ -4,8 +4,28 @@
 
 Create the following indexes manually for collections using the mongo CLI.
 
+
 ___
-#### Text search on mp3s
+#### Unique email on ACCOUNTS
+
+Email addresses as logins are unique.
+
+```javascript
+> use kirtan
+
+> db.accounts.createIndex( { email: 1 }, { unique: true }, {name: "accounts_email"} );
+
+// Results
+{
+	"createdCollectionAutomatically" : true,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+```
+
+___
+#### Text search on MP3S
 
 Allows for text search on all keys in the mp3s collection.
 
@@ -25,7 +45,7 @@ Allows for text search on all keys in the mp3s collection.
 
 
 ___
-#### Orphans on mp3s
+#### Orphans on MP3S
 
 Queries to GET /mp3s filter on "orphaned". This index provides query optimization.
 Only mp3s that are not orphaned are returned. The orphaned
@@ -46,26 +66,29 @@ key is not considered for queries to GET /mp3/:\_id, the client must handle orph
 ```
 
 ___
-#### Unique email on accounts
+#### Orphans on JINGLES
 
-Email addresses as logins are unique.
+Queries to GET /jingles/random filter on "orphaned". This index provides query optimization.
+Only jingles that are not orphaned are returned.
 
 ```javascript
 > use kirtan
 
-> db.accounts.createIndex( { email: 1 }, { unique: true }, {name: "accounts_email"} );
+> db.jingles.createIndex( { orphaned: 1 }, {name: "jingles_orphaned"} );
 
 // Results
 {
-	"createdCollectionAutomatically" : true,
-	"numIndexesBefore" : 1,
-	"numIndexesAfter" : 2,
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 2,
+	"numIndexesAfter" : 3,
 	"ok" : 1
 }
 ```
 
+
+
 ___
-#### Unique aid/name on playlists
+#### Unique aid/name on PLAYLISTS
 
 The aid (\_id from accounts) and name is unique composite index.
 
@@ -87,6 +110,7 @@ The aid (\_id from accounts) and name is unique composite index.
 
 ___
 #### TTL index on LOGS
+This (time-to-live) index purges log records after seven days to prevent excessive collection growth.
 
 ```javascript
 > use kirtan
