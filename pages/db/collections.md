@@ -2,7 +2,7 @@
   <h1  id="page-title">Database > Collections</h1>
 </div>
 
-Data is stored into three MongoDB collections. Each collections has a minimum set of key/value pairs
+Data is stored into five MongoDB collections. Each collections has a minimum set of key/value pairs
  as defined below.
 
 
@@ -47,30 +47,69 @@ ___
 #### mp3s
 
 ```json
-{
-  "_id" : ObjectId("56deb474bfdfb90c61e6025c"),
-  "path" : "/Users/warren/Downloads/mp3-id3-tag-samples/worldwide-old/2012/2012-canberra-24-hour-kirtan/14-Amala Kirtan Das.mp3",
-  "title" : "Canberra 24 Hour Kirtan 2012 Track 14",
-  "artist" : "Amala Kirtan",
-  "year" : "2012",
-  "genre" : "Kirtan",
-  "size" : 508587,
-  "orphaned":false,
-  "image" : {
-  		"format" : "image/jpeg",
-          "data": "..."
+  {
+  "_id": "56f3e37737545bf3b7ab5d01",
+  "album": "Live Kirtans 2010",
+  "artist": "Aindra Prabhu",
+  "genre": "Spiritual",
+  "image": {
+    "format": "image.jpeg",
+    "data": "..."
+  },
+  "orphaned": false,
+  "path": "/Users/warren/Downloads/_media/aindra/10.02.28-gaura-purnima.mp3",
+  "size": 12278,
+  "title": "Gaura Purnima Kirtan 02/28/2010 - Track 4",
+  "year": "2010"
   }
+```
+* __ _id:__ (Object ID) MongoDB system ID
+* __album:__ (string)
+* __artist:__ (string)
+* __genre:__ (string)
+* __image:__ ({format, data}) The image content (data) and format of the picture
+* __orphaned:__ (boolean) false the mp3 file exists, true it is missing
+* __path:__ (string) File system path to the mp3 file
+* __size:__ (number)
+* __title:__ (string)
+* __year:__ (number)
+
+
+
+
+
+
+
+___
+#### jingles
+
+```json
+{
+  "_id" : ObjectId("56f3e77237545bf3b7ab5d11"),
+  "album": "24 Hour Kirtan Radio Jingles",
+  "artist" : "Guru Charana Padma",
+  "genre" : "Kirtan",
+  "image" : {
+    "format" : "image/jpeg",
+    "data": "..."
+  },
+  "orphaned":false,
+  "path" : "//Users/warren/Downloads/_media/jingles/160130-133013-edit.mp3",
+  "title" : "Radhadesh Mellows 2016",
+  "size" : 10389,
+  "year" : null
 }
 ```
-* __ _id:__ (Object ID) MongoDB system ID.
-* __path:__ (string) File system path to the mp3 file.
-* __title:__ (string)
+* __ _id:__ (Object ID) MongoDB system ID
+* __album:__ (string)
 * __artist:__ (string)
-* __year:__ (number)
 * __genre:__ (string)
-* __size:__ (number)
+* __image:__ ({format, data}) The image content (data) and format of the picture
 * __orphaned:__ (boolean) false the mp3 file exists, true it is missing
-* __image:__ ({format, data}) The image content (data) and format of the picture.
+* __path:__ (string) File system path to the mp3 file
+* __size:__ (number)
+* __title:__ (string)
+* __year:__ (number)
 
 
 ___
