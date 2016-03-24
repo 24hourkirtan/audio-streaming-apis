@@ -86,7 +86,7 @@ module.exports = {
     },
 
     /**
-     * Gets a sinlge mp3 record using the record id
+     * Gets a single mp3 record using the record id
      * @param  {object}   req   request
      * @param  {object}   res   respone
      * @param  {next}     next  restify route pattern
