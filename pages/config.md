@@ -27,6 +27,7 @@ to run Unit Testing against.
     "ssl_cert": "certs/server-cert.pem",
     "ssl_key":"certs/server-key.pem",
     "mp3_paths":["/path"],
+    "jingle_paths":["/path"],
     "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 5},
     "jwt_secret":"secret",
     "jwt_appkey":"appkey",
@@ -36,7 +37,8 @@ to run Unit Testing against.
   "stage":{
     "ssl_cert": "certs/server-cert.pem",
     "ssl_key":"certs/server-key.pem",
-    "mp3_paths":["/path"],
+    "mp3_paths":["/var/media/aindra"],
+    "jingle_paths":["/var/media/jingles"],
     "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 10},
     "jwt_secret":"secret",
     "jwt_appkey":"appkey",
@@ -46,7 +48,8 @@ to run Unit Testing against.
   "production":{
     "ssl_cert": "certs/server-cert.pem",
     "ssl_key":"certs/server-key.pem",
-    "mp3_paths":["/path"],
+    "mp3_paths":["/var/media/aindra"],
+    "jingle_paths":["/var/media/jingles"],
     "db_kirtan":{"url":"mongodb://ipaddress:27017/kirtan", "maxPoolSize": 20},
     "jwt_secret":"secret",
     "jwt_appkey":"appkey",
