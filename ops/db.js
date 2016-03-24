@@ -57,12 +57,16 @@ function dbCloseEvent(){
 /**
  * Creates a log entry in the LOGS collection. LOGS is a TTL collection.
  * @param  {string}   message message to log
+ * @param  {object}   optional JSON object
  * @return {none}
  */
-function insertLogs(message) {
+function insertLogs(message, data) {
     var collection = database.collection('logs');
     var dttm = new Date();
-    collection.insertOne({dttm : dttm, msg:message}, function(err, result) {
+    if(typeof data == 'undefined' || data == null){
+      data = {};
+    }
+    collection.insertOne({dttm : dttm, msg:message, data:data}, function(err, result) {
         if(err){
             console.log(">>>  ERROR: Inserted log entry:", dttm);
             console.log("--- ",error);
