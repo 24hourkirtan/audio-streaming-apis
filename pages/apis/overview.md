@@ -15,6 +15,8 @@ All endpoints return a JSON object or an array of JSON objects.
 
 * __[MP3s](/index.html?md=pages_apis_mp3s.md)__
 
+* __[Jingles](/index.html?md=pages_apis_jingles.md)__
+
 * __[Utils](/index.html?md=pages_apis_utils.md)__
 
 * __[Logs](/index.html?md=pages_apis_logs.md)__
@@ -50,6 +52,15 @@ __Specific Item__ (e.g. GET /playlist/:\_id)
   __CRUD:__ Delete  
   __Entire Collection:__ 404 (Not Found), unless deleting the whole collection — not often desirable.  
   __Specific Item:__ 200 (OK). 404 (Not Found), if ID not found or invalid.
+
+
+
+___
+#### Environments
+
+* Development > [address:port]
+* Stage > api-stage.kirtan.io
+* Production > api.kirtan.io
 
 
 ___
@@ -145,7 +156,16 @@ ___
     <td>gets a single mp3 record for an authenticated user</td>
   </tr>
 
-  <!-- MP3s ----------------------- -->
+  <!-- JINGLES ----------------------- -->
+  <tr>
+    <td NOWRAP>GET /jingle/random</td>
+    <td>X</td>
+    <td>X</td>
+    <td>gets a random jingle record for an authenticated user</td>
+  </tr>
+
+
+  <!-- LOGS ----------------------- -->
   <tr>
     <td NOWRAP>GET /logs</td>
     <td>X</td>
