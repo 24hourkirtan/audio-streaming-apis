@@ -38,9 +38,9 @@ module.exports = {
                 var query = (req.params.q) ? {orphaned:false, $text:{$search:req.params.q}} : {orphaned:false};
 
                 // Projection
-                var projection = {"trash":0};
+                var projection = {};
                 if (req.params.image == 'false'){
-                    projection = {"trash":0,"image.data":0};
+                    projection = {"image.data":0};
                 }
 
                 // Get record count
@@ -96,9 +96,9 @@ module.exports = {
         res.setHeader('X-Version', '1.0.0');
         var id = (req.params.id);
         var aid = jwt.verifyToken(req, res, next);
-        var projection = {"trash":0};
+        var projection = {};
         if (req.params.image == 'false'){
-            projection = {"trash":0,"image.data":0};
+            projection = {"image.data":0};
         }
 
         co(function*() {
