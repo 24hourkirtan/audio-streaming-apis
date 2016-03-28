@@ -70,6 +70,25 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
         });
     });
 
+    it("should return GET /jingle/random with status 200",function(done){
+        server.get("/jingle/random")
+        .set('Accept-Version', '1.0.0')
+        .set('jwt', jwt)
+        .set('Content-Type', 'application/json')
+        .expect("Content-type",/json/)
+        .expect(200) // THis is HTTP response
+        .end(function(err,res){
+            // HTTP status should be 200
+            res.status.should.equal(200);
+            res.body.should.be.an.instanceOf(Object);
+            res.body.should.have.property('title');
+            console.log('      | >>>  Title:', res.body.title);
+            // Error key should be false.
+            should.not.exist(err, 'err was not null');
+            done();
+        });
+    });
+
     it("should return GET /playlists with status 200",function(done){
         server.get("/playlists")
         .set('Accept-Version', '1.0.0')
