@@ -25,14 +25,14 @@ be re-activated if they are added back into the file system at the same file sys
 #### config.json
 The indexer processes MP3 files as declared in the
 __[config.json](/index.html?md=pages_config.md)__
- file. Paths for MP3 songs and MP3 jingles are indexed into separate DB collection.
+ file. Records for MP3 songs and MP3 jingles are store in separate DB collections.
 
 * MP3 songs > mp3s DB collection
 * MP3 jingles > jingles DB collection
 
 ```bash
 "mp3_paths":["/var/media/aindra"],
-"mp3_paths":["/var/media/jingles"],
+"jingle_paths":["/var/media/jingles"],
 ```
 
 
