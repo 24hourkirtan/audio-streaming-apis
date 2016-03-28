@@ -3,6 +3,7 @@ utils_1_0_0 = require('./rest_v1_0_0/utils'),
 utils_2_0_0 = require('./rest_v2_0_0/utils'),
 playlists_1_0_0 = require('./rest_v1_0_0/playlists'),
 mp3s_1_0_0 = require('./rest_v1_0_0/mp3s'),
+jingles_1_0_0 = require('./rest_v1_0_0/jingles'),
 logs_1_0_0 = require('./rest_v1_0_0/logs'),
 accounts_1_0_0 = require('./rest_v1_0_0/accounts'),
 fs = require('fs'),
@@ -111,6 +112,8 @@ server.patch({path: "/account/:_id", version: '1.0.0'}, accounts_1_0_0.modify);
 server.get({path: "/mp3s", version: '1.0.0'}, mp3s_1_0_0.getAll);
 server.get({path: "/mp3/:id", version: '1.0.0'}, mp3s_1_0_0.get);
 
+server.get({path: "/jingle/random", version: '1.0.0'}, jingles_1_0_0.getRandom);
+
 server.get({path: "/playlists", version: '1.0.0'}, playlists_1_0_0.getAll);
 server.get({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.get);
 server.post({path: "/playlist", version: '1.0.0'}, playlists_1_0_0.create);
@@ -119,36 +122,46 @@ server.del({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.delete);
 
 server.get({path: "/logs", version: '1.0.0'}, logs_1_0_0.getAll);
 
-// ----------------------
-// Indexer run() interval
-var intervalSecs = 4.32e+7; // 12 hours
-config.mp3_paths.forEach(function(path){
-    intervalSecs = (intervalSecs + 60000);
-    setInterval(function() {
-        indexer.run(path);
-    }, intervalSecs);
-});
 
-// -----------------------------
-// Indexer run() startup timeout
-var timeoutSecs = 6000; // 6 seconds
+// ----------------------------------------
+// ------- MP3S ---------------------------
+var secs = 4.68e+7; // 13 hours
 config.mp3_paths.forEach(function(path){
-    timeoutSecs = (timeoutSecs + 6000);
     setTimeout(function() {
-        indexer.run(path);
-    }, timeoutSecs);
+        indexer.run(path, 'mp3s');
+    }, 3000);
+    setInterval(function() {
+        indexer.run(path, 'mp3s');
+    }, secs);
+    secs = (secs +30000);
 });
 
-// ------------------------------
-// Indexer tagOrphaned() interval
-var intervalOrphanSecs = 4.32e+7; // 12 hours
-intervalOrphanSecs = (intervalOrphanSecs + 300000);
-setInterval(function() {
-    indexer.tagOrphans();
-}, intervalOrphanSecs);
-
-// -------------------------------------
-// Indexer tagOrphaned() startup timeout
+// Indexer tagOrphaned()
 setTimeout(function() {
-    indexer.tagOrphans();
+    indexer.tagOrphans('mp3s');
 }, 20000);// 20 seconds
+setInterval(function() {
+    indexer.tagOrphans('mp3s');
+}, secs);
+
+
+// ----------------------------------------
+// ------- JINGLES ------------------------
+secs = (secs +30000);
+config.jingle_paths.forEach(function(path){
+    setTimeout(function() {
+        indexer.run(path, 'jingles');
+    }, 6000);
+    setInterval(function() {
+        indexer.run(path, 'jingles');
+    }, secs);
+    secs = (secs +30000);
+});
+
+// Indexer tagOrphaned() interval
+setTimeout(function() {
+    indexer.tagOrphans('jingles');
+}, 23000);// 20 seconds
+setInterval(function() {
+    indexer.tagOrphans('jingles');
+}, secs);
