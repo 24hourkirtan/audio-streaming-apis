@@ -15,11 +15,14 @@ Clone the repository by a specific tag and create a unique directory for it.
 
 ```bash
 # cd to the directory to store the cloned repo
-$ cd ~
+$ cd /var
 
-$ git clone --branch v1.0.0-alpha.2 \
+$ sudo git clone --branch v1.0.0-alpha.2 \
 https://github.com/24hourkirtan/audio-streaming-apis.git \
 audio-streaming-apis_v1.0.0-alpha.2
+
+# change directory owner to user of execution
+sudo chown -R $USER:$GROUP /var/audio-streaming-apis_v1.0.0-alpha.2
 ```
 
 
@@ -60,13 +63,14 @@ Otherwise create a __[new self-signed certificate](/index.html?md=pages_ssl.md)_
 To use self-signed certificates from dev on stage copy the dev certificate to stage.
 
 ```bash
-$ cd ~/[project]
+$ cd ~/[development-project-path]
 
-$ scp -i ~/.ssh/id_rsa   certs/dev-server-key.pem  \
-[user]@api.kirtan.io:/var/[project]/certs/stage-server-key.pem
+# certs directory must exist on stage or prod server
+$ scp -i ~/.ssh/id_rsa   certs/server-key.pem  \
+[user]@api.kirtan.io:/var/audio-streaming-apis_v1.0.0-alpha.2/certs/server-key.pem
 
 $ scp -i ~/.ssh/id_rsa   certs/dev-server-cert.pem  \
-[user]@api.kirtan.io:/var/[project]/certs/stage-server-cert.pem
+[user]@api.kirtan.io:/var/[project]/certs/server-cert.pem
 ```
 
 
