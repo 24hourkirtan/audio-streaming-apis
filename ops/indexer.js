@@ -40,24 +40,6 @@ module.exports = {
 
         getLogoImage();
 
-
-
-        // /Users/warren/Downloads/_media/jingles/160130-133452-edit.mp3
-        // /Users/warren/Downloads/_media/jingles/160130-135615-edit.mp3
-        /*console.log('READY')
-        new jsmediatags.Reader('/Users/warren/Downloads/_media/jingles/160130-135615-edit.mp3')
-        .setTagsToRead(["title", "artist", "year", "album", "year", "genre", "picture", "size"])
-        .read({
-            onSuccess: function(id3) {
-              console.log(id3)
-            },
-            onError: function(error) {
-                console.log(error);
-            }
-        });
-
-
-        return;*/
         recursive(directoryPath, function (err, files) {
 
             // Files is an array of filename
@@ -84,13 +66,13 @@ module.exports = {
                                 upsertMP3(file, id3, collection, next);
                             },
                             onError: function(error) {
-                                db.insertLogs('ERROR: (Indexer) jsmediatags.read: '+ error);
+                                db.insertLogs('ERROR: (Indexer) jsmediatags.read: '+ file, error);
                                 next();
                             }
                         });
                     }
                     catch(err){
-                        db.insertLogs('ERROR: (Indexer) jsmediatags.read.outer.try-block: '+ err);
+                        db.insertLogs('ERROR: (Indexer) jsmediatags.read.outer.try-block:', err);
                         next();
                     }
                 }
@@ -135,7 +117,7 @@ module.exports = {
           }); // end col.find()
       }
       catch(err){
-          db.insertLogs('ERROR: (Indexer) tagOrphans.try-block: '+ err);
+          db.insertLogs('ERROR: (Indexer) tagOrphans.try-block: ', err);
       }
     }
 };
@@ -145,7 +127,7 @@ function getLogoImage(){
     if(logoImage == null){
         fs.readFile('default-image', (err, data) => {
             if (err) {
-                db.insertLogs('ERROR: (Indexer) getLogoImage: '+ err);
+                db.insertLogs('ERROR: (Indexer) getLogoImage: ', err);
                 return err.toString();
             }
             logoImage = data;
@@ -158,7 +140,8 @@ function getLogoImage(){
 }
 
 /**
- * [upsertMP3 description]
+ * Updates a record in teh MP#s or JINGLES collection. If the record does not exist
+ * it is created using an upsert operation.
  * @param  {string} file            the path to the MP3 file
  * @param  {Object} id3             the extracted ID3 tag metadata
  * @param  {string} collecction     the db collection for upsert operation
@@ -193,7 +176,7 @@ function upsertMP3(file, id3, collection, callback){
         //console.log(data);
         callback();
     }, function (err) {
-        db.insertLogs('ERROR: (Indexer) upsertMP3.co(): '+file+': '+ err, id3);
+        db.insertLogs('ERROR: (Indexer) upsertMP3.co(): '+file, {error:err, "id3":id3} );
         callback();
     });
 }
