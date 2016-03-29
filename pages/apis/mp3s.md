@@ -178,9 +178,9 @@ $http({ method:'GET',
 <!-- -->
 ___
 ## GET /mp3s/key/:key
-Gets a distinct list of key values from the MP3S collection. Any key can be queried.
+Gets a distinct list of key values from the MP3s collection. Any key can be queried.
 A valid key would return a distinct list of the key values including nulls. The list is not sorted.
-An invalid key returns no results.
+An invalid key returns no results. This endpoint does not require authentication.
 
 #### Parameters
 <table id="tbl">
@@ -222,7 +222,7 @@ An invalid key returns no results.
 
 
 #### Examples
-Return a distinct list of artists.
+Return a distinct list of artists. Authentication is not required.
 ```bash
 $ curl -v -k - X GET \
 -H "$(cat headers.txt)" \
@@ -231,7 +231,6 @@ $ curl -v -k - X GET \
 ```
 
 ```javascript
-$http.defaults.headers.common['jwt'] = jwt;
 $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
 $http({ method:'GET',

@@ -150,7 +150,7 @@ ___
   <tr>
     <td NOWRAP>GET /mp3s/key/:key</td>
     <td>X</td>
-    <td>X</td>
+    <td></td>
     <td>gets a distinct list of key values</td>
   </tr>
   <tr>
