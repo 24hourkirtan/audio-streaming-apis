@@ -36,8 +36,14 @@ Used by the Indexer to make async calls in series to the database.
 * __jsmediatags__<br/>
 Used to parse mp3 files to extract ID3 tags.
 
+* __jsonwebtoken__<br/>
+Used to create and parse JSON Web Tokens.
+
 * __mongodb__<br/>
 Driver for the MongoDB database.
+
+* __path__<br/>
+Functions that operate on paths.
 
 * __recursive-readdir__<br/>
 Used to recursively read the files and directories by the Indexer which
@@ -67,6 +73,7 @@ package manager.
 $ npm install co --save
 $ npm install forEachAsync --save
 $ npm install jsmediatags --save
+$ npm install jsonwebtoken --save
 $ npm install mongodb --save
 $ npm install path --save
 $ npm install recursive --save
