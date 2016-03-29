@@ -11,22 +11,28 @@ var db = require('../ops/db');
  */
 module.exports = {
 
+    /**
+     * Gets a distinct list of key values from the MP3s collection. Any key can
+     * be queried. A valid key would return a distinct list of the key values
+     * including nulls. The list is not sorted. An invalid key returns no results.
+     * This endpoint does not require authentication.
+     * @param  {Object}   req   request
+     * @param  {Object}   res   respone
+     * @param  {next}     next  restify route pattern
+     * @return {next}           restify route pattern
+     */
     getDistinctKey: function(req, res, next) {
         res.setHeader('X-Version', '1.0.0');
-        var aid = jwt.verifyToken(req, res, next);
 
         co(function*() {
+            var col = db.conn.collection('mp3s');
+            // Parameters
+            var key = req.params.key;
 
-            if(aid != null){
-                var col = db.conn.collection('mp3s');
-                // Parameters
-                var key = req.params.key;
-
-                // Data
-                var docs = yield col.distinct(key);
-                res.send(200, docs);
-                return next();
-            }
+            // Data
+            var docs = yield col.distinct(key);
+            res.send(200, docs);
+            return next();
         }).catch(function(err) {
             db.insertLogs('ERROR: (mp3s.getDistinctKey) '+err);
             res.send(500, err);
