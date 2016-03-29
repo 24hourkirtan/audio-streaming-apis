@@ -19,8 +19,8 @@ module.exports = {
          * @param  {string}   message message to log
          * @return {none}
          */
-        module.exports.insertLogs = function(message) {
-            insertLogs(message);
+        module.exports.insertLogs = function(message, data) {
+            insertLogs(message, data);
         }
 
         console.log('>>>  db.init');
@@ -68,12 +68,12 @@ function insertLogs(message, data) {
     }
     collection.insertOne({dttm : dttm, msg:message, data:data}, function(err, result) {
         if(err){
-            console.log(">>>  ERROR: Inserted log entry:", dttm);
+            console.log(">>>  ERROR: Inserting log entry:", dttm);
             console.log("--- ",error);
         }
         else{
             console.log("\n>>>  Inserted log entry:", dttm);
-            console.log("--- ",message);
+            console.log("--- ",message, data);
         }
     });
 }
