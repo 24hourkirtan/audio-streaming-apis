@@ -108,8 +108,6 @@ ___
     <td>modify the account password for the current user</td>
   </tr>
 
-
-
   <!-- PLAYLISTS ----------------------------------- -->
   <tr>
     <td NOWRAP>GET /playlists</td>
@@ -150,6 +148,12 @@ ___
     <td>gets a list of mp3 records for an authenticated user, includes filtering/sort/paging options</td>
   </tr>
   <tr>
+    <td NOWRAP>GET /mp3s/key/:key</td>
+    <td>X</td>
+    <td>X</td>
+    <td>gets a distinct list of key values</td>
+  </tr>
+  <tr>
     <td NOWRAP>GET /mp3/:\_id</td>
     <td>X</td>
     <td>X</td>
@@ -163,7 +167,6 @@ ___
     <td>X</td>
     <td>gets a random jingle record for an authenticated user</td>
   </tr>
-
 
   <!-- LOGS ----------------------- -->
   <tr>

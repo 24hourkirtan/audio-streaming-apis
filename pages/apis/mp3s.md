@@ -17,6 +17,7 @@ on the fie system. Records are read only and have been written to this collectio
     <th>Summary</th>
   </tr>
   <tr><td>GET</td><td><a href="#get.mp3s">/mp3s</a></td><td>gets a list of mp3 records for an authenticated user, includes filtering/sort/paging options</td></tr>
+  <tr><td>GET</td><td><a href="#get.mp3s.key">/mp3s/key/:key</a></td><td>gets a distinct list of key values</td></tr>
   <tr><td>GET</td><td><a href="#get.mp3">/mp3/:\_id</a></td><td>gets a single mp3 record for an authenticated user</td></tr>
 </table>
 
@@ -157,6 +158,84 @@ $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
 $http({ method:'GET',
         url:'localhost:8081/mp3s?q=2012&limit=4&skip=0&sort=album&order=desc&image=false'})
+.then(
+    function successCallback(res) {
+        console.log(res.data);
+    },
+    function errorCallback(res) {
+        console.log(res);
+    }
+);
+```
+
+
+
+
+<a name="get.mp3s.key"></a>
+<!-- GET /mp3/key/:key ----------------------------------------- -->
+<!-- -->
+<!-- -->
+<!-- -->
+___
+## GET /mp3s/key/:key
+Gets a distinct list of key values from the MP3S collection. Any key can be queried.
+A valid key would return a distinct list of the key values including nulls. The list is not sorted.
+An invalid key returns no results.
+
+#### Parameters
+<table id="tbl">
+  <colgroup>
+    <col>
+    <col>
+    <col>
+  </colgroup>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+  </tr>
+  <tr><td>key</td><td>string</td><td>The key for which its values would be returned. Part of the URI.</td></tr>
+</table>
+
+##### Example Parameter
+```bash
+/mp3s/key/artist
+```
+
+#### Inputs
+* None
+
+#### Returns
+```json
+[
+    "Aindra",
+    "Govinda",
+    "Aindra Prabhu",
+    "Rucira",
+    "Kalindi",
+    "Prema Hara",
+    "Mayapuris",
+    "Shyamananda Kirtan Mandali",
+    "Amala Kirtan"
+]
+```
+
+
+#### Examples
+Return a distinct list of artists.
+```bash
+$ curl -v -k - X GET \
+-H "$(cat headers.txt)" \
+"https://localhost:8081/mp3s/key/artist" \
+| python -mjson.tool
+```
+
+```javascript
+$http.defaults.headers.common['jwt'] = jwt;
+$http.defaults.headers.common['Accept-Version'] = '1.0.0';
+$http.defaults.headers.common['Content-Type'] = 'application/json';
+$http({ method:'GET',
+        url:'https://localhost:8081/mp3s/key/artist'})
 .then(
     function successCallback(res) {
         console.log(res.data);
