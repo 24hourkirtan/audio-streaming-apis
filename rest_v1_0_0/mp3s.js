@@ -11,6 +11,29 @@ var db = require('../ops/db');
  */
 module.exports = {
 
+    getDistinctKey: function(req, res, next) {
+        res.setHeader('X-Version', '1.0.0');
+        var aid = jwt.verifyToken(req, res, next);
+
+        co(function*() {
+
+            if(aid != null){
+                var col = db.conn.collection('mp3s');
+                // Parameters
+                var key = req.params.key;
+
+                // Data
+                var docs = yield col.distinct(key);
+                res.send(200, docs);
+                return next();
+            }
+        }).catch(function(err) {
+            db.insertLogs('ERROR: (mp3s.getDistinctKey) '+err);
+            res.send(500, err);
+            return next();
+        });
+    },
+
     /**
      * Return an array of all mp3 records using optional parameters
      * @param  {Object}   req   request
