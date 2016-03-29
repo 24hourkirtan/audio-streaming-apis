@@ -41,4 +41,20 @@ describe("Public GET Endpoints\n+++++++++++++++++++++++++++++++++++",function(){
             done();
         });
     });
+
+    it("should return GET /mp3s/key/album with status 200",function(done){
+        server.get("/mp3s/key/album")
+        .set('Accept-Version', '1.0.0')
+        .set('Content-Type', 'application/json')
+        .expect("Content-type",/json/)
+        .expect(200) // THis is HTTP response
+        .end(function(err,res){
+            // HTTP status should be 200
+            res.status.should.equal(200);
+            res.body.should.be.an.instanceOf(Array);
+            // Error key should be false.
+            should.not.exist(err, 'err was not null');
+            done();
+        });
+    });
 });
