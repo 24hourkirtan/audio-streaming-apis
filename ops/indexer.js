@@ -73,10 +73,15 @@ module.exports = {
             fes.forEachAsync(files, function (next, file, index, array) {
                 if(path.extname(file) == ".mp3"){
                     try{
-                        new jsmediatags.Reader(file).setTagsToRead(["title", "year", "album", "year", "genre", "picture", "size"])
+                        var projection = ["title", "year", "album", "year", "genre", "picture", "size"];
+                        if(collection == 'mp3s'){
+                            projection = ["title", "artist", "year", "album", "year", "genre", "picture", "size"];
+                        }
+
+                        new jsmediatags.Reader(file).setTagsToRead(projection)
                         .read({
                             onSuccess: function(id3) {
-                              upsertMP3(file, id3, collection, next);
+                                upsertMP3(file, id3, collection, next);
                             },
                             onError: function(error) {
                                 db.insertLogs('ERROR: (Indexer) jsmediatags.read: '+ error);
