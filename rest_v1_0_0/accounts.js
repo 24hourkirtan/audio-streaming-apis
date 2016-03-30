@@ -46,12 +46,14 @@ module.exports = {
         var aid = jwt.verifyToken(req, res, next);
 
         co(function*() {
-            var col = db.conn.collection('accounts');
-            var doc = yield col.findOne( {_id:ObjectID(aid)});
-            assert.ok((doc.email), 'account not found');
-            delete doc.pswd;
-            res.send(200, doc);
-            return next();
+            if(aid != null){
+                var col = db.conn.collection('accounts');
+                var doc = yield col.findOne( {_id:ObjectID(aid)});
+                assert.ok((doc.email), 'account not found');
+                delete doc.pswd;
+                res.send(200, doc);
+                return next();
+            }
         }).catch(function(err) {
             db.insertLogs('ERROR: (accounts.get) '+err);
             res.send(500, err);
