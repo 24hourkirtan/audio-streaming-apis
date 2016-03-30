@@ -6,13 +6,13 @@ var ObjectID = require('mongodb').ObjectID;
 var db = require('../ops/db');
 
 /**
- * Export all functions that manage the database LOGS collection
+ * Export all functions that manage the database LOGS collection.
  * @type {Object}
  */
 module.exports = {
 
     /**
-     * Return an array of all log records using optional parameters
+     * Return an array of all log records using optional parameters.
      * @param  {Object}   req   request
      * @param  {Object}   res   respone
      * @param  {next}     next  restify route pattern
