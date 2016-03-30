@@ -57,19 +57,21 @@ ___
     "data": "..."
   },
   "orphaned": false,
+  "restricted": false,
   "path": "/Users/warren/Downloads/_media/aindra/10.02.28-gaura-purnima.mp3",
   "size": 12278,
   "title": "Gaura Purnima Kirtan 02/28/2010 - Track 4",
   "year": "2010"
   }
 ```
-* __ _id:__ (Object ID) MongoDB system ID
+* __ _id:__ (Object ID) MongoDB system ID.
 * __album:__ (string)
 * __artist:__ (string)
 * __genre:__ (string)
-* __image:__ ({format, data}) The image content (data) and format of the picture
-* __orphaned:__ (boolean) false the mp3 file exists, true it is missing
-* __path:__ (string) File system path to the mp3 file
+* __image:__ ({format, data}) The image content (data) and format of the picture.
+* __orphaned:__ (boolean) false the mp3 file exists, true it is missing.
+* __restricted:__ (boolean) MP3s marked as true require the user be authenticated.
+* __path:__ (string) File system path to the mp3 file.
 * __size:__ (number)
 * __title:__ (string)
 * __year:__ (number)
@@ -100,13 +102,13 @@ ___
   "year" : null
 }
 ```
-* __ _id:__ (Object ID) MongoDB system ID
+* __ _id:__ (Object ID) MongoDB system ID.
 * __album:__ (string)
 * __artist:__ (string)
 * __genre:__ (string)
-* __image:__ ({format, data}) The image content (data) and format of the picture
-* __orphaned:__ (boolean) false the mp3 file exists, true it is missing
-* __path:__ (string) File system path to the mp3 file
+* __image:__ ({format, data}) The image content (data) and format of the picture.
+* __orphaned:__ (boolean) false the mp3 file exists, true it is missing.
+* __path:__ (string) File system path to the mp3 file.
 * __size:__ (number)
 * __title:__ (string)
 * __year:__ (number)
@@ -125,7 +127,8 @@ The LOGS collection has an TTL index on dttm set for seven days.
 ```
 * __ _id:__ (Object ID) MongoDB system ID.
 * __dttm:__ (date) Date time of record creation (TTL seven days).
-* __msg:__ (string) Message loggd
+* __msg:__ (string) Message logged.
+* __data:__ (string) Misc object normally used to hold error objects.
 
 
 

@@ -46,6 +46,13 @@ __[config.json](/index.html?md=pages_config.md)__
 to run the project. It must be created once and then copied to each directory that represents a
 release tag.
 
+Copy the config.json file from dev to stage or prod.
+
+```bash
+$ scp -i ~/.ssh/id_rsa config.json  \
+[user]@api.kirtan.io:/var/audio-streaming-apis_v1.0.0-alpha.2/config.json
+```
+
 
 ___
 ## SSL certificates
@@ -60,7 +67,13 @@ Best practice is to get an authenticate certificate from a signing authority.
 Otherwise create a __[new self-signed certificate](/index.html?md=pages_ssl.md)__
  for stage and production.
 
-To use self-signed certificates from dev on stage copy the dev certificate to stage.
+Create a new certs directory.
+
+```bash
+mkdir /var/audio-streaming-apis_v1.0.0-alpha.2/certs
+```
+
+Copy the self-signed certificates from dev to stage or prod.
 
 ```bash
 $ cd ~/[development-project-path]
@@ -69,8 +82,8 @@ $ cd ~/[development-project-path]
 $ scp -i ~/.ssh/id_rsa   certs/server-key.pem  \
 [user]@api.kirtan.io:/var/audio-streaming-apis_v1.0.0-alpha.2/certs/server-key.pem
 
-$ scp -i ~/.ssh/id_rsa   certs/dev-server-cert.pem  \
-[user]@api.kirtan.io:/var/[project]/certs/server-cert.pem
+$ scp -i ~/.ssh/id_rsa   certs/server-cert.pem  \
+[user]@api.kirtan.io:/var/audio-streaming-apis_v1.0.0-alpha.2/certs/server-cert.pem
 ```
 
 

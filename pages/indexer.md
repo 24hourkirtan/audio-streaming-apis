@@ -8,6 +8,8 @@ located on the file system. It imports the information into the database as meta
 
 * New MP3 files are inserted using an UPSERT command if they do not exists in the database
 
+* New MP3 files (excludes jingles) that exist in the /restricted/ directory are flagged as restricted
+
 * MP3 files that already exist in the database are updated using an UPSERT command
 
 * MP3 files that no longer exist on the file system are tagged as orphaned for administrative

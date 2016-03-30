@@ -2,7 +2,8 @@
   <h1  id="page-title">Endpoints > Playlists</h1>
 </div>
 
-Each user can create multiple playlists containing unlimited MP3 files.
+The playlists collection holds all user defined playlists. Each user can create multiple playlists containing unlimited MP3 files.
+Authentication is required for all endpoints.
 
 <table id="tbl">
   <colgroup>

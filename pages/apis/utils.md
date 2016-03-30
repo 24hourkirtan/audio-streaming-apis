@@ -2,7 +2,7 @@
   <h1  id="page-title">Endpoints > Utils</h1>
 </div>
 
-
+Authentication is not required for all endpoints.
 
 <table id="tbl">
   <colgroup>

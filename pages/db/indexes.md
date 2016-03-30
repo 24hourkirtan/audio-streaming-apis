@@ -66,6 +66,25 @@ key is not considered for queries to GET /mp3/:\_id, the client must handle orph
 ```
 
 ___
+#### Restricted on MP3S
+
+Indexes the restricted key which is used to filter requests for non-authenticated users.
+
+```javascript
+> use kirtan
+
+> db.mp3s.createIndex( { restricted: 1 }, {name: "mp3s_restricted"} );
+
+// Results
+{
+  "createdCollectionAutomatically" : false,
+  "numIndexesBefore" : 3,
+  "numIndexesAfter" : 4,
+  "ok" : 1
+}
+```
+
+___
 #### Orphans on JINGLES
 
 Queries to GET /jingles/random filter on "orphaned". This index provides query optimization.

@@ -2,11 +2,13 @@
   <h1  id="page-title">Endpoints > Jingles</h1>
 </div>
 
-The jingles collection holds all id3 information extracted from the available jinlge files
-on the fie system. Records are read only and have been written to this collection by the Indexer.
+The jingles collection holds all id3 information extracted from the available jingle files
+on the file system. Records are read only and have been written to this collection by the Indexer.
+Authentication is not required for all endpoints.
 
 <table id="tbl">
   <colgroup>
+    <col>
     <col>
     <col>
     <col>
@@ -16,7 +18,8 @@ on the fie system. Records are read only and have been written to this collectio
     <th>Endpoint</th>
     <th>Summary</th>
   </tr>
-  <tr><td>GET</td><td><a href="#get.jingle.random">/jingle/random</a></td><td>gets a random jingle record for an authenticated user</td></tr>
+  <tr><td>GET</td><td><a href="#get.jingle.random">/jingle/random</a></td>
+  <td>gets a random jingle record for an authenticated user</td></tr>
 
 </table>
 

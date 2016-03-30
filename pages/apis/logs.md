@@ -5,6 +5,7 @@
 The logs collection holds logging record mostly created by the endpoints for errors.
 The Indexer also logs information related to the completion of the indexing process. The LOGS
 collection is set as TTL on the DTTM key. All records auto delete after seven days.
+Authentication is required for all endpoints.
 
 <table id="tbl">
   <colgroup><col><col><col></colgroup>

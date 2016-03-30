@@ -2,8 +2,8 @@
   <h1  id="page-title">Endpoints > Accounts</h1>
 </div>
 
-The mp3s collection holds all id3 information extracted from the available mp3 files
-on the fie system. Records are read only and have been written to this collection by the Indexer.
+The accounts collection holds all user accounts.
+Authentication is required for all endpoints.
 
 <table id="tbl">
   <colgroup>

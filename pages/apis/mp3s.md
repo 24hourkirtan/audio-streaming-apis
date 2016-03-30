@@ -3,10 +3,12 @@
 </div>
 
 The mp3s collection holds all id3 information extracted from the available mp3 files
-on the fie system. Records are read only and have been written to this collection by the Indexer.
+on the fie system. Records are read only and have been written to this collection by the Indexer. All endpoints
+can be accessed with or without authentication. Without authentication restricted MP3s are filtered out.
 
 <table id="tbl">
   <colgroup>
+    <col>
     <col>
     <col>
     <col>
@@ -14,16 +16,30 @@ on the fie system. Records are read only and have been written to this collectio
   <tr>
     <th>Verb</th>
     <th>Endpoint</th>
+    <th>JWT</th>
     <th>Summary</th>
   </tr>
-  <tr><td>GET</td><td><a href="#get.mp3s">/mp3s</a></td><td>gets a list of mp3 records for an authenticated user, includes filtering/sort/paging options</td></tr>
-  <tr><td>GET</td><td><a href="#get.mp3s.key">/mp3s/key/:key</a></td><td>gets a distinct list of key values</td></tr>
-  <tr><td>GET</td><td><a href="#get.mp3">/mp3/:\_id</a></td><td>gets a single mp3 record for an authenticated user</td></tr>
+  <tr><td>GET</td><td><a href="#get.mp3s">/mp3s</a></td>
+    <td>X <sup>1</sup></td>
+    <td>gets a list of mp3 records for an authenticated user, includes filtering/sort/paging options</td></tr>
+  <tr><td>GET</td><td><a href="#get.mp3s.distinctkey">/mp3s/distinctkey/:key</a></td>
+    <td>X <sup>1</sup></td>
+    <td>gets a distinct list of key values</td></tr>
+  <tr><td>GET</td><td><a href="#get.mp3s.key">/mp3s/key/:key</a></td>
+    <td>X <sup>1</sup></td>
+    <td>gets mp3 records using a declared key/value pair with optional parameters</td></tr>
+  <tr><td>GET</td><td><a href="#get.mp3">/mp3/:\_id</a></td>
+    <td>X <sup>1</sup></td>
+    <td>gets a single mp3 record for an authenticated user</td></tr>
 </table>
 
+<br/>
+<sup>1</sup> Can be accessed with or without authentication.
 
 
 
+> <span style="font-size:small;color:red;">When accessing MP3 endpoints without authentication records
+marked as restricted are not included.</span>  
 
 <a name="get.mp3s"></a>
 <!-- GET /mp3s ----------------------------------------- -->
@@ -130,7 +146,7 @@ curl -v -k -H "$(cat headers.txt)" \
 | python -mjson.tool
 ```
 ```javascript
-$http.defaults.headers.common['jwt'] = jwt;
+$http.defaults.headers.common['jwt'] = jwt; // optional authentication
 $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
 $http({ method:'GET',
@@ -153,7 +169,7 @@ $ curl -v -k -X GET \
 | python -mjson.tool
 ```
 ```javascript
-$http.defaults.headers.common['jwt'] = jwt;
+$http.defaults.headers.common['jwt'] = jwt; // optional authentication
 $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
 $http({ method:'GET',
@@ -171,16 +187,16 @@ $http({ method:'GET',
 
 
 
-<a name="get.mp3s.key"></a>
-<!-- GET /mp3/key/:key ----------------------------------------- -->
+<a name="get.mp3s.distinctkey"></a>
+<!-- GET /mp3/distinctkey/:key ----------------------------------------- -->
 <!-- -->
 <!-- -->
 <!-- -->
 ___
-## GET /mp3s/key/:key
+## GET /mp3s/distinctkey/:key
 Gets a distinct list of key values from the MP3s collection. Any key can be queried.
 A valid key would return a distinct list of the key values including nulls. The list is not sorted.
-An invalid key returns no results. This endpoint does not require authentication.
+An invalid key returns no results.
 
 #### Parameters
 <table id="tbl">
@@ -199,7 +215,7 @@ An invalid key returns no results. This endpoint does not require authentication
 
 ##### Example Parameter
 ```bash
-/mp3s/key/artist
+/mp3s/distinctkey/artist
 ```
 
 #### Inputs
@@ -226,15 +242,16 @@ Return a distinct list of artists. Authentication is not required.
 ```bash
 $ curl -v -k - X GET \
 -H "$(cat headers.txt)" \
-"https://localhost:8081/mp3s/key/artist" \
+"https://localhost:8081/mp3s/distinctkey/artist" \
 | python -mjson.tool
 ```
 
 ```javascript
+$http.defaults.headers.common['jwt'] = jwt; // optional authentication
 $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
 $http({ method:'GET',
-        url:'https://localhost:8081/mp3s/key/artist'})
+        url:'https://localhost:8081/mp3s/distinctkey/artist'})
 .then(
     function successCallback(res) {
         console.log(res.data);
@@ -244,6 +261,88 @@ $http({ method:'GET',
     }
 );
 ```
+
+
+
+
+<a name="get.mp3s.key"></a>
+<!-- GET /mp3/key/:key ----------------------------------------- -->
+<!-- -->
+<!-- -->
+<!-- -->
+___
+## GET /mp3s/key/:key
+Gets a list of mp3 records using a search declared using a key/value pair with optional parameters.
+Any key can be searched. The list can be sorted. An invalid key returns no results.
+
+#### Parameters
+<table id="tbl">
+  <colgroup>
+    <col>
+    <col>
+    <col>
+  </colgroup>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+  </tr>
+  <tr><td>key</td><td>string</td><td>The key to search against. Part of the URI.</td></tr>
+  <tr><td>q</td><td>string</td><td>Text to search for against the declared key. Defaults: ?: (everything)</td></tr>
+  <tr><td>operator</td><td>string</td><td>Type of search operation (equals, contains, beginswith, endswidth). Default: equals.</td></tr>
+  <tr><td>sort</td><td>string</td><td>The key to sort by, can be different than the searchable key.</td></tr>
+  <tr><td>order</td><td>string</td><td>Defines the sort order (asc or desc). Default: desc.</td></tr>
+  <tr><td>image</td><td>string</td><td>Used to exclude or include the image data for the mp3 file. Default: true.</td></tr>
+</table>
+
+##### Example Parameters
+```bash
+/mp3s/key/artist
+/mp3s/key/artist?q=bala&operator=contains
+/mp3s/key/artist?q=bala&operator=contains&sort=title
+/mp3s/key/artist?q=bala&operator=contains&sort=title&order=asc
+/mp3s/key/artist?q=bala&operator=contains&sort=title&order=asc&image=false
+```
+
+#### Inputs
+* None
+
+#### Returns
+
+
+```json
+# will be udpated when pagination is added
+[
+
+]
+```
+
+
+#### Examples
+Return a distinct list of artists. Authentication is not required.
+```bash
+$ curl -v -k - X GET \
+-H "$(cat headers.txt)" \
+"https://localhost:8081/mp3s/key/artist?q=bala&operator=contains" \
+| python -mjson.tool
+```
+
+```javascript
+$http.defaults.headers.common['jwt'] = jwt; // optional authentication
+$http.defaults.headers.common['Accept-Version'] = '1.0.0';
+$http.defaults.headers.common['Content-Type'] = 'application/json';
+$http({ method:'GET',
+        url:'https://localhost:8081/mp3s/key/artist?q=bala&operator=contains'})
+.then(
+    function successCallback(res) {
+        console.log(res.data);
+    },
+    function errorCallback(res) {
+        console.log(res);
+    }
+);
+```
+
 
 
 
@@ -288,9 +387,11 @@ Gets a specific mp3 record using the \_id.
     "artist": "Govinda",
     "genre": "Kirtan",
     "image": {
-        "format": "image/jpeg"
+        "format": "image/jpeg",
+        "data": "234j34ufufdsu9u...",
     },
     "path": "/Users/warren/Downloads/mp3-id3-tag-samples/studio/govinda-prabhu/akhanda-nam/01 Madhukosh 4.01.mp3",
+    "restricted":false,
     "size": 181526,
     "title": "Madhukosh",
     "year": "2011"
@@ -313,7 +414,7 @@ $ curl -v -k -X GET \
 | python -mjson.tool
 ```
 ```javascript
-$http.defaults.headers.common['jwt'] = jwt;
+$http.defaults.headers.common['jwt'] = jwt; // optional authentication
 $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
 $http({ method:'GET',

@@ -4,13 +4,15 @@
 
 The API supports JWT Authentication over SSL. To use any secure endpoint a JWT token must
 be acquired using the username (email) and password of a valid account. Any subsequent call to a
-secure endpoint must carry the token of the request header.
+secure endpoint must carry the token of the request header. Not all endpoints require a JWT token. Some endpoints
+will respond with or without a JWT token. Those that respond without will return a filtered result
+set of non-restricted materials.
 
 
 #### curl -v -H "$(cat headers.txt)" yourhost.com
 
 The following curl example shows how to get a token using Basic Auth. The -u parameter will
-convert the credential to a header osbject while the version is set directly into the header.
+convert the credential to a header object while the version is set directly into the header.
 
 
 ```bash

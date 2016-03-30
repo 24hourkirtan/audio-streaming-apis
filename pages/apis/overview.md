@@ -144,19 +144,25 @@ ___
   <tr>
     <td NOWRAP>GET /mp3s</td>
     <td>X</td>
-    <td>X</td>
+    <td>X <sup>1</sup></td>
     <td>gets a list of mp3 records for an authenticated user, includes filtering/sort/paging options</td>
+  </tr>
+  <tr>
+    <td NOWRAP>GET /mp3s/distinctkey/:key</td>
+    <td>X</td>
+    <td>X <sup>1</sup></td>
+    <td>gets a distinct list of key values</td>
   </tr>
   <tr>
     <td NOWRAP>GET /mp3s/key/:key</td>
     <td>X</td>
-    <td></td>
-    <td>gets a distinct list of key values</td>
+    <td>X <sup>1</sup></td>
+    <td>gets mp3 records using a declared key/value pair with optional parameters</td>
   </tr>
   <tr>
     <td NOWRAP>GET /mp3/:\_id</td>
     <td>X</td>
-    <td>X</td>
+    <td>X <sup>1</sup></td>
     <td>gets a single mp3 record for an authenticated user</td>
   </tr>
 
@@ -164,7 +170,7 @@ ___
   <tr>
     <td NOWRAP>GET /jingle/random</td>
     <td>X</td>
-    <td>X</td>
+    <td></td>
     <td>gets a random jingle record for an authenticated user</td>
   </tr>
 
@@ -177,6 +183,9 @@ ___
   </tr>
 
 </table>
+
+<br/>
+<sup>1</sup> Can be accessed with or without authentication.
 
 ___
 #### Ionic GET example
