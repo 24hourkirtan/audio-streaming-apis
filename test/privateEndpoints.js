@@ -24,6 +24,7 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
           email = result.email;
           password = result.password;
           done();
+          console.log('      | >>>  Email submitted:', result.email);
         });
     });
 
@@ -36,18 +37,16 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
         .set('Authorization', auth)
         .set('Content-Type', 'application/json')
         .expect("Content-type",/json/)
-        .expect(200) // THis is HTTP response
+        .expect(200)
         .end(function(err,res){
-            // HTTP status should be 200
             res.status.should.equal(200);
             res.body.should.be.an.instanceOf(Object);
             res.body.should.have.property('jwt');
             jwt = res.body.jwt;
             aid = res.body._id;
-            console.log('      | >>>  Your JWT Token:', res.body.jwt.substring(1, 20)+"...");
-            // Error key should be false.
             should.not.exist(err, 'err was not null');
             done();
+            console.log('      | >>>  Your JWT Token:', res.body.jwt.substring(1, 20)+"...");
         });
     });
 
@@ -57,16 +56,14 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
         .set('jwt', jwt)
         .set('Content-Type', 'application/json')
         .expect("Content-type",/json/)
-        .expect(200) // THis is HTTP response
+        .expect(200)
         .end(function(err,res){
-            // HTTP status should be 200
             res.status.should.equal(200);
             res.body.mp3s.should.be.an.instanceOf(Array);
             res.body.mp3s.length.should.be.exactly(10);
-            console.log('      | >>>  MP3s array length:', res.body.mp3s.length);
-            // Error key should be false.
             should.not.exist(err, 'err was not null');
             done();
+            console.log('      | >>>  MP3s array length:', res.body.mp3s.length);
         });
     });
 
@@ -76,16 +73,14 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
         .set('jwt', jwt)
         .set('Content-Type', 'application/json')
         .expect("Content-type",/json/)
-        .expect(200) // THis is HTTP response
+        .expect(200)
         .end(function(err,res){
-            // HTTP status should be 200
             res.status.should.equal(200);
             res.body.should.be.an.instanceOf(Object);
             res.body.should.have.property('title');
-            console.log('      | >>>  Title:', res.body.title);
-            // Error key should be false.
             should.not.exist(err, 'err was not null');
             done();
+            console.log('      | >>>  Title:', res.body.title);
         });
     });
 
@@ -95,15 +90,29 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
         .set('jwt', jwt)
         .set('Content-Type', 'application/json')
         .expect("Content-type",/json/)
-        .expect(200) // THis is HTTP response
+        .expect(200)
         .end(function(err,res){
-            // HTTP status should be 200
             res.status.should.equal(200);
             res.body.should.be.an.instanceOf(Array);
-            console.log('      | >>>  Playlists array length:', res.body.length);
-            // Error key should be false.
             should.not.exist(err, 'err was not null');
             done();
+            console.log('      | >>>  Playlists array length:', res.body.length);
+        });
+    });
+
+    it("should return GET /mp3s/key/album?q=balaram&operator=contains&sort=title&order=asc with status 200",function(done){
+        server.get("/mp3s/key/album?q=balaram&operator=contains&sort=title&order=asc")
+        .set('Accept-Version', '1.0.0')
+        .set('jwt', jwt)
+        .set('Content-Type', 'application/json')
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err,res){
+            res.status.should.equal(200);
+            res.body.should.be.an.instanceOf(Array);
+            should.not.exist(err, 'err was not null');
+            done();
+            console.log('      | >>>  balaram cnt:', res.body.length);
         });
     });
 
@@ -115,13 +124,11 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
         .expect("Content-type",/json/)
         .expect(200) // THis is HTTP response
         .end(function(err,res){
-            // HTTP status should be 200
             res.status.should.equal(200);
             res.body.should.be.an.instanceOf(Object);
-            console.log('      | >>>  Email:', res.body.email);
-            // Error key should be false.
             should.not.exist(err, 'err was not null');
             done();
+            console.log('      | >>>  Email:', res.body.email);
         });
     });
 
@@ -131,15 +138,13 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
         .set('jwt', jwt)
         .set('Content-Type', 'application/json')
         .expect("Content-type",/json/)
-        .expect(200) // THis is HTTP response
+        .expect(200)
         .end(function(err,res){
-            // HTTP status should be 200
             res.status.should.equal(200);
             res.body.should.be.an.instanceOf(Object);
-            console.log('      | >>>  Logs array length:', res.body.logs.length);
-            // Error key should be false.
             should.not.exist(err, 'err was not null');
             done();
+            console.log('      | >>>  Logs array length:', res.body.logs.length);
         });
     });
 
