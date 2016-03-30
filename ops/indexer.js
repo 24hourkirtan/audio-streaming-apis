@@ -155,6 +155,10 @@ function upsertMP3(file, id3, collection, callback){
         id3.tags.picture.format = 'image/png';
         id3.tags.picture.data = logoImage;
     }
+    var restricted = false;
+    if(file.indexOf('/restricted/') > -1){
+        restricted = true;
+    }
     co(function* () {
         var result = yield collection.findOneAndUpdate({path:file},
               {$set: {title: id3.tags.title,
@@ -164,6 +168,7 @@ function upsertMP3(file, id3, collection, callback){
                       genre: id3.tags.genre,
                       size: id3.size,
                       orphaned:false,
+                      restricted: restricted,
                       image:{format:id3.tags.picture.format,
                                data:id3.tags.picture.data
                              }
