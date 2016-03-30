@@ -12,7 +12,7 @@ var db = require('../ops/db');
 module.exports = {
 
     /**
-     * Gets a single random jingle record using the record id
+     * Gets a single random jingle record. no authentication is required.
      * @param  {object}   req   request
      * @param  {object}   res   respone
      * @param  {next}     next  restify route pattern
@@ -20,14 +20,11 @@ module.exports = {
      */
     getRandom: function(req, res, next) {
         res.setHeader('X-Version', '1.0.0');
-        var aid = jwt.verifyToken(req, res, next);
         var projection = {};
         if (req.params.image == 'false'){
             projection = {"image.data":0};
         }
         co(function*() {
-            if(aid != null){
-
                 var col = db.conn.collection('jingles');
                 var cnt = yield col.count();
                 var skip = Math.floor((Math.random() * cnt));
@@ -36,7 +33,6 @@ module.exports = {
                 assert.ok((docs.length == 1), 'a random jingle was not found');
                 res.send(200, docs[0]);
                 return next();
-            }
         }).catch(function(err) {
             db.insertLogs('ERROR: (jingle.getRandom) '+err);
             res.send(500, err);
