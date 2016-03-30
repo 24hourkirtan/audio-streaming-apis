@@ -6,7 +6,7 @@ var ObjectID = require('mongodb').ObjectID;
 var db = require('../ops/db');
 
 /**
- * Export all functions that manage the database PLAYLISTS collection
+ * Export all functions that manage the database PLAYLISTS collection.
  * @type {Object}
  */
 module.exports = {
@@ -15,10 +15,12 @@ module.exports = {
         res.setHeader('X-Version', '1.0.0');
         var aid = jwt.verifyToken(req, res, next);
         co(function*() {
-            var col = db.conn.collection('playlists');
-            var docs = yield col.find({aid:ObjectID(aid)}).sort({name:1}).toArray();
-            res.send(200, docs);
-            return next();
+            if(aid != null){
+                var col = db.conn.collection('playlists');
+                var docs = yield col.find({aid:ObjectID(aid)}).sort({name:1}).toArray();
+                res.send(200, docs);
+                return next();
+            }
         }).catch(function(err) {
             db.insertLogs('ERROR: (playlists.getAll) '+err);
             res.send(500, err);
@@ -31,11 +33,13 @@ module.exports = {
         var aid = jwt.verifyToken(req, res, next);
         var p = req.params;
         co(function*() {
-            var col = db.conn.collection('playlists');
-            var doc = yield col.findOne( {_id:ObjectID(p._id), aid:ObjectID(aid)});
-            assert.ok((doc.aid), 'playlist not found');
-            res.send(200, doc);
-            return next();
+            if(aid != null){
+                var col = db.conn.collection('playlists');
+                var doc = yield col.findOne( {_id:ObjectID(p._id), aid:ObjectID(aid)});
+                assert.ok((doc.aid), 'playlist not found');
+                res.send(200, doc);
+                return next();
+            }
         }).catch(function(err) {
             db.insertLogs('ERROR: (playlists.get) '+err);
             res.send(500, err);
