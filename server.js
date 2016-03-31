@@ -123,6 +123,7 @@ server.patch({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.modify)
 server.del({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.delete);
 
 server.get({path: "/logs", version: '1.0.0'}, logs_1_0_0.getAll);
+server.get({path: "/id3", version: '1.0.0'}, utils_1_0_0.getId3Tags);
 
 
 // ----------------------------------------
