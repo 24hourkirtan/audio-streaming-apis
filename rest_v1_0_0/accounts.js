@@ -3,7 +3,6 @@ var db = require('../ops/db'),
 const assert = require('assert');
 var jwt = require("../utils/jwt.js");
 var ObjectID = require('mongodb').ObjectID;
-var db = require('../ops/db');
 
 /**
  * Export all functions that manage the database ACCOUNTS collection
