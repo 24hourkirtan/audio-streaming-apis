@@ -290,7 +290,9 @@ Any key can be searched. The list can be sorted. An invalid key returns no resul
   <tr><td>key</td><td>string</td><td>The key to search against. Part of the URI.</td></tr>
   <tr><td>q</td><td>string</td><td>Text to search for against the declared key. Defaults: ?: (everything)</td></tr>
   <tr><td>operator</td><td>string</td><td>Type of search operation (equals, contains, beginswith, endswidth). Default: equals.</td></tr>
-  <tr><td>sort</td><td>string</td><td>The key to sort by, can be different than the searchable key.</td></tr>
+  <tr><td>limit</td><td>string</td><td>Number of records to return. Default: 10.</td></tr>
+  <tr><td>skip</td><td>string</td><td>Number of records to skip over before starting the limit count. Default: 0.</td></tr>
+  <tr><td>sort</td><td>string</td><td>The key to sort by, can be different than the searchable key. Defaults: [key].</td></tr>
   <tr><td>order</td><td>string</td><td>Defines the sort order (asc or desc). Default: desc.</td></tr>
   <tr><td>image</td><td>string</td><td>Used to exclude or include the image data for the mp3 file. Default: true.</td></tr>
 </table>
@@ -302,6 +304,7 @@ Any key can be searched. The list can be sorted. An invalid key returns no resul
 /mp3s/key/artist?q=bala&operator=contains&sort=title
 /mp3s/key/artist?q=bala&operator=contains&sort=title&order=asc
 /mp3s/key/artist?q=bala&operator=contains&sort=title&order=asc&image=false
+/mp3s/key/artist?q=bala&operator=contains&sort=title&order=asc&image=false&limit=4&skip=4
 ```
 
 #### Inputs
@@ -312,18 +315,61 @@ Any key can be searched. The list can be sorted. An invalid key returns no resul
 
 ```json
 # will be udpated when pagination is added
-[
-
-]
+{
+    "_key": "artist",
+    "_limit": 2,
+    "_next": "/mp3s/key/artist?q=Aindra&operator=equals&limit=2&skip=4&sort=year&order=desc&image=false",
+    "_operator": "equals",
+    "_order": "desc",
+    "_prev": "/mp3s/key/artist?q=Aindra&operator=equals&limit=2&skip=0&sort=year&order=desc&image=false",
+    "_q": "Aindra",
+    "_remainingCnt": 1,
+    "_returnedCnt": 2,
+    "_skip": 2,
+    "_sort": "year",
+    "_totalCnt": 5,
+    "mp3s": [
+        {
+            "_id": "56f9620c37545bf3b7ab5e3c",
+            "album": "Krishna Balaram Mandir",
+            "artist": "Aindra",
+            "genre": "Kirtan",
+            "image": {
+                "format": "image/png"
+            },
+            "orphaned": false,
+            "path": "/Users/warren/Downloads/_media/aindra/10.02.28-gaura-purnima-3.mp3",
+            "restricted": false,
+            "size": 95450,
+            "title": "Gaura Purnima Kirtan 02/28/2010 - Track 3",
+            "year": "2010"
+        },
+        {
+            "_id": "56f9620c37545bf3b7ab5e3e",
+            "album": "Krishna Balaram Mandir",
+            "artist": "Aindra",
+            "genre": "Kirtan",
+            "image": {
+                "format": "image/png"
+            },
+            "orphaned": false,
+            "path": "/Users/warren/Downloads/_media/aindra/10.03.05_2.mp3",
+            "restricted": false,
+            "size": 95450,
+            "title": "Temple Kirtan 2010/03/05 Part 2",
+            "year": "2010"
+        }
+    ]
+}
 ```
 
 
 #### Examples
-Return a distinct list of artists. Authentication is not required.
+Returns a search based on the artist key, no image, sorted by year, limit of 2 and skips the first 2 records.
 ```bash
 $ curl -v -k - X GET \
 -H "$(cat headers.txt)" \
-"https://localhost:8081/mp3s/key/artist?q=bala&operator=contains" \
+"https://localhost:8081/mp3s/key/artist?q=Aindra&image=false&sort=year&limit=2&skip=2" \
 | python -mjson.tool
 ```
 
@@ -332,7 +378,7 @@ $http.defaults.headers.common['jwt'] = jwt; // optional authentication
 $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
 $http({ method:'GET',
-        url:'https://localhost:8081/mp3s/key/artist?q=bala&operator=contains'})
+        url:'https://localhost:8081/mp3s/key/artist?q=Aindra&image=false&sort=year&limit=2&skip=2'})
 .then(
     function successCallback(res) {
         console.log(res.data);
