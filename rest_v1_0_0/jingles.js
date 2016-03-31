@@ -3,7 +3,6 @@ var db = require('../ops/db'),
 const assert = require('assert');
 var jwt = require("../utils/jwt.js");
 var ObjectID = require('mongodb').ObjectID;
-var db = require('../ops/db');
 
 /**
  * Export all functions that manage the database JINGLES collection
@@ -12,7 +11,7 @@ var db = require('../ops/db');
 module.exports = {
 
     /**
-     * Gets a single random jingle record. no authentication is required.
+     * Gets a single random jingle record. No authentication is required.
      * @param  {object}   req   request
      * @param  {object}   res   respone
      * @param  {next}     next  restify route pattern
