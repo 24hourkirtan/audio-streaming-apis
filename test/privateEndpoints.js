@@ -50,7 +50,7 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
         });
     });
 
-    it("should return GET /mp3s with status 200",function(done){
+    it("should return GET /mp3s?image=false with status 200",function(done){
         server.get("/mp3s?image=false")
         .set('Accept-Version', '1.0.0')
         .set('jwt', jwt)
@@ -61,6 +61,7 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
             res.status.should.equal(200);
             res.body.mp3s.should.be.an.instanceOf(Array);
             res.body.mp3s.length.should.be.exactly(10);
+            res.body._totalCnt.should.equal(res.body._remainingCnt + res.body._returnedCnt + res.body._skip);
             should.not.exist(err, 'err was not null');
             done();
             console.log('      | >>>  MP3s array length:', res.body.mp3s.length);
@@ -109,7 +110,8 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
         .expect(200)
         .end(function(err,res){
             res.status.should.equal(200);
-            res.body.should.be.an.instanceOf(Array);
+            res.body.should.be.an.instanceOf(Object);
+            res.body._totalCnt.should.equal(res.body._remainingCnt + res.body._returnedCnt + res.body._skip);
             should.not.exist(err, 'err was not null');
             done();
             console.log('      | >>>  balaram cnt:', res.body.length);
