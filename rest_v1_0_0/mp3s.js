@@ -3,7 +3,6 @@ var db = require('../ops/db'),
 const assert = require('assert');
 var jwt = require("../utils/jwt.js");
 var ObjectID = require('mongodb').ObjectID;
-var db = require('../ops/db');
 
 /**
  * Export all functions that manage the database MP3S collection
@@ -109,6 +108,7 @@ module.exports = {
             // Data
             var docs = yield col.find(query,projection).limit(limit).skip(skip).sort(sortSyntax).toArray();
             var remainingCnt = ((cnt-skip-limit) < 0) ? 0 : (cnt-skip-limit);
+            assert.ok((cnt == docs.length + remainingCnt + skip), 'cnt != docs.length + remainingCnt + skip');
             res.send(200, { _limit:limit,
                             _q:q,
                             _skip:skip,
@@ -180,10 +180,15 @@ module.exports = {
     getAllByKey: function(req, res, next) {
         res.setHeader('X-Version', '1.0.0');
         var key = (req.params.key);
+        var q = (req.params.q);
         var operator = (req.params.operator) ? req.params.operator : 'equals';
         var order = (req.params.order == 'asc') ? -1 : 1;
-        var sortKey = (req.params.sort) ? req.params.sort : "artist";
-        var sort = [];
+        var orderTxt = (req.params.order) ? req.params.order : 'desc';
+        var image = (req.params.image) ? req.params.image : true;
+
+
+        var sortKey = (req.params.sort) ? req.params.sort : key;
+        var sort = {};
         sort[sortKey] = order;
         var restricted = false;
 
@@ -195,21 +200,21 @@ module.exports = {
         }
 
         var projection = {};
-        if (req.params.image == 'false'){
+        if (image == 'false'){
             projection = {"image.data":0};
         }
 
         //http://stackoverflow.com/questions/3305561/how-do-i-query-mongodb-with-like
         var query = {orphaned:false};
         if(operator == 'beginswith')
-            query[key] = new RegExp('^'+req.params.q, 'i');
+            query[key] = new RegExp('^'+q, 'i');
         else if (operator == 'endswith')
-            query[key] = new RegExp(req.params.q+'$', 'i');
+            query[key] = new RegExp(q+'$', 'i');
         else if (operator == 'contains'){
-            query[key] = new RegExp(req.params.q, 'i');
+            query[key] = new RegExp(q, 'i');
           }
         else if (operator == 'equals')
-            query[key] = new RegExp('^'+req.params.q+'$', 'i');
+            query[key] = new RegExp('^'+q+'$', 'i');
         else {
           res.send(500, {msg:'Invalaid operator: '+operator});
           return next();
@@ -217,16 +222,40 @@ module.exports = {
 
         if(restricted != null) query.restricted = false;
 
-        console.log(query)
-
         co(function*() {
             var col = db.conn.collection('mp3s');
-            //var cnt = yield col.count(query);
-            var docs = yield col.find( query, projection ).sort(sort).toArray();
-            res.send(200, docs);
+            var cnt = yield col.count(query);
+
+            var limit = (req.params.limit) ? parseInt(req.params.limit) : 10;
+            var skip = (req.params.skip) ? parseInt(req.params.skip) : 0;
+            var remainingCnt = (cnt-skip-limit < 0) ? 0 : cnt-skip-limit;
+            // Next and Prev
+            var next2 = null;
+            if(skip+limit < cnt)
+                next2 = '/mp3s/key/'+key+'?q='+q+'&operator='+operator+'&limit='+limit+'&skip='+(skip+limit)+'&sort='+sortKey+'&order='+orderTxt+'&image='+image;
+            var prev = null;
+            if(skip >= limit)
+                prev = '/mp3s/key/'+key+'?q='+q+'&operator='+operator+'&limit='+limit+'&skip='+(skip-limit)+'&sort='+sortKey+'&order='+orderTxt+'&image='+image;
+
+            var docs = yield col.find(query,projection).limit(limit).skip(skip).sort(sort).toArray();
+            var remainingCnt = ((cnt-skip-limit) < 0) ? 0 : (cnt-skip-limit);
+            assert.ok((cnt == docs.length + remainingCnt + skip), 'cnt != docs.length + remainingCnt + skip');
+            res.send(200, { _limit:limit,
+                            _key:key,
+                            _q:q,
+                            _operator:operator,
+                            _skip:skip,
+                            _totalCnt:cnt,
+                            _remainingCnt:remainingCnt,
+                            _returnedCnt:docs.length,
+                            _sort:sortKey,
+                            _order:orderTxt,
+                            _next:next2,
+                            _prev:prev,
+                            mp3s:docs});
             return next();
         }).catch(function(err) {
-            db.insertLogs('ERROR: (mp3s.get) '+err);
+            db.insertLogs('ERROR: (mp3s.getAllByKey) '+err);
             res.send(500, err);
             return next();
         });
