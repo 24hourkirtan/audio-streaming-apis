@@ -110,7 +110,6 @@ data set.
                 "format": "image/jpeg"
             },
             "path": "/Users/warren/Downloads/mp3-id3-tag-samples/studio/govinda-prabhu/akhanda-nam-2/Track # 1-Khamaj-Master-2 (master).mp3",
-            "size": 124181,
             "title": "Khamaj",
             "year": "2010"
         },
@@ -123,7 +122,6 @@ data set.
                 "format": "image/jpeg"
             },
             "path": "/Users/warren/Downloads/mp3-id3-tag-samples/studio/govinda-prabhu/akhanda-nam/01 Madhukosh 4.01.mp3",
-            "size": 181526,
             "title": "Madhukosh",
             "year": "2011"
         }
@@ -340,7 +338,6 @@ Any key can be searched. The list can be sorted. An invalid key returns no resul
             "orphaned": false,
             "path": "/Users/warren/Downloads/_media/aindra/10.02.28-gaura-purnima-3.mp3",
             "restricted": false,
-            "size": 95450,
             "title": "Gaura Purnima Kirtan 02/28/2010 - Track 3",
             "year": "2010"
         },
@@ -355,7 +352,6 @@ Any key can be searched. The list can be sorted. An invalid key returns no resul
             "orphaned": false,
             "path": "/Users/warren/Downloads/_media/aindra/10.03.05_2.mp3",
             "restricted": false,
-            "size": 95450,
             "title": "Temple Kirtan 2010/03/05 Part 2",
             "year": "2010"
         }
@@ -438,7 +434,6 @@ Gets a specific mp3 record using the \_id.
     },
     "path": "/Users/warren/Downloads/mp3-id3-tag-samples/studio/govinda-prabhu/akhanda-nam/01 Madhukosh 4.01.mp3",
     "restricted":false,
-    "size": 181526,
     "title": "Madhukosh",
     "year": "2011"
 }

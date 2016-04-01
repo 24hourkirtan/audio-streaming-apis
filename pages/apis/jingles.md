@@ -62,7 +62,6 @@ __[Indexer](/index.html?md=pages_indexer.md)__
   },
   "orphaned": false,
   "path": "/Users/warren/Downloads/_media/jingles/160130-133452-edit.mp3",
-  "size": 10405,
   "title": "Radhadesh Mellows 2016",
   "year": null
 }

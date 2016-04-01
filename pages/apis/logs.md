@@ -82,17 +82,23 @@ data set.
         {
             "_id": "56e72a23ea39b14447cada6f",
             "dttm": "2016-03-14T21:16:19.316Z",
-            "msg": "Indexer: All files finished for :/Users/warren//Downloads/mp3-id3-tag-samples"
+            "msg": "Indexer: All files finished for :/Users/warren//Downloads/mp3-id3-tag-samples",
+            "data": {
+            }
         },
         {
             "_id": "56e72a2abdc10f4a47aab88e",
             "dttm": "2016-03-14T21:16:26.042Z",
-            "msg": "Database started (db.js)"
+            "msg": "Database started (db.js)",
+            "data": {
+            }
         },
         {
             "_id": "56e72a38bdc10f4a47aab88f",
             "dttm": "2016-03-14T21:16:40.856Z",
-            "msg": "Indexer: All files finished for :/Users/warren//Downloads/mp3-id3-tag-samples"
+            "msg": "Indexer: All files finished for :/Users/warren//Downloads/mp3-id3-tag-samples",
+            "data": {
+            }
         },
         ...
 

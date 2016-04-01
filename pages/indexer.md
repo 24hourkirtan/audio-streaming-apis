@@ -4,7 +4,7 @@
 
 The Indexer is a simple self contained module that is run by an interval timer set
 in the server.js file. The Indexer gathers ID3 tag information from MP3 files (both for songs and jingles)
-located on the file system. It imports the information into the database as metadata. The Indexer runs once every 12 hours and reviews all ID3 tags in the MP3 files. The review performs the following CRUD operations.
+located on the file system. It imports the information into the database as metadata. The Indexer runs once every 12 or 13 hours and reviews all ID3 tags in the MP3 files. The review performs the following CRUD operations.
 
 * New MP3 files are inserted using an UPSERT command if they do not exists in the database
 
