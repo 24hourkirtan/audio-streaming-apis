@@ -2,11 +2,12 @@ var path = require('path');
 var recursive = require('recursive-readdir');
 var fes = require('forEachAsync');
 var fs = require('fs');
-var jsmediatags = require("jsmediatags");
 var ObjectID = require('mongodb').ObjectID;
 var db = require('../ops/db'),
     co = require('co'),
     assert = require('assert');
+var fs = require('fs');
+var mm = require('musicmetadata');
 
 
 /**
@@ -55,24 +56,22 @@ module.exports = {
             fes.forEachAsync(files, function (next, file, index, array) {
                 if(path.extname(file) == ".mp3"){
                     try{
-                        var projection = ["title", "year", "album", "year", "genre", "picture", "size"];
-                        if(collection == 'mp3s'){
-                            projection = ["title", "artist", "year", "album", "year", "genre", "picture", "size"];
-                        }
-
-                        new jsmediatags.Reader(file).setTagsToRead(projection)
-                        .read({
-                            onSuccess: function(id3) {
-                                upsertMP3(file, id3, collection, next);
-                            },
-                            onError: function(error) {
-                                db.insertLogs('ERROR: (Indexer) jsmediatags.read: '+ file, error);
+                        var parser = mm(fs.createReadStream(file), function (err, metadata) {
+                            if (err) {
+                                db.insertLogs('ERROR: (Indexer.run) musicmetadata',
+                                { msg:'ERROR: musicmetadata while parsing:',
+                                  file:file,
+                                  err:err.toString()
+                                });
                                 next();
+                            }
+                            else{
+                                upsertMP3(file, metadata, collection, next);
                             }
                         });
                     }
                     catch(err){
-                        db.insertLogs('ERROR: (Indexer) jsmediatags.read.outer.try-block:', err);
+                        db.insertLogs('ERROR: (Indexer) mm.outer.try-block:', err);
                         next();
                     }
                 }
@@ -140,7 +139,7 @@ function getLogoImage(){
 }
 
 /**
- * Updates a record in teh MP#s or JINGLES collection. If the record does not exist
+ * Updates a record in the MP#s or JINGLES collection. If the record does not exist
  * it is created using an upsert operation.
  * @param  {string} file            the path to the MP3 file
  * @param  {Object} id3             the extracted ID3 tag metadata
@@ -148,40 +147,63 @@ function getLogoImage(){
  * @param  {function} callback      the callback for fes.forEachAsync operation
  * @return {Promise}
  */
-function upsertMP3(file, id3, collection, callback){
+function upsertMP3(file, tags, collection, callback){
     var collection = db.conn.collection(collection);
-    if(!id3.tags.picture){
-        id3.tags.picture = {};
-        id3.tags.picture.format = 'image/png';
-        id3.tags.picture.data = logoImage;
+
+
+    var image = {format:'image/png', data:logoImage};
+    if(tags.picture && tags.picture.length > 0){ // ARRAY
+        image = tags.picture[0];
     }
+
+    // TITLE (STRING)
+    var title = (tags.title) ? tags.title : null; if(title == '') title = null;
+
+    var artist = null; // ARTIST (ARRAY)
+    if(tags.artist){
+        artist = (tags.artist.length > 0) ? tags.artist[0] : null;
+    }
+    if(artist == '') artist = null;
+
+    var album = null; // ALBUM (STRING)
+    if(tags.album){
+        album = (tags.album) ? tags.album : null;
+    }
+    if(album == '') album = null;
+
+    var genre = null; // GENRE (ARRAY)
+    if(tags.genre){
+      genre = (tags.genre.length > 0) ? tags.genre[0] : null;
+    }
+    if(genre == '') genre = null;
+
+    // YEAR (STRING)
+    var year = (year) ? year : null; if(year == '') year = null;
+
+    // RESTRICTED (BOOLEAN)
     var restricted = false;
     if(file.indexOf('/restricted/') > -1){
         restricted = true;
     }
+
     co(function* () {
+        //console.log('\nFILE: '+file+'\n', tags)
         var result = yield collection.findOneAndUpdate({path:file},
-              {$set: {title: id3.tags.title,
-                      artist: id3.tags.artist,
-                      album: id3.tags.album,
-                      year: id3.tags.year,
-                      genre: id3.tags.genre,
-                      size: id3.size,
-                      orphaned:false,
-                      restricted: restricted,
-                      image:{format:id3.tags.picture.format,
-                               data:id3.tags.picture.data
-                             }
-                     }
-              },
-              {returnOriginal: false, upsert: true}
+            {$set: {title: title,
+                    artist: artist,
+                    album: album,
+                    year: year,
+                    genre: genre,
+                    orphaned:false,
+                    restricted: restricted,
+                    image:image
+                   }
+            },
+            {returnOriginal: false, upsert: true}
         );
-        return result;
-    }).then(function (data) {
-        //console.log(data);
         callback();
-    }, function (err) {
-        db.insertLogs('ERROR: (Indexer) upsertMP3.co(): '+file, {error:err, "id3":id3} );
+    }).catch(function(err) {
+        db.insertLogs('ERROR: (upsertMP3.co) ', err);
         callback();
     });
 }

@@ -1,6 +1,9 @@
 var db = require('../ops/db');
 const assert = require('assert');
-var jsmediatags = require("jsmediatags");
+var fs = require('fs');
+var mm = require('musicmetadata');
+
+// aslo try mp3-parser, id3v2-parser, avconv_id3, musicmetadata
 
 /**
  * Export public endpoints function
@@ -37,20 +40,24 @@ module.exports = {
       getId3Tags: function(req, res, next) {
           res.setHeader('X-Version', '1.0.0');
           var path = (req.params.path);
-          //var projection = ["title", "year", "album", "year", "genre", "picture", "size"];
-          //new jsmediatags.Reader(path).setTagsToRead(projection)
-          //.read({
-          new jsmediatags.read(path, {
-              onSuccess: function(id3) {
-                  //id3.x_path = path;
-                  delete id3.tags.picture.data;
-                  res.send(200, id3.tags);
-                  return next();
-              },
-              onError: function(error) {
-                  db.insertLogs('ERROR: (id3.get) jsmediatags.read: '+ file, error);
-                  db.insertLogs('ERROR: (id3.get)', err);
+          var parser = mm(fs.createReadStream(path), function (err, metadata) {
+              if (err){
+                  db.insertLogs('ERROR: (utils.getId3Tags) musicmetadata',
+                      { msg:'ERROR: musicmetadata while parsing:',
+                        path:path,
+                        err:err.toString()
+                      }
+                  );
                   res.send(500, err);
+                  return next();
+              }
+              else{
+                  if(metadata.picture){
+                      for(var i=0; i<metadata.picture.length; i++ ){
+                          delete metadata.picture[i].data;
+                      }
+                  }
+                  res.send(200, {path:path, "developer-msg":'The tags key represents the acutal ID3 parser results', tags:metadata});
                   return next();
               }
           });
