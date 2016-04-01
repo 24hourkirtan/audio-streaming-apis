@@ -16,7 +16,8 @@ module.exports = {
     init: function() {
         /**
          * Calls internal function to creates a log entry in the LOGS collection.
-         * @param  {string}   message message to log
+         * @param  {string}   message   message to log
+         * @param  {object}   data      object to log, usually an error
          * @return {none}
          */
         module.exports.insertLogs = function(message, data) {
@@ -32,7 +33,6 @@ module.exports = {
             database = db;
             database.on('close', dbCloseEvent );
             module.exports.conn = database;
-            insertLogs('Database connection pool started (db.js)');
         });
 
         /**
@@ -56,24 +56,21 @@ function dbCloseEvent(){
 
 /**
  * Creates a log entry in the LOGS collection. LOGS is a TTL collection.
- * @param  {string}   message message to log
- * @param  {object}   optional JSON object
+ * @param  {string}   message   message to log
+ * @param  {object}   data      optional JSON object
  * @return {none}
  */
 function insertLogs(message, data) {
     var collection = database.collection('logs');
     var dttm = new Date();
-    if(typeof data == 'undefined' || data == null){
-      data = {};
-    }
-    collection.insertOne({dttm : dttm, msg:message, data:data}, function(err, result) {
+    collection.insertOne({dttm:dttm, msg:message, data:data}, function(err, result) {
         if(err){
             console.log(">>>  ERROR: Inserting log entry:", dttm);
-            console.log("--- ",error);
+            console.log("--- ", err);
         }
         else{
             console.log("\n>>>  Inserted log entry:", dttm);
-            console.log("--- ",message, data);
+            console.log(">>> ",message, data);
         }
     });
 }
