@@ -6,7 +6,6 @@ var ObjectID = require('mongodb').ObjectID;
 var db = require('../ops/db'),
     co = require('co'),
     assert = require('assert');
-var fs = require('fs');
 var mm = require('musicmetadata');
 
 
