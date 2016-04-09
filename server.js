@@ -68,7 +68,11 @@ console.log('>>>  PORT:        ', config.port);
 server.listen(config.port);
 
 // -------
-// Parsers
+// Parsers - CORS
+// https://github.com/restify/node-restify/issues/664
+server.use(restify.CORS({
+    credentials: true
+}));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
