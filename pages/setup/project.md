@@ -11,7 +11,10 @@ possible to revert back to an older tag quickly should it be necessary.
 
 ___
 ## Clone repo
-Clone the repository by a specific tag and create a unique directory for it.
+Clone the repository by a specific tag and create a unique directory for it. Set the
+directory privileges to be owned by a user ($USER = current user).
+Change the group to adm. Change the adm group to
+include write privileges on all files.
 
 ```bash
 # cd to the directory to store the cloned repo
@@ -21,8 +24,14 @@ $ sudo git clone --branch v1.0.0-alpha.2 \
 https://github.com/24hourkirtan/audio-streaming-apis.git \
 audio-streaming-apis_v1.0.0-alpha.2
 
-# change directory owner to user of execution
-sudo chown -R $USER:$GROUP /var/audio-streaming-apis_v1.0.0-alpha.2
+# change directory owner to user of execution and the group to adm
+$ sudo chown -R $USER:adm /var/audio-streaming-apis_v1.0.0-alpha.2
+
+# shows the users in group adm
+$ getent group adm;
+
+# Add write privilege for group adm
+$ chmod -R g+w /var/audio-streaming-apis_v1.0.0-alpha.2
 ```
 
 
