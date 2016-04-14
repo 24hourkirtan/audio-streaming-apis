@@ -21,6 +21,7 @@ ___
 Start the API server using the required environment (development, stage, or production) and authbind
 if using a privileged port.
 ```bash
+$ cd /var/[project_path]
 $ export SET NODE_ENV=production
 
 # non-privileged port
@@ -40,7 +41,7 @@ data:        uid  command         script    forever pid   id logfile            
 data:    [0] sFcF /usr/bin/nodejs server.js 28321   28326    /home/warren/.forever/sFcF.log STOPPED     
 data:    [1] ldYN /usr/bin/nodejs server.js 28844   28849    /home/warren/.forever/ldYN.log 0:0:0:5.465
 
-$ tail -F /Users/warren/.forever/ldYN.log
+$ tail -F -n200 /Users/warren/.forever/ldYN.log
 ```
 
 ___
