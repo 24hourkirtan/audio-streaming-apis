@@ -160,6 +160,12 @@ ___
     <td>gets mp3 records using a declared key/value pair with optional parameters</td>
   </tr>
   <tr>
+    <td NOWRAP>GET /mp3s/ids</td>
+    <td>X</td>
+    <td>X <sup>1</sup></td>
+    <td>gets a list of mp3 records using an array of \_ids</td>
+  </tr>
+  <tr>
     <td NOWRAP>GET /mp3/:\_id</td>
     <td>X</td>
     <td>X <sup>1</sup></td>
