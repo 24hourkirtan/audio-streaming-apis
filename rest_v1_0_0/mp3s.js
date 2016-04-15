@@ -129,7 +129,7 @@ module.exports = {
     },
 
     /**
-     * Gets a single mp3 record using the record id.
+     * Gets a single mp3 record using the record _id.
      * Authentication is optional.
      * @param  {object}   req   request
      * @param  {object}   res   respone
@@ -164,6 +164,50 @@ module.exports = {
             return next();
         }).catch(function(err) {
             db.insertLogs('ERROR: (mp3s.get) '+err);
+            res.send(500, err);
+            return next();
+        });
+    },
+
+    /**
+     * Gets a list of mp3 records via POST using an array of record _ids.
+     * Authentication is optional.
+     * @param  {object}   req   request
+     * @param  {object}   res   respone
+     * @param  {next}     next  restify route pattern
+     * @return {next}           restify route pattern
+     */
+    getByArray: function(req, res, next) {
+        res.setHeader('X-Version', '1.0.0');
+        var ids = JSON.parse(req.body);
+        var restricted = false;
+
+        // optional auth check
+        if(req.headers.jwt){
+          var aid = jwt.verifyToken(req, res, next);
+          if(aid == null) return;
+          restricted = null;
+        }
+
+        var projection = {};
+        if (req.params.image == 'false'){
+            projection = {"image.data":0};
+        }
+
+        for(var i=0; i<ids.length; i++){
+            ids[i] = new ObjectID(ids[i]);
+        }
+        var query = {  _id: {$in:ids}  };
+        if(restricted != null) query.restricted = false;
+
+        co(function*() {
+            var col = db.conn.collection('mp3s');
+            var docs = yield col.find( query, projection ).toArray();
+            //assert.ok((docs.length > 0), 'there ire no mp3s for the ids passed');
+            res.send(200, docs);
+            return next();
+        }).catch(function(err) {
+            db.insertLogs('ERROR: (mp3s.getByArray) '+err);
             res.send(500, err);
             return next();
         });
