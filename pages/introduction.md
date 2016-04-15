@@ -7,9 +7,9 @@ from the audio-streaming-app repository.
 
 The server is build with __[Node.js](http://nodejs.org)__ using the __[Restify](http://www.restify.com)__ framework and backended with
 __[MongoDB](https://www.mongodb.org/)__.
-Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.
-Restify is a Node.js module to build real REST web services.
-MongoDB is popular NoSQL database often used with Node.js and has a string Node.js driver.
+Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. 
+Restify is a Node.js module to build REST web services.
+MongoDB is a popular NoSQL database often used with Node.js and has a strong Node.js driver.
 
 <div style="margin:0 auto;text-align:center;margin-bottom:40px;">
 ![alt text](img/nodejs.png)
