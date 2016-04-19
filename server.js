@@ -25,6 +25,7 @@ process.on('uncaughtException', function (err) {
     console.error(err.stack);
     console.error('****************** END uncaughtException ********************\n');
     err = err || {};
+    db.insertLogs('ERROR: (server.uncaughtException) ', err);
     if (!(err.status >= 400 && err.status <= 499)) {
         process.nextTick( process.exit(1) );
     }
