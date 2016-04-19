@@ -28,7 +28,7 @@ can be accessed with or without authentication. Without authentication restricte
   <tr><td>GET</td><td><a href="#get.mp3s.key">/mp3s/key/:key</a></td>
     <td>X <sup>1</sup></td>
     <td>gets mp3 records using a declared key/value pair with optional parameters</td></tr>
-  <tr><td>GET</td><td><a href="#get.mp3s.ids">/mp3s/ids</a></td>
+  <tr><td>POST</td><td><a href="#post.mp3s.ids">/mp3s/ids</a></td>
     <td>X <sup>1</sup></td>
     <td>gets a list of mp3 records using an array of \_ids</td></tr>
   <tr><td>GET</td><td><a href="#get.mp3">/mp3/:\_id</a></td>
@@ -391,16 +391,16 @@ $http({ method:'GET',
 
 
 
-<a name="get.mp3s.ids"></a>
-<!-- GET /mp3/ids ----------------------------------------- -->
+<a name="post.mp3s.ids"></a>
+<!-- POST /mp3/ids ----------------------------------------- -->
 <!-- -->
 <!-- -->
 <!-- -->
 ___
-## GET /mp3s/ids
-Gets a list of mp3 records using a array of \_ids. The array is passed in the request body as an input.
-No other values can be part of the body input. This allows for easier client access to the endpoint.
-Invalid keys return no results.
+## POST /mp3s/ids
+Returns a list of mp3 records using a array of \_ids. The array is passed in the request body as an input.
+No other values can be part of the body input. This POST that acts as a GET allows for easier client access to the endpoint.
+Invalid ids return no results.
 
 #### Parameters
 <table id="tbl">
@@ -438,69 +438,56 @@ Invalid keys return no results.
 
 
 ```json
-# will be udpated when pagination is added
-{
-    "_key": "artist",
-    "_limit": 2,
-    "_next": "/mp3s/key/artist?q=Aindra&operator=equals&limit=2&skip=4&sort=year&order=desc&image=false",
-    "_operator": "equals",
-    "_order": "desc",
-    "_prev": "/mp3s/key/artist?q=Aindra&operator=equals&limit=2&skip=0&sort=year&order=desc&image=false",
-    "_q": "Aindra",
-    "_remainingCnt": 1,
-    "_returnedCnt": 2,
-    "_skip": 2,
-    "_sort": "year",
-    "_totalCnt": 5,
-    "mp3s": [
-        {
-            "_id": "56f9620c37545bf3b7ab5e3c",
-            "album": "Krishna Balaram Mandir",
-            "artist": "Aindra",
-            "genre": "Kirtan",
-            "image": {
-                "format": "image/png"
-            },
-            "orphaned": false,
-            "path": "/Users/warren/Downloads/_media/aindra/10.02.28-gaura-purnima-3.mp3",
-            "restricted": false,
-            "title": "Gaura Purnima Kirtan 02/28/2010 - Track 3",
-            "year": "2010"
+[
+    {
+        "_id": "56fe45e137545bf3b7ab5fa6",
+        "album": "Alachua",
+        "artist": "Kalindi",
+        "genre": "Kirtan",
+        "image": {
+            "format": "jpg"
         },
-        {
-            "_id": "56f9620c37545bf3b7ab5e3e",
-            "album": "Krishna Balaram Mandir",
-            "artist": "Aindra",
-            "genre": "Kirtan",
-            "image": {
-                "format": "image/png"
-            },
-            "orphaned": false,
-            "path": "/Users/warren/Downloads/_media/aindra/10.03.05_2.mp3",
-            "restricted": false,
-            "title": "Temple Kirtan 2010/03/05 Part 2",
-            "year": "2010"
-        }
-    ]
-}
+        "orphaned": false,
+        "path": "/Users/warren/Downloads/mp3-id3-tag-samples/worldwide-old/2011/2011-alachua-holy-name-festival/10_Kalindi_Dasi.mp3",
+        "restricted": false,
+        "title": "Alachua Festival of the Holy Name 2011",
+        "year": null
+    },
+    {
+        "_id": "56fe45e137545bf3b7ab5fa9",
+        "album": "Bhakti Fest",
+        "artist": "Prema Hara",
+        "genre": "Kirtan",
+        "image": {
+            "format": "jpg"
+        },
+        "orphaned": false,
+        "path": "/Users/warren/Downloads/mp3-id3-tag-samples/worldwide-old/2012/2012-bhakti-fest/prema-hara-maha-mantra.mp3",
+        "restricted": false,
+        "title": "Bhakti Fest Maha Mantra Kirtan 09/2012",
+        "year": null
+    }
+]
 ```
 
 
 #### Examples
-Returns a search based on the artist key, no image, sorted by year, limit of 2 and skips the first 2 records.
+Returns a list of two mp3s records, no image..
 ```bash
-$ curl -v -k - X GET \
--H "$(cat headers.txt)" \
-"https://localhost:8081/mp3s/key/artist?q=Aindra&image=false&sort=year&limit=2&skip=2" \
-| python -mjson.tool
+$ curl -v -k -X POST \
+-H "$(cat header-dev.txt)" \
+-d '["56fe45e137545bf3b7ab5fa6", "56fe45e137545bf3b7ab5fa9"]'  \
+"https://localhost:8081/mp3s/ids?image=false" | python -mjson.tool
 ```
 
 ```javascript
+var ids = ["56fe45e137545bf3b7ab5fa6", "56fe45e137545bf3b7ab5fa9"];
 $http.defaults.headers.common['jwt'] = jwt; // optional authentication
 $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
-$http({ method:'GET',
-        url:'https://localhost:8081/mp3s/key/artist?q=Aindra&image=false&sort=year&limit=2&skip=2'})
+$http({ method:'POST',
+    url:'https://localhost:8081/mp3s/ids?image=false',
+    data: ids})
 .then(
     function successCallback(res) {
         console.log(res.data);
