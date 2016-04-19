@@ -35,7 +35,8 @@ __Specific Item__ (e.g. GET /playlist/:\_id)
 
 * __ _Verb POST_ __  
   __CRUD:__ Create  
-  __Entire Collection:__ 201 (Created), 'Location' header with link to /playlists/:\_id containing new ID.  
+  __Entire Collection:__ 201 (Created), 'Location' header with link to /playlists/:\_id containing new ID.
+  __Exception:__ 200 (OK), POST /mp3s/ids provided as a client convenience endpoint.
   __Specific Item:__ 404 (Not Found), 409 (Conflict) if resource already exists.  
 
 * __ _Verb GET_ __    
@@ -160,10 +161,10 @@ ___
     <td>gets mp3 records using a declared key/value pair with optional parameters</td>
   </tr>
   <tr>
-    <td NOWRAP>GET /mp3s/ids</td>
+    <td NOWRAP>POST /mp3s/ids</td>
     <td>X</td>
     <td>X <sup>1</sup></td>
-    <td>gets a list of mp3 records using an array of \_ids</td>
+    <td>returns a list of mp3 records using an array of \_ids</td>
   </tr>
   <tr>
     <td NOWRAP>GET /mp3/:\_id</td>
