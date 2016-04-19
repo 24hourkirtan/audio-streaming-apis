@@ -179,7 +179,7 @@ module.exports = {
      */
     getByArray: function(req, res, next) {
         res.setHeader('X-Version', '1.0.0');
-        var ids = JSON.parse(req.body);
+        var ids = req.params;
         var restricted = false;
 
         // optional auth check
@@ -190,7 +190,7 @@ module.exports = {
         }
 
         var projection = {};
-        if (req.params.image == 'false'){
+        if (req.query.image == 'false'){
             projection = {"image.data":0};
         }
 
@@ -203,7 +203,6 @@ module.exports = {
         co(function*() {
             var col = db.conn.collection('mp3s');
             var docs = yield col.find( query, projection ).toArray();
-            //assert.ok((docs.length > 0), 'there ire no mp3s for the ids passed');
             res.send(200, docs);
             return next();
         }).catch(function(err) {
