@@ -20,9 +20,8 @@ db.init();
 process.on('uncaughtException', function (err) {
     console.error('\n****************** START uncaughtException ********************');
     console.error('Un-Caught exception (reported from server.js): ');
-    //db.closeAll();
-    console.error(err);
-    console.error(err.stack);
+    console.error('Error:', err);
+    console.error('Stack:', err.stack);
     console.error('****************** END uncaughtException ********************\n');
     err = err || {};
     db.insertLogs('ERROR: (server.uncaughtException) ', err);
