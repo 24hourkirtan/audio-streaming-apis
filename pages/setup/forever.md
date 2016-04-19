@@ -37,8 +37,7 @@ ___
 $ forever list
 
 info:    Forever processes running
-data:        uid  command         script    forever pid   id logfile                        uptime      
-data:    [0] sFcF /usr/bin/nodejs server.js 28321   28326    /home/warren/.forever/sFcF.log STOPPED     
+data:        uid  command         script    forever pid   id logfile                        uptime         
 data:    [1] ldYN /usr/bin/nodejs server.js 28844   28849    /home/warren/.forever/ldYN.log 0:0:0:5.465
 
 $ tail -F -n200 /Users/warren/.forever/ldYN.log
