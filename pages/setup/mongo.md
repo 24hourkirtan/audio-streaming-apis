@@ -25,7 +25,7 @@ Download the desired binary using curl.
 
 ```bash
 $ cd ~
-$ curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.2.3.tgz
+$ curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.2.4.tgz
 ```
 
 ___
@@ -33,7 +33,7 @@ ___
 
 ```bash
 $ cd ~
-$ tar -zxvf mongodb-linux-x86_64-ubuntu1404-3.2.3.tgz
+$ tar -zxvf mongodb-linux-x86_64-ubuntu1404-3.2.4.tgz
 ```
 
 ___
@@ -53,7 +53,7 @@ $ cd ~
 $ nano .bashrc
 
 # update the PATH
-$ export PATH=~/mongodb-linux-x86_64-ubuntu1404-3.0.5/bin:$PATH
+$ export PATH=~/mongodb-linux-x86_64-ubuntu1404-3.2.4/bin:$PATH
 ```
 
 Reload the .bashrc file after updating the PATH or restart the console session.
@@ -90,9 +90,9 @@ information on the configuration values visit the
 __[YAML instructions](http://docs.mongodb.org/master/reference/configuration-options/)__ at MongoDB and a
 __[sample YAML](http://dba.stackexchange.com/questions/82591/sample-yaml-configuration-files-for-mongodb)__
 sudo nano /etc/mongodb.conf) example on stackexchange.
-
+s
 > #### Warning
-> <div style="color:red;font-size:small;">Currently the database is running in a secure environment on port 27017. Since the port is not available
+> <div style="color:red;font-size:small;">Currently the database is running in a non-secure environment on port 27017. Since the port is not available
 > to an outside network the database is considered secure. If the port is exposed then authentication must
 > be enabled.</div>
 
