@@ -18,10 +18,12 @@ $ [sudo] npm install forever -g
 
 ___
 ## Start the project w/Forever
+Switch to the project directory. Switch user to "node".
 Start the API server using the required environment (development, stage, or production) and authbind
 if using a privileged port.
 ```bash
 $ cd /var/[project_path]
+$ su - node
 $ export SET NODE_ENV=production
 
 # non-privileged port
@@ -34,6 +36,7 @@ $ authbind --deep forever start server.js
 ___
 ## Tail logs (optional)
 ```bash
+$ su - node
 $ forever list
 
 info:    Forever processes running
@@ -47,6 +50,7 @@ ___
 ## Stop Forever
 Stop all forever processes.
 ```bash
+$ su - node
 $ forever stopall
 ```
 
