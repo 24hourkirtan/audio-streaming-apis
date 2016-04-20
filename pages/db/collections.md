@@ -58,6 +58,7 @@ ___
   },
   "orphaned": false,
   "restricted": false,
+  "released": ISODate("2016-04-19T12:04:06.165Z"),
   "path": "/Users/warren/Downloads/_media/aindra/10.02.28-gaura-purnima.mp3",
   "title": "Gaura Purnima Kirtan 02/28/2010 - Track 4",
   "year": "2010"
@@ -71,6 +72,7 @@ ___
 * __orphaned:__ (boolean) false the mp3 file exists, true it is missing.
 * __restricted:__ (boolean) MP3s marked as true require the user be authenticated.
 * __path:__ (string) File system path to the mp3 file.
+* __released:__ (date) The date the indexer first saw the file on the file system.
 * __title:__ (string)
 * __year:__ (number)
 
@@ -87,16 +89,16 @@ ___
 {
   "_id" : ObjectId("56f3e77237545bf3b7ab5d11"),
   "album": "24 Hour Kirtan Radio Jingles",
-  "artist" : "Guru Charana Padma",
-  "genre" : "Kirtan",
-  "image" : {
-    "format" : "image/jpeg",
-    "data": "..."
+  "artist": "Guru Charana Padma",
+  "genre": "Kirtan",
+  "image": {
+    "format": "image/jpeg",
+    "data":"..."
   },
-  "orphaned":false,
-  "path" : "//Users/warren/Downloads/_media/jingles/160130-133013-edit.mp3",
-  "title" : "Radhadesh Mellows 2016",
-  "year" : null
+  "orphaned": false,
+  "path": "//Users/warren/Downloads/_media/jingles/160130-133013-edit.mp3",
+  "title": "Radhadesh Mellows 2016",
+  "year": null
 }
 ```
 * __ _id:__ (Object ID) MongoDB system ID.
@@ -104,7 +106,7 @@ ___
 * __artist:__ (string)
 * __genre:__ (string)
 * __image:__ ({format, data}) The image content (data) and format of the picture.
-* __orphaned:__ (boolean) false the mp3 file exists, true it is missing.
+* __orphaned:__ (boolean) false if the mp3 file exists, true it is missing.
 * __path:__ (string) File system path to the mp3 file.
 * __title:__ (string)
 * __year:__ (number)
