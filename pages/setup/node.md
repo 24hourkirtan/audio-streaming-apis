@@ -32,6 +32,16 @@ Verify /usr/local/bin is in the PATH
 
 
 ___
+### Create user node
+The user node will be used to start and stop Node.js using Forever on the stage and
+production servers.
+http://www.howtogeek.com/howto/ubuntu/add-a-user-on-ubuntu-server/
+
+```bash
+adduser node
+```
+
+___
 ### Using privileged port (443)
 On production and stage the privileged port 443 would require starting the project using sudo.
 This is an obvious security risk. To run the project without sudo use "authbind" which is a simple
