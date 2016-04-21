@@ -5,6 +5,7 @@ playlists_1_0_0 = require('./rest_v1_0_0/playlists'),
 mp3s_1_0_0 = require('./rest_v1_0_0/mp3s'),
 jingles_1_0_0 = require('./rest_v1_0_0/jingles'),
 logs_1_0_0 = require('./rest_v1_0_0/logs'),
+mongodb_1_0_0 = require('./rest_v1_0_0/mongodb'),
 accounts_1_0_0 = require('./rest_v1_0_0/accounts'),
 fs = require('fs'),
 indexer = require('./ops/indexer'),
@@ -129,6 +130,7 @@ server.del({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.delete);
 
 server.get({path: "/logs", version: '1.0.0'}, logs_1_0_0.getAll);
 server.get({path: "/id3", version: '1.0.0'}, utils_1_0_0.getId3Tags);
+server.get({path: "/mongodb.indexes", version: '1.0.0'}, mongodb_1_0_0.getIndexes);
 
 
 // ----------------------------------------
