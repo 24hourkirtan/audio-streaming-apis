@@ -73,11 +73,24 @@ ___
     <th>Endpoint</th><th>v1.0.0 (active)</th><th>JWT</th><th>Description</th>
   </tr>
   <tr>
-    <td>POST /ping</td>
+    <td>GET /ping</td>
     <td>X</td>
     <td></td>
     <td>is alive test</td>
   </tr>
+  <tr>
+    <td>GET /license</td>
+    <td>X</td>
+    <td></td>
+    <td>retrieves the license type</td>
+  </tr>
+  <tr>
+    <td>GET /id3</td>
+    <td>X</td>
+    <td></td>
+    <td>retrieves the id3 tags for a specified path of an MP3 file</td>
+  </tr>
+
 
   <!-- ACCOUNTS ------------ -->
   <tr>

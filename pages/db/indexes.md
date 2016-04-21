@@ -13,7 +13,7 @@ Email addresses as logins are unique.
 ```javascript
 > use kirtan
 
-> db.accounts.createIndex( { email: 1 }, { unique: true }, {name: "accounts_email"} );
+> db.accounts.createIndex( { email: 1 }, { unique: true, name: "accounts_email"} );
 
 // Results
 {
@@ -114,7 +114,7 @@ The aid (\_id from accounts) and name is unique composite index.
 ```javascript
 > use kirtan
 
-> db.playlists.createIndex( { aid: 1, name:1 }, { unique: true }, {name: "playlists_aid_name"} );
+> db.playlists.createIndex( { aid: 1, name:1 }, { unique: true, name: "playlists_aid_name"} );
 
 // Results
 {
@@ -134,7 +134,7 @@ This (time-to-live) index purges log records after seven days to prevent excessi
 ```javascript
 > use kirtan
 
-> db.logs.createIndex( { "dttm": 1 }, { expireAfterSeconds: 604800 }, {name: "logs_ttl_dttm"} );
+> db.logs.createIndex( { "dttm": 1 }, { expireAfterSeconds: 604800, name: "logs_ttl_dttm"} );
 
 // Results
 {
