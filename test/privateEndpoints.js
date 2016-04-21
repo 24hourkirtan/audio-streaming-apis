@@ -150,4 +150,21 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
         });
     });
 
+    it("should return GET /mongodb/indexes with status 200 and count of 12",function(done){
+        server.get("/mongodb/indexes")
+        .set('Accept-Version', '1.0.0')
+        .set('jwt', jwt)
+        .set('Content-Type', 'application/json')
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err,res){
+            res.status.should.equal(200);
+            res.body.should.be.an.instanceOf(Array);
+            res.body.length.should.be.exactly(12);
+            should.not.exist(err, 'err was not null');
+            done();
+            console.log('      | >>>  Index array length:', res.body.length);
+        });
+    });
+
 });
