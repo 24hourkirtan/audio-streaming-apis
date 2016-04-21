@@ -23,13 +23,17 @@ module.exports = {
         return next();
     },
 
+
+
+
+
       /**
        * Gets a id3 tag set for a mp3 file.
        *
        * CURL example:
        * curl -G -v -k "https://localhost:8081/id3" \
        * --data-urlencode \
-       * "path=/Users/warren/Downloads/mp3-id3-tag-samples/worldwide-old/2012/2012-bhakti-fest/prema-hara-maha-mantra.mp3"
+       * "path=/var/media/aindra/10.03.11-janma-tithi-kirtan-1.mp3"
        * | python -mjson.tool
        *
        * @param  {object}   req   request
