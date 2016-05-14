@@ -181,6 +181,8 @@ module.exports = {
     getByArray: function(req, res, next) {
         res.setHeader('X-Version', '1.0.0');
         var ids = req.params;
+        console.log('req.params', req.params)
+        console.log('req.query', req.query)
         var restricted = false;
 
         // optional auth check

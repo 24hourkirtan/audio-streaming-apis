@@ -41,7 +41,6 @@ module.exports = {
         getLogoImage();
 
         recursive(directoryPath, function (err, files) {
-
             // Files is an array of filename
             if(err){
                 db.insertLogs('ERROR: (Indexer) '+err);
@@ -55,7 +54,9 @@ module.exports = {
             fes.forEachAsync(files, function (next, file, index, array) {
                 if(path.extname(file) == ".mp3"){
                     try{
+                        //console.log('Parsing: ',file);
                         var parser = mm(fs.createReadStream(file), function (err, metadata) {
+
                             if (err) {
                                 db.insertLogs('ERROR: (Indexer.run) musicmetadata',
                                 { msg:'ERROR: musicmetadata while parsing:',
@@ -78,7 +79,7 @@ module.exports = {
                     next();
                 }
             }).then(function () {
-                ;
+                console.log('\n++++++++++++++++++\n','All requests have finished for:', directoryPath);
             });
         });
     },
@@ -137,6 +138,8 @@ function getLogoImage(){
     }
 }
 
+
+
 /**
  * Updates a record in the MP#s or JINGLES collection. If the record does not exist
  * it is created using an upsert operation.
@@ -148,7 +151,6 @@ function getLogoImage(){
  */
 function upsertMP3(file, tags, collection, callback){
     var collection = db.conn.collection(collection);
-
 
     var image = {format:'image/png', data:logoImage};
     if(tags.picture && tags.picture.length > 0){ // ARRAY
@@ -177,13 +179,16 @@ function upsertMP3(file, tags, collection, callback){
     if(genre == '') genre = null;
 
     // YEAR (STRING)
-    var year = (year) ? year : null; if(year == '') year = null;
+    var year = tags.year;
+    if(year == '') year = null;
 
     // RESTRICTED (BOOLEAN)
     var restricted = false;
     if(file.indexOf('/restricted/') > -1){
         restricted = true;
     }
+
+    var stats = fs.statSync(file);
 
     co(function* () {
         // IMPORTANT
@@ -193,6 +198,7 @@ function upsertMP3(file, tags, collection, callback){
         arr.splice(1, 2);
         var newPath = arr.toString().replace(/,/g, '/');
         var selfLink = 'https://storage.googleapis.com/24hk-app'+newPath;
+        //console.log('selfLink:', selfLink);
         var result = yield collection.findOneAndUpdate({path:file},
             {$set: {title: title,
                     artist: artist,
@@ -202,6 +208,7 @@ function upsertMP3(file, tags, collection, callback){
                     orphaned:false,
                     restricted: restricted,
                     selfLink: selfLink,
+                    stats: stats,
                     image:image
                   }
                   //,$setOnInsert:{released:new Date()}
