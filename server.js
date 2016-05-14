@@ -119,6 +119,7 @@ server.get({path: "/mp3s/distinctkey/:key", version: '1.0.0'}, mp3s_1_0_0.getDis
 server.get({path: "/mp3s/key/:key", version: '1.0.0'}, mp3s_1_0_0.getAllByKey);
 server.get({path: "/mp3/:id", version: '1.0.0'}, mp3s_1_0_0.get);
 server.post({path: "/mp3s/ids", version: '1.0.0'}, mp3s_1_0_0.getByArray);
+server.get({path: "/mp3/file/:id", version: '1.0.0'}, mp3s_1_0_0.getFile);
 
 server.get({path: "/jingle/random", version: '1.0.0'}, jingles_1_0_0.getRandom);
 
