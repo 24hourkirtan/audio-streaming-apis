@@ -1,5 +1,6 @@
 var db = require('../ops/db'),
-    co = require('co');
+    co = require('co'),
+    fs = require('fs');
 const assert = require('assert');
 var jwt = require("../utils/jwt.js");
 var ObjectID = require('mongodb').ObjectID;
@@ -16,7 +17,7 @@ module.exports = {
      * including nulls. The list is not sorted. An invalid key returns no results.
      * Authentication is optional.
      * @param  {Object}   req   request
-     * @param  {Object}   res   respone
+     * @param  {Object}   res   response
      * @param  {next}     next  restify route pattern
      * @return {next}           restify route pattern
      */
@@ -51,7 +52,7 @@ module.exports = {
      * Return an array of all mp3 records using optional parameters.
      * Authentication is optional.
      * @param  {Object}   req   request
-     * @param  {Object}   res   respone
+     * @param  {Object}   res   response
      * @param  {next}     next  restify route pattern
      * @return {next}           restify route pattern
      */
@@ -132,7 +133,7 @@ module.exports = {
      * Gets a single mp3 record using the record _id.
      * Authentication is optional.
      * @param  {object}   req   request
-     * @param  {object}   res   respone
+     * @param  {object}   res   response
      * @param  {next}     next  restify route pattern
      * @return {next}           restify route pattern
      */
@@ -216,7 +217,7 @@ module.exports = {
      * Gets mp3 records using a declared key/value pair.
      * Authentication is optional.
      * @param  {object}   req   request
-     * @param  {object}   res   respone
+     * @param  {object}   res   response
      * @param  {next}     next  restify route pattern
      * @return {next}           restify route pattern
      */
@@ -299,6 +300,58 @@ module.exports = {
             return next();
         }).catch(function(err) {
             db.insertLogs('ERROR: (mp3s.getAllByKey) '+err);
+            res.send(500, err);
+            return next();
+        });
+    },
+
+    /**
+     * Returns (streams) a MP3 file.
+     * Authentication is optional.
+     * @param  {object}   req   request (id, aid)
+     * @param  {object}   res   response
+     * @param  {next}     next  restify route pattern
+     * @return {next}           restify route pattern
+     */
+    getFile: function(req, res, next) {
+        res.setHeader('X-Version', '1.0.0');
+        var id = (req.params.id);
+        // The id may have an extension attached because the client player requires it.
+        if(id.indexOf('.') > -1){
+            id = id.split('.')[0];
+        }
+
+        // optional auth check
+        if(req.headers.jwt){
+          var aid = jwt.verifyToken(req, res, next);
+          if(aid == null) return;
+        }
+
+        var query = {_id:ObjectID(id)};
+
+        co(function*() {
+            var col = db.conn.collection('mp3s');
+            var docs = yield col.find( query, {image:0} ).toArray();
+            assert.ok((docs.length < 2), 'single record find returned more than one record');
+            assert.ok((docs.length == 1), 'there is no mp3 for the id passed');
+            var path = docs[0].path;
+            var stat = fs.statSync(path);
+            res.writeHead(200, {
+                    'Content-Type': 'audio/mpeg',
+                    'Connection': 'close',
+                    'Content-Length': stat.size
+                });
+            var stream = fs.createReadStream(path);
+            stream.pipe(res);
+            stream.on('error', function(err){
+                db.insertLogs('ERROR: (mp3s.getFile.stream.on.error) '+err);
+            });
+            stream.on('close', function(){
+                return next();
+            });
+
+        }).catch(function(err) {
+            db.insertLogs('ERROR: (mp3s.getFile) '+err);
             res.send(500, err);
             return next();
         });
