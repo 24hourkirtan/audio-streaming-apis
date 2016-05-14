@@ -185,6 +185,12 @@ ___
     <td>X <sup>1</sup></td>
     <td>gets a single mp3 record for an authenticated user</td>
   </tr>
+  <tr>
+    <td NOWRAP>GET /mp3/file/:\_id</td>
+    <td>X</td>
+    <td>X <sup>1</sup></td>
+    <td>downloads an mp3 file as a piped stream</td>
+  </tr>
 
   <!-- JINGLES ----------------------- -->
   <tr>
