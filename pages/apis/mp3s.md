@@ -417,6 +417,8 @@ Returns a list of mp3 records using a array of \_ids. The array is passed in the
 No other values can be part of the body input. This POST that acts as a GET allows for easier client access to the endpoint.
 Invalid ids return no results.
 
+This endpoint hijacks the normal POST Content-Type and use application/json in the request header.
+
 #### Parameters
 <table id="tbl">
   <colgroup>
@@ -454,34 +456,38 @@ Invalid ids return no results.
 
 ```json
 [
-    {
-        "_id": "56fe45e137545bf3b7ab5fa6",
-        "album": "Alachua",
-        "artist": "Kalindi",
-        "genre": "Kirtan",
-        "image": {
-            "format": "jpg"
-        },
-        "orphaned": false,
-        "path": "/Users/warren/Downloads/mp3-id3-tag-samples/worldwide-old/2011/2011-alachua-holy-name-festival/10_Kalindi_Dasi.mp3",
-        "restricted": false,
-        "title": "Alachua Festival of the Holy Name 2011",
-        "year": null
-    },
-    {
-        "_id": "56fe45e137545bf3b7ab5fa9",
-        "album": "Bhakti Fest",
-        "artist": "Prema Hara",
-        "genre": "Kirtan",
-        "image": {
-            "format": "jpg"
-        },
-        "orphaned": false,
-        "path": "/Users/warren/Downloads/mp3-id3-tag-samples/worldwide-old/2012/2012-bhakti-fest/prema-hara-maha-mantra.mp3",
-        "restricted": false,
-        "title": "Bhakti Fest Maha Mantra Kirtan 09/2012",
-        "year": null
-    }
+  {
+      "_id": "57371dd337545bf3b7ab6250",
+      "album": "Krishna Balaram Mandir",
+      "artist": "Aindra",
+      "genre": "Kirtan",
+      "image": {
+          "format": "image/png"
+      },
+      "orphaned": false,
+      "path": "/_var/_media/aindra/10.01.24.mp3",
+      "restricted": false,
+      "selfLink": "https://storage.googleapis.com/24hk-app/aindra/10.01.24.mp3",
+      "stats": {
+          "atime": "2016-05-14T19:58:50.000Z",
+          "birthtime": "2016-03-31T21:34:44.000Z",
+          "blksize": 4096,
+          "blocks": 112696,
+          "ctime": "2016-05-14T12:41:17.000Z",
+          "dev": 16777219,
+          "gid": 0,
+          "ino": 77648674,
+          "mode": 33261,
+          "mtime": "2016-03-31T21:34:51.000Z",
+          "nlink": 1,
+          "rdev": 0,
+          "size": 57697051,
+          "uid": 501
+      },
+      "title": "Temple Kirtan 24/01/2010",
+      "year": "2010"
+  }
+  ...
 ]
 ```
 
