@@ -161,6 +161,7 @@ describe("JWT Secured Endpoints\n+++++++++++++++++++++++++++++++++++",function()
             res.status.should.equal(200);
             res.body.should.be.an.instanceOf(Array);
             res.body.length.should.be.exactly(12);
+            
             should.not.exist(err, 'err was not null');
             done();
             console.log('      | >>>  Index array length:', res.body.length);
