@@ -22,11 +22,11 @@ $ sudo git clone --branch v1.0.0-alpha.2 \
 https://github.com/24hourkirtan/audio-streaming-apis.git \
 audio-streaming-apis_v1.0.0-alpha.2
 
-# change directory owner to user "node", group "node"
-$ sudo chown -R node:node /var/audio-streaming-apis_v1.0.0-alpha.2
-
 # shows the users in group adm
 $ getent group adm;
+
+# change directory owner to user "node", group "adm"
+$ sudo chown -R node:adm /var/audio-streaming-apis_v1.0.0-alpha.2
 
 # Add write privilege for group adm
 $ chmod -R g+w /var/audio-streaming-apis_v1.0.0-alpha.2
@@ -80,6 +80,11 @@ Create a new certs directory.
 mkdir /var/audio-streaming-apis_v1.0.0-alpha.2/certs
 ```
 
+Change directory owner to user "node", group "adm"
+```bash
+$ sudo chown -R node:adm /var/audio-streaming-apis_v1.0.0-alpha.2/certs
+```
+
 Copy the self-signed certificates from dev to stage or prod.
 
 ```bash
@@ -91,6 +96,11 @@ $ scp -i ~/.ssh/id_rsa   certs/server-key.pem  \
 
 $ scp -i ~/.ssh/id_rsa   certs/server-cert.pem  \
 [user]@api.kirtan.io:/var/audio-streaming-apis_v1.0.0-alpha.2/certs/server-cert.pem
+```
+
+Change directory owner to user "node", group "adm"
+```bash
+$ sudo chown -R node:adm /var/audio-streaming-apis_v1.0.0-alpha.2/certs
 ```
 
 
