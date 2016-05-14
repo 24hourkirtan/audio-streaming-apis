@@ -186,7 +186,13 @@ function upsertMP3(file, tags, collection, callback){
     }
 
     co(function* () {
-        //console.log('\nFILE: '+file+'\n', tags)
+        // IMPORTANT
+        // The files must start from teh third directory from root
+        // Maybe this could be added to the config.json
+        var arr = file.split('/');
+        arr.splice(1, 2);
+        var newPath = arr.toString().replace(/,/g, '/');
+        var selfLink = 'https://storage.googleapis.com/24hk-app'+newPath;
         var result = yield collection.findOneAndUpdate({path:file},
             {$set: {title: title,
                     artist: artist,
@@ -195,8 +201,10 @@ function upsertMP3(file, tags, collection, callback){
                     genre: genre,
                     orphaned:false,
                     restricted: restricted,
+                    selfLink: selfLink,
                     image:image
-                   }
+                  }
+                  //,$setOnInsert:{released:new Date()}
             },
             {returnOriginal: false, upsert: true}
         );
