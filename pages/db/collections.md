@@ -47,22 +47,35 @@ ___
 #### mp3s
 
 ```json
-  {
-  "_id": "56f3e37737545bf3b7ab5d01",
-  "album": "Live Kirtans 2010",
-  "artist": "Aindra Prabhu",
-  "genre": "Spiritual",
-  "image": {
-    "format": "image.jpeg",
-    "data": "..."
-  },
-  "orphaned": false,
-  "restricted": false,
-  "released": ISODate("2016-04-19T12:04:06.165Z"),
-  "path": "/Users/warren/Downloads/_media/aindra/10.02.28-gaura-purnima.mp3",
-  "title": "Gaura Purnima Kirtan 02/28/2010 - Track 4",
-  "year": "2010"
-  }
+{
+"_id" : ObjectId("56fa989f66db5ab7833b8440"),
+"path" : "/var/media/aindra/10.02.10.mp3",
+"title" : "Temple Kirtan 2010/02/10",
+"artist" : "Aindra",
+"album" : "Krishna Balaram Mandir",
+"year" : null,
+"genre" : "Kirtan",
+"size" : 95450,
+"orphaned" : false,
+"restricted" : false,
+"selfLink" : "https://storage.googleapis.com/24hk-app/aindra/10.02.10.mp3",
+"stats" : {
+  "dev" : 2049,
+  "mode" : 33261,
+  "nlink" : 1,
+  "uid" : 0,
+  "gid" : 0,
+  "rdev" : 0,
+  "blksize" : 4096,
+  "ino" : 529979,
+  "size" : 61260571,
+  "blocks" : 119656,
+  "atime" : ISODate("2016-05-14T07:08:13.738Z"),
+  "mtime" : ISODate("2016-03-22T13:34:24.501Z"),
+  "ctime" : ISODate("2016-03-22T13:34:24.517Z"),
+  "birthtime" : ISODate("2016-03-22T13:34:24.517Z")
+}
+}
 ```
 * __ _id:__ (Object ID) MongoDB system ID.
 * __album:__ (string)
@@ -72,7 +85,7 @@ ___
 * __orphaned:__ (boolean) false the mp3 file exists, true it is missing.
 * __restricted:__ (boolean) MP3s marked as true require the user be authenticated.
 * __path:__ (string) File system path to the mp3 file.
-* __released:__ (date) The date the indexer first saw the file on the file system.
+* __stats:__ (object) File system stats returned from Node.js fs.
 * __title:__ (string)
 * __year:__ (number)
 
@@ -87,18 +100,33 @@ ___
 
 ```json
 {
-  "_id" : ObjectId("56f3e77237545bf3b7ab5d11"),
-  "album": "24 Hour Kirtan Radio Jingles",
-  "artist": "Guru Charana Padma",
-  "genre": "Kirtan",
-  "image": {
-    "format": "image/jpeg",
-    "data":"..."
-  },
-  "orphaned": false,
-  "path": "//Users/warren/Downloads/_media/jingles/160130-133013-edit.mp3",
-  "title": "Radhadesh Mellows 2016",
-  "year": null
+	"_id" : ObjectId("56fa98a266db5ab7833b84b3"),
+	"path" : "/var/media/jingles/2-01 Madhava talk.mp3",
+	"title" : "Radhadesh Mellows 2015 2/01",
+	"artist" : "Madhava",
+	"album" : "Radhadesh Mellows",
+	"year" : "2015",
+	"genre" : "Kirtan",
+	"size" : 94135,
+	"orphaned" : false,
+	"restricted" : false,
+	"selfLink" : "https://storage.googleapis.com/24hk-app/jingles/2-01 Madhava talk.mp3",
+	"stats" : {
+		"dev" : 2049,
+		"mode" : 33261,
+		"nlink" : 1,
+		"uid" : 0,
+		"gid" : 0,
+		"rdev" : 0,
+		"blksize" : 4096,
+		"ino" : 402188,
+		"size" : 3059984,
+		"blocks" : 5984,
+		"atime" : ISODate("2016-05-14T07:41:12.544Z"),
+		"mtime" : ISODate("2016-03-22T13:28:18.231Z"),
+		"ctime" : ISODate("2016-03-22T13:28:18.231Z"),
+		"birthtime" : ISODate("2016-03-22T13:28:18.231Z")
+	}
 }
 ```
 * __ _id:__ (Object ID) MongoDB system ID.
@@ -108,6 +136,7 @@ ___
 * __image:__ ({format, data}) The image content (data) and format of the picture.
 * __orphaned:__ (boolean) false if the mp3 file exists, true it is missing.
 * __path:__ (string) File system path to the mp3 file.
+* __stats:__ (object) File system stats returned from Node.js fs.
 * __title:__ (string)
 * __year:__ (number)
 

@@ -61,9 +61,27 @@ __[Indexer](/index.html?md=pages_indexer.md)__
     "format": null
   },
   "orphaned": false,
-  "path": "/Users/warren/Downloads/_media/jingles/160130-133452-edit.mp3",
-  "title": "Radhadesh Mellows 2016",
-  "year": null
+    "path": "/_var/_media/jingles/Simply one has to become very sincere.mp3",
+    "restricted": false,
+    "selfLink": "https://storage.googleapis.com/24hk-app/jingles/Simply one has to become very sincere.mp3",
+    "stats": {
+        "atime": "2016-05-14T19:29:11.000Z",
+        "birthtime": "2016-03-22T13:28:22.000Z",
+        "blksize": 4096,
+        "blocks": 2440,
+        "ctime": "2016-05-14T12:42:19.000Z",
+        "dev": 16777219,
+        "gid": 0,
+        "ino": 77648942,
+        "mode": 33261,
+        "mtime": "2016-03-22T13:28:22.000Z",
+        "nlink": 1,
+        "rdev": 0,
+        "size": 1246285,
+        "uid": 501
+    },
+    "title": "Simply one has to become very sincere",
+    "year": "2002"
 }
 ```
 

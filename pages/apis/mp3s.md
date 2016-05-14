@@ -34,6 +34,9 @@ can be accessed with or without authentication. Without authentication restricte
   <tr><td>GET</td><td><a href="#get.mp3">/mp3/:\_id</a></td>
     <td>X <sup>1</sup></td>
     <td>gets a single mp3 record for an authenticated user</td></tr>
+  <tr><td>GET</td><td><a href="#get.mp3.file">/mp3/file/:\_id</a></td>
+    <td>X <sup>1</sup></td>
+    <td>downloads an mp3 file as a piped stream</td></tr>
 </table>
 
 <br/>
@@ -93,41 +96,49 @@ data set.
 
 ```json
 {
-    "_limit": 2,
-    "_next": "/mp3s?q=&limit=2&skip=8&sort=title&order=desc&image=false",
-    "_order": 1,
-    "_prev": "/mp3s?q=&limit=2&skip=4&sort=title&order=desc&image=false",
+    "_limit": 10,
+    "_next": "/mp3s?q=&limit=10&skip=10&sort=title&order=desc&image=false",
+    "_order": "desc",
+    "_prev": null,
     "_q": "",
-    "_remainingCnt": 4,
-    "_returnedCnt": 2,
-    "_skip": 6,
+    "_remainingCnt": 115,
+    "_returnedCnt": 10,
+    "_skip": 0,
     "_sort": "title",
-    "_totalCnt": 12,
+    "_totalCnt": 125,
     "mp3s": [
         {
-            "_id": "56e018fdbfdfb90c61e60288",
-            "album": "Akhanda Nam II",
-            "artist": "Govinda",
+            "_id": "57371dd337545bf3b7ab624a",
+            "album": "Alachua",
+            "artist": "Rucira",
             "genre": "Kirtan",
             "image": {
-                "format": "image/jpeg"
+                "format": "jpg"
             },
-            "path": "/Users/warren/Downloads/mp3-id3-tag-samples/studio/govinda-prabhu/akhanda-nam-2/Track # 1-Khamaj-Master-2 (master).mp3",
-            "title": "Khamaj",
-            "year": "2010"
-        },
-        {
-            "_id": "56e018fdbfdfb90c61e60285",
-            "album": "Akhanda Nam I",
-            "artist": "Govinda",
-            "genre": "Kirtan",
-            "image": {
-                "format": "image/jpeg"
+            "orphaned": false,
+            "path": "/_var/_media/public/worldwide-old/2011/2011-alachua-holy-name-festival/01_Rucira_Dasi.mp3",
+            "restricted": false,
+            "selfLink": "https://storage.googleapis.com/24hk-app/public/worldwide-old/2011/2011-alachua-holy-name-festival/01_Rucira_Dasi.mp3",
+            "stats": {
+                "atime": "2016-05-14T19:29:04.000Z",
+                "birthtime": "2016-03-03T20:18:29.000Z",
+                "blksize": 4096,
+                "blocks": 66016,
+                "ctime": "2016-05-14T12:42:20.000Z",
+                "dev": 16777219,
+                "gid": 0,
+                "ino": 77648975,
+                "mode": 33188,
+                "mtime": "2016-03-03T20:18:29.000Z",
+                "nlink": 1,
+                "rdev": 0,
+                "size": 33796468,
+                "uid": 501
             },
-            "path": "/Users/warren/Downloads/mp3-id3-tag-samples/studio/govinda-prabhu/akhanda-nam/01 Madhukosh 4.01.mp3",
-            "title": "Madhukosh",
+            "title": "Alachua Festival of the Holy Name 2011",
             "year": "2011"
-        }
+        },
+        ...
     ]
 }
 ```
@@ -316,7 +327,7 @@ Any key can be searched. The list can be sorted. An invalid key returns no resul
 
 ```json
 # will be udpated when pagination is added
-{
+{{
     "_key": "artist",
     "_limit": 2,
     "_next": "/mp3s/key/artist?q=Aindra&operator=equals&limit=2&skip=4&sort=year&order=desc&image=false",
@@ -324,14 +335,14 @@ Any key can be searched. The list can be sorted. An invalid key returns no resul
     "_order": "desc",
     "_prev": "/mp3s/key/artist?q=Aindra&operator=equals&limit=2&skip=0&sort=year&order=desc&image=false",
     "_q": "Aindra",
-    "_remainingCnt": 1,
+    "_remainingCnt": 108,
     "_returnedCnt": 2,
     "_skip": 2,
     "_sort": "year",
-    "_totalCnt": 5,
+    "_totalCnt": 112,
     "mp3s": [
         {
-            "_id": "56f9620c37545bf3b7ab5e3c",
+            "_id": "57371dd237545bf3b7ab623f",
             "album": "Krishna Balaram Mandir",
             "artist": "Aindra",
             "genre": "Kirtan",
@@ -339,25 +350,29 @@ Any key can be searched. The list can be sorted. An invalid key returns no resul
                 "format": "image/png"
             },
             "orphaned": false,
-            "path": "/Users/warren/Downloads/_media/aindra/10.02.28-gaura-purnima-3.mp3",
+            "path": "/_var/_media/aindra/10.01.10-ekadasi-kirtan-2.mp3",
             "restricted": false,
-            "title": "Gaura Purnima Kirtan 02/28/2010 - Track 3",
+            "selfLink": "https://storage.googleapis.com/24hk-app/aindra/10.01.10-ekadasi-kirtan-2.mp3",
+            "stats": {
+                "atime": "2016-05-14T19:29:04.000Z",
+                "birthtime": "2016-03-31T21:33:44.000Z",
+                "blksize": 4096,
+                "blocks": 193752,
+                "ctime": "2016-05-14T12:41:14.000Z",
+                "dev": 16777219,
+                "gid": 0,
+                "ino": 77648659,
+                "mode": 33261,
+                "mtime": "2016-03-31T21:33:56.000Z",
+                "nlink": 1,
+                "rdev": 0,
+                "size": 99197054,
+                "uid": 501
+            },
+            "title": "Ekadasi Kirtan 01/10/2010 - Track 2",
             "year": "2010"
         },
-        {
-            "_id": "56f9620c37545bf3b7ab5e3e",
-            "album": "Krishna Balaram Mandir",
-            "artist": "Aindra",
-            "genre": "Kirtan",
-            "image": {
-                "format": "image/png"
-            },
-            "orphaned": false,
-            "path": "/Users/warren/Downloads/_media/aindra/10.03.05_2.mp3",
-            "restricted": false,
-            "title": "Temple Kirtan 2010/03/05 Part 2",
-            "year": "2010"
-        }
+        ...
     ]
 }
 ```
@@ -535,19 +550,37 @@ Gets a specific mp3 record using the \_id.
 #### Returns
 ```json
 {
-    "_id": "56e018fdbfdfb90c61e60285",
-    "album": "Akhanda Nam I",
-    "artist": "Govinda",
+    "_id": "57371dd337545bf3b7ab6250",
+    "album": "Krishna Balaram Mandir",
+    "artist": "Aindra",
     "genre": "Kirtan",
     "image": {
-        "format": "image/jpeg",
-        "data": "234j34ufufdsu9u...",
+        "format": "image/png"
     },
-    "path": "/Users/warren/Downloads/mp3-id3-tag-samples/studio/govinda-prabhu/akhanda-nam/01 Madhukosh 4.01.mp3",
-    "restricted":false,
-    "title": "Madhukosh",
-    "year": "2011"
+    "orphaned": false,
+    "path": "/_var/_media/aindra/10.01.24.mp3",
+    "restricted": false,
+    "selfLink": "https://storage.googleapis.com/24hk-app/aindra/10.01.24.mp3",
+    "stats": {
+        "atime": "2016-05-14T19:29:04.000Z",
+        "birthtime": "2016-03-31T21:34:44.000Z",
+        "blksize": 4096,
+        "blocks": 112696,
+        "ctime": "2016-05-14T12:41:17.000Z",
+        "dev": 16777219,
+        "gid": 0,
+        "ino": 77648674,
+        "mode": 33261,
+        "mtime": "2016-03-31T21:34:51.000Z",
+        "nlink": 1,
+        "rdev": 0,
+        "size": 57697051,
+        "uid": 501
+    },
+    "title": "Temple Kirtan 24/01/2010",
+    "year": "2010"
 }
+
 ```
 
 
@@ -556,13 +589,13 @@ Return a single mp3 record with image data.
 ```bash
 $ curl -v -k - X GET \
 -H "$(cat headers.txt)" \
-"https://localhost:8081/mp3/56e018fdbfdfb90c61e60285" \
+"https://localhost:8081/mp3/57371dd337545bf3b7ab6250" \
 | python -mjson.tool
 
 // excludes image data
 $ curl -v -k -X GET \
 -H "$(cat headers.txt)" \
-"https://localhost:8081/mp3/56e018fdbfdfb90c61e60285?image=false" \
+"https://localhost:8081/mp3/57371dd337545bf3b7ab6250?image=false" \
 | python -mjson.tool
 ```
 ```javascript
@@ -570,7 +603,7 @@ $http.defaults.headers.common['jwt'] = jwt; // optional authentication
 $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
 $http({ method:'GET',
-        url:'https://localhost:8081/mp3/56e018fdbfdfb90c61e60285?image=false'})
+        url:'https://localhost:8081/mp3/57371dd337545bf3b7ab6250?image=false'})
 .then(
     function successCallback(res) {
         console.log(res.data);
@@ -582,7 +615,58 @@ $http({ method:'GET',
 ```
 
 
+<a name="get.mp3.file"></a>
+<!-- GET /mp3/file/:_id ----------------------------------------- -->
+<!-- -->
+<!-- -->
+<!-- -->
+___
+## GET /mp3/file/:\_id
+Downloads a specific mp3 file using the \_id. The \_id can have an extension attached
+to it if required. The extension is parse and removed. Some client players may require
+the extension when calling this endpoint.
 
+#### Parameters
+<table id="tbl">
+  <colgroup>
+    <col>
+    <col>
+    <col>
+  </colgroup>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+  </tr>
+  <tr><td>\_id</td><td>string</td><td>The unique \_id assigned to the mp3. Part of the URI.
+  If an extension is applied to the \_id is it removed by the endpoint.</td></tr>
+</table>
+
+##### Example Parameter
+```bash
+/mp3/file/56e018fdbfdfb90c61e60285
+/mp3/file/56e018fdbfdfb90c61e60285.mp3
+```
+
+#### Inputs
+* None
+
+#### Returns
+Downloaded file as a stream.
+
+
+#### Examples
+Downloads a single mp3 file and writes it as a file called \_my.mp3 to the
+current user's home directory.
+```bash
+$ curl -v -k - X GET \
+-H "$(cat headers.txt)" \
+https://localhost:8081/mp3/file/57161ef437545bf3b7ab6184.mp3 \
+| ~/_my.mp3
+```
+```javascript
+// No example provided. Consult the client player documentation.
+```
 
 
 ___
