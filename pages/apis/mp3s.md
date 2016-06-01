@@ -665,7 +665,7 @@ Downloaded file as a stream.
 Downloads a single mp3 file and writes it as a file called \_my.mp3 to the
 current user's home directory.
 ```bash
-$ curl -v -k - X GET \
+$ curl -v -k -X GET \
 -H "$(cat headers.txt)" \
 https://localhost:8081/mp3/file/57161ef437545bf3b7ab6184.mp3 \
 | ~/_my.mp3
