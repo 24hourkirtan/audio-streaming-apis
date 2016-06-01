@@ -29,7 +29,7 @@ $ getent group adm;
 $ sudo chown -R node:adm /var/audio-streaming-apis_v1.0.0-alpha.2
 
 # Add write privilege for group adm
-$ chmod -R g+w /var/audio-streaming-apis_v1.0.0-alpha.2
+$ sudo chmod -R g+w /var/audio-streaming-apis_v1.0.0-alpha.2
 ```
 
 
@@ -58,6 +58,11 @@ Copy the config.json file from dev to stage or prod.
 ```bash
 $ scp -i ~/.ssh/id_rsa config.json  \
 [user]@api.kirtan.io:/var/audio-streaming-apis_v1.0.0-alpha.2/config.json
+```
+
+Change file owner to user "node", group "adm"
+```bash
+$ sudo chown -R node:adm /var/audio-streaming-apis_v1.0.0-alpha.2/config.json
 ```
 
 
@@ -113,7 +118,7 @@ Node.js using npm start.
 $ echo $NODE_ENV
 development
 
-#set NODE_ENV if needed
+# set NODE_ENV if needed
 $ export NODE_ENV=development
 
 # start Node.js with npm
