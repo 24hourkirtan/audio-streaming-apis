@@ -191,14 +191,11 @@ function upsertMP3(file, tags, collection, callback){
     var stats = fs.statSync(file);
 
     co(function* () {
-        // IMPORTANT
-        // The files must start from teh third directory from root
-        // Maybe this could be added to the config.json
-        var arr = file.split('/');
-        arr.splice(1, 2);
-        var newPath = arr.toString().replace(/,/g, '/');
-        var selfLink = 'https://storage.googleapis.com/24hk-app'+newPath;
-        //console.log('selfLink:', selfLink);
+        // IMPORTANT: dpath
+        // Remove the /var/media (stage) /_var/_media (dev0 used for stage and dev
+        // The Google storge bucket base is 24hk-app
+        var google = file.replace('/var/media/', '/').replace('/_var/_media/', '/');
+        var dpath = 'https://storage.googleapis.com/24hk-app'+google;
         var result = yield collection.findOneAndUpdate({path:file},
             {$set: {title: title,
                     artist: artist,
@@ -207,11 +204,11 @@ function upsertMP3(file, tags, collection, callback){
                     genre: genre,
                     orphaned:false,
                     restricted: restricted,
-                    selfLink: selfLink,
+                    dpath: dpath,
                     stats: stats,
                     image:image
-                  }
-                  //,$setOnInsert:{released:new Date()}
+                  },
+              $setOnInsert:{released:new Date()}
             },
             {returnOriginal: false, upsert: true}
         );
