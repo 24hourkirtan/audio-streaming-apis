@@ -85,11 +85,6 @@ Create a new certs directory.
 mkdir /var/audio-streaming-apis_v1.0.0-alpha.2/certs
 ```
 
-Change directory owner to user "node", group "adm"
-```bash
-$ sudo chown -R node:adm /var/audio-streaming-apis_v1.0.0-alpha.2/certs
-```
-
 Copy the self-signed certificates from dev to stage or prod.
 
 ```bash
@@ -103,7 +98,7 @@ $ scp -i ~/.ssh/id_rsa   certs/server-cert.pem  \
 [user]@api.kirtan.io:/var/audio-streaming-apis_v1.0.0-alpha.2/certs/server-cert.pem
 ```
 
-Change directory owner to user "node", group "adm"
+Change directory (recursively) owner to user "node", group "adm"
 ```bash
 $ sudo chown -R node:adm /var/audio-streaming-apis_v1.0.0-alpha.2/certs
 ```
