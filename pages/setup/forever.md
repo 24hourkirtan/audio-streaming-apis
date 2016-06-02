@@ -24,7 +24,7 @@ if using a privileged port.
 ```bash
 $ cd /var/[project_path]
 $ su - node
-$ export SET NODE_ENV=production
+$ export SET NODE_ENV=production #(stage or production)
 
 # non-privileged port
 $ forever start server.js
