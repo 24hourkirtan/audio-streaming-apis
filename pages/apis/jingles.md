@@ -62,8 +62,9 @@ __[Indexer](/index.html?md=pages_indexer.md)__
   },
   "orphaned": false,
     "path": "/_var/_media/jingles/Simply one has to become very sincere.mp3",
+    "released": ISODate("2016-06-02T22:36:09.532Z"),
     "restricted": false,
-    "selfLink": "https://storage.googleapis.com/24hk-app/jingles/Simply one has to become very sincere.mp3",
+    "dpath": "https://storage.googleapis.com/24hk-app/jingles/Simply one has to become very sincere.mp3",
     "stats": {
         "atime": "2016-05-14T19:29:11.000Z",
         "birthtime": "2016-03-22T13:28:22.000Z",

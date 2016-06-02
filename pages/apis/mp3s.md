@@ -117,8 +117,9 @@ data set.
             },
             "orphaned": false,
             "path": "/_var/_media/public/worldwide-old/2011/2011-alachua-holy-name-festival/01_Rucira_Dasi.mp3",
+            "released": ISODate("2016-06-02T22:36:09.532Z"),
             "restricted": false,
-            "selfLink": "https://storage.googleapis.com/24hk-app/public/worldwide-old/2011/2011-alachua-holy-name-festival/01_Rucira_Dasi.mp3",
+            "dpath": "https://storage.googleapis.com/24hk-app/public/worldwide-old/2011/2011-alachua-holy-name-festival/01_Rucira_Dasi.mp3",
             "stats": {
                 "atime": "2016-05-14T19:29:04.000Z",
                 "birthtime": "2016-03-03T20:18:29.000Z",
@@ -351,8 +352,9 @@ Any key can be searched. The list can be sorted. An invalid key returns no resul
             },
             "orphaned": false,
             "path": "/_var/_media/aindra/10.01.10-ekadasi-kirtan-2.mp3",
+            "released": ISODate("2016-06-02T22:36:09.532Z"),
             "restricted": false,
-            "selfLink": "https://storage.googleapis.com/24hk-app/aindra/10.01.10-ekadasi-kirtan-2.mp3",
+            "dpath": "https://storage.googleapis.com/24hk-app/aindra/10.01.10-ekadasi-kirtan-2.mp3",
             "stats": {
                 "atime": "2016-05-14T19:29:04.000Z",
                 "birthtime": "2016-03-31T21:33:44.000Z",
@@ -466,8 +468,9 @@ This endpoint hijacks the normal POST Content-Type and use application/json in t
       },
       "orphaned": false,
       "path": "/_var/_media/aindra/10.01.24.mp3",
+      "released": ISODate("2016-06-02T22:36:09.532Z"),
       "restricted": false,
-      "selfLink": "https://storage.googleapis.com/24hk-app/aindra/10.01.24.mp3",
+      "dpath": "https://storage.googleapis.com/24hk-app/aindra/10.01.24.mp3",
       "stats": {
           "atime": "2016-05-14T19:58:50.000Z",
           "birthtime": "2016-03-31T21:34:44.000Z",
@@ -565,8 +568,9 @@ Gets a specific mp3 record using the \_id.
     },
     "orphaned": false,
     "path": "/_var/_media/aindra/10.01.24.mp3",
+    "released": ISODate("2016-06-02T22:36:09.532Z"),
     "restricted": false,
-    "selfLink": "https://storage.googleapis.com/24hk-app/aindra/10.01.24.mp3",
+    "dpath": "https://storage.googleapis.com/24hk-app/aindra/10.01.24.mp3",
     "stats": {
         "atime": "2016-05-14T19:29:04.000Z",
         "birthtime": "2016-03-31T21:34:44.000Z",
