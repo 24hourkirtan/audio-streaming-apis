@@ -4,7 +4,7 @@
 
 The mp3s collection holds all id3 information extracted from the available mp3 files
 on the fie system. Records are read only and have been written to this collection by the Indexer. All endpoints
-can be accessed with or without authentication. Without authentication restricted MP3s are filtered out.
+can be accessed with or without authentication. When without authentication restricted MP3s are filtered out.
 
 <table id="tbl">
   <colgroup>
@@ -21,7 +21,7 @@ can be accessed with or without authentication. Without authentication restricte
   </tr>
   <tr><td>GET</td><td><a href="#get.mp3s">/mp3s</a></td>
     <td>X <sup>1</sup></td>
-    <td>gets a list of mp3 records for an authenticated user, includes filtering/sort/paging options</td></tr>
+    <td>gets a list of mp3 records, includes filtering/sort/paging options</td></tr>
   <tr><td>GET</td><td><a href="#get.mp3s.distinctkey">/mp3s/distinctkey/:key</a></td>
     <td>X <sup>1</sup></td>
     <td>gets a distinct list of key values</td></tr>
@@ -33,7 +33,7 @@ can be accessed with or without authentication. Without authentication restricte
     <td>gets a list of mp3 records using an array of \_ids</td></tr>
   <tr><td>GET</td><td><a href="#get.mp3">/mp3/:\_id</a></td>
     <td>X <sup>1</sup></td>
-    <td>gets a single mp3 record for an authenticated user</td></tr>
+    <td>gets a single mp3 record</td></tr>
   <tr><td>GET</td><td><a href="#get.mp3.file">/mp3/file/:\_id</a></td>
     <td>X <sup>1</sup></td>
     <td>downloads an mp3 file as a piped stream</td></tr>

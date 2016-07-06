@@ -159,7 +159,7 @@ ___
     <td NOWRAP>GET /mp3s</td>
     <td>X</td>
     <td>X <sup>1</sup></td>
-    <td>gets a list of mp3 records for an authenticated user, includes filtering/sort/paging options</td>
+    <td>gets a list of mp3 records, includes filtering/sort/paging options</td>
   </tr>
   <tr>
     <td NOWRAP>GET /mp3s/distinctkey/:key</td>
@@ -183,7 +183,7 @@ ___
     <td NOWRAP>GET /mp3/:\_id</td>
     <td>X</td>
     <td>X <sup>1</sup></td>
-    <td>gets a single mp3 record for an authenticated user</td>
+    <td>gets a single mp3 record</td>
   </tr>
   <tr>
     <td NOWRAP>GET /mp3/file/:\_id</td>
@@ -197,16 +197,25 @@ ___
     <td NOWRAP>GET /jingle/random</td>
     <td>X</td>
     <td></td>
-    <td>gets a random jingle record for an authenticated user</td>
+    <td>gets a random jingle record</td>
   </tr>
 
   <!-- LOGS ----------------------- -->
   <tr>
-    <td NOWRAP>GET /logs</td>
+    <td NOWRAP>POST /logs</td>
     <td>X</td>
     <td>X</td>
     <td>gets a list of log records for an authenticated user, includes sort and paging options</td>
   </tr>
+
+  <tr>
+    <td NOWRAP>GET /logs</td>
+    <td>X</td>
+    <td></td>
+    <td>creates a log entry</td>
+  </tr>
+
+
 
 </table>
 

@@ -10,17 +10,33 @@ Authentication is required for all endpoints.
     <col>
     <col>
     <col>
+    <col>
   </colgroup>
   <tr>
     <th>Verb</th>
     <th>Endpoint</th>
+    <th>JWT</th>
     <th>Summary</th>
   </tr>
-  <tr><td>GET</td><td><a href="#get.playlists">/playlists</a></td><td>gets all playlists for the current user, includes filtering/sort/paging options</td></tr>
-  <tr><td>GET</td><td><a href="#get.playlist">/playlist/:\_id</a></td><td>gets a single playlist for the current user</td></tr>
-  <tr><td>POST</td><td><a href="#post.playlist">/playlist</a></td><td>creates a playlist for the current user</td></tr>
-  <tr><td>PATCH</td><td><a href="#patch.playlist">/playlist/:\_id</a></td><td>modify a playlist for the current user</td></tr>
-  <tr><td>DELETE</td><td><a href="#delete.playlist">/playlist/:\_id</a></td><td>delete a playlist for the current user</td></tr>
+  <tr><td>GET</td><td><a href="#get.playlists">/playlists</a></td>
+  <td>X</sup></td>
+  <td>gets all playlists for the current user, includes filtering/sort/paging options</td></tr>
+
+  <tr><td>GET</td><td><a href="#get.playlist">/playlist/:\_id</a></td>
+  <td>X</sup></td>
+  <td>gets a single playlist for the current user</td></tr>
+
+  <tr><td>POST</td><td><a href="#post.playlist">/playlist</a></td>
+  <td>X</sup></td>
+  <td>creates a playlist for the current user</td></tr>
+
+  <tr><td>PATCH</td><td><a href="#patch.playlist">/playlist/:\_id</a></td>
+  <td>X</sup></td>
+  <td>modify a playlist for the current user</td></tr>
+
+  <tr><td>DELETE</td><td><a href="#delete.playlist">/playlist/:\_id</a></td>
+  <td>X</sup></td>
+  <td>delete a playlist for the current user</td></tr>
 </table>
 
 
@@ -298,7 +314,7 @@ $http.defaults.headers.common['Accept-Version'] = '1.0.0';
 $http.defaults.headers.common['Content-Type'] = 'application/json';
 var mp3s = ["56e1e47847a5b1d9098e43fb","56e018fdbfdfb90c61e6028e"];
 $http({ method:'POST',
-        url:'https://localhost:8081/palylist/56e1e47847a5b1d9098e43fb',
+        url:'https://localhost:8081/playlist/56e1e47847a5b1d9098e43fb',
         data:{name:'My Playlist', mp3s:mp3s}})
 .then(
     function successCallback(res) {

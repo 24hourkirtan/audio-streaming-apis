@@ -12,14 +12,17 @@ Authentication is not required for all endpoints.
     <col>
     <col>
     <col>
+    <col>
   </colgroup>
   <tr>
     <th>Verb</th>
     <th>Endpoint</th>
+    <th>JWT</th>
     <th>Summary</th>
   </tr>
   <tr><td>GET</td><td><a href="#get.jingle.random">/jingle/random</a></td>
-  <td>gets a random jingle record for an authenticated user</td></tr>
+  <td></td>
+  <td>gets a random jingle record</td></tr>
 
 </table>
 

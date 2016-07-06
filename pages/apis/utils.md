@@ -9,15 +9,25 @@ Authentication is not required for all endpoints.
     <col>
     <col>
     <col>
+    <col>
   </colgroup>
   <tr>
     <th>Verb</th>
     <th>Endpoint</th>
+    <th>JWT</th>
     <th>Summary</th>
   </tr>
-  <tr><td>GET</td><td><a href="#get.ping">/ping</a></td><td>simple endpoint to verify the API server is alive</td></tr>
-  <tr><td>GET</td><td><a href="#get.license">/license</a></td><td>retrieves API the license type</td></tr>
-  <tr><td>GET</td><td><a href="#get.id3">/id3</a></td><td>retrieves the id3 tags for a specified path of an MP3 file</td></tr>
+  <tr><td>GET</td><td><a href="#get.ping">/ping</a></td>
+  <td></td>
+  <td>simple endpoint to verify the API server is alive</td></tr>
+
+  <tr><td>GET</td><td><a href="#get.license">/license</a></td>
+  <td></td>
+  <td>retrieves API the license type</td></tr>
+
+  <tr><td>GET</td><td><a href="#get.id3">/id3</a></td>
+  <td></td>
+  <td>retrieves the id3 tags for a specified path of an MP3 file</td></tr>
 </table>
 
 

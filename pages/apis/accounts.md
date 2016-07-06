@@ -10,18 +10,34 @@ Authentication is required for all endpoints.
     <col>
     <col>
     <col>
+    <col>
   </colgroup>
   <tr>
     <th>Verb</th>
     <th>Endpoint</th>
+    <th>JWT</th>
     <th>Summary</th>
   </tr>
 
-  <tr><td>GET</td><td><a href="#get.account.token">/account/token</a></td><td>login: returns a user's JWT token, email/password in header required</td></tr>
-  <tr><td>GET</td><td><a href="#get.account">/account</a></td><td>gets account information for the current user</td></tr>
-  <tr><td>POST</td><td><a href="#post.account">/account</a></td><td>creates a new account with Basic Auth header credentials, returns jwt token</td></tr>
-  <tr><td>PATCH</td><td><a href="#patch.account">/account/:\_id</a></td><td>modify the account for the current user</td></tr>
-  <tr><td>PATCH</td><td><a href="#patch.account.password">/account/password/:\_id</a></td><td>modify the account password for the current user</td></tr>
+  <tr><td>GET</td><td><a href="#get.account.token">/account/token</a></td>
+  <td>Basic</sup></td>
+  <td>login: returns a user's JWT token, email/password in header required</td></tr>
+
+  <tr><td>GET</td><td><a href="#get.account">/account</a></td>
+  <td>X</sup></td>
+  <td>gets account information for the current user</td></tr>
+
+  <tr><td>POST</td><td><a href="#post.account">/account</a></td>
+  <td>Basic</sup></td>
+  <td>creates a new account with Basic Auth header credentials, returns jwt token</td></tr>
+
+  <tr><td>PATCH</td><td><a href="#patch.account">/account/:\_id</a></td>
+  <td>X</sup></td>
+  <td>modify the account for the current user</td></tr>
+
+  <tr><td>PATCH</td><td><a href="#patch.account.password">/account/password/:\_id</a></td>
+  <td>X</sup></td>
+  <td>modify the account password for the current user</td></tr>
 
 </table>
 
