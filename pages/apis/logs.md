@@ -8,13 +8,20 @@ collection is set as TTL on the DTTM key. All records auto delete after seven da
 Authentication is required for all endpoints.
 
 <table id="tbl">
-  <colgroup><col><col><col></colgroup>
+  <colgroup><col><col><col><col></colgroup>
   <tr>
     <th>Verb</th>
     <th>Endpoint</th>
+    <th>JWT</th>
     <th>Summary</th>
   </tr>
-  <tr><td>GET</td><td><a href="#get.logs">/logs</a></td><td>gets a list of log records for an authenticated user, includes sort and paging options</td></tr>
+  <tr><td>GET</td><td><a href="#get.logs">/logs</a></td>
+  <td>X</td>
+  <td>gets a list of log records, includes sort and paging options</td></tr>
+
+  <tr><td>POST</td><td><a href="#post.logs">/logs</a></td>
+  <td></td>
+  <td>creates a log entry</td></tr>
 
 </table>
 
@@ -154,6 +161,80 @@ $http({ method:'GET',
     }
 );
 ```
+
+
+
+
+<a name="post.logs"></a>
+<!-- POST /logs ----------------------------------------- -->
+<!-- -->
+<!-- -->
+<!-- -->
+___
+## POST /logs
+
+Create a new log entry. Log entries use a generic data object and a message.
+
+#### Parameters
+* None
+
+#### Inputs
+<table id="tbl">
+  <colgroup><col><col><col></colgroup>
+  <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+  <tr><td>msg</td><td>string</td><td>A short message about the log entry. Place detailed message and info in the data input.</td></tr>
+  <tr><td>data</td><td>object</td><td>An object of any structure.</td></tr>
+</table>
+
+##### Example Input
+```json
+{
+  "msg": "Problem loading a playlist",
+  "data": {"error": "The http request timed out", "status": "909"}
+}
+```
+
+#### Returns
+A date/timestamp (dttm) is added to the record.
+```json
+{
+  "_id": "577cf7d02a3f7828aa22b47b",
+  "data": {
+    "error": "The http request timed out",
+    "status": "909"
+  },
+  "dttm": "2016-07-06T12:21:36.255Z",
+  "msg": "Problem loading a playlist"
+}
+```
+
+#### Examples
+Create a new log entry. A JWT token is not required.
+```bash
+$ curl -v -k -X POST \
+-H "Content-Type: application/json" -d '{"msg":"Problem loading a playlist", "data":{"status":"909", "error":"The http request timed out"} }' \
+"https://localhost:8081/logs" | python -mjson.tool
+```
+
+```javascript
+$http.defaults.headers.common['Accept-Version'] = '1.0.0';
+$http.defaults.headers.common['Content-Type'] = 'application/json';
+var dataObj = {"data":{"status":"909", "error":"The http request timed out"} };
+$http({ method:'POST',
+        url:'https://localhost:8081/logs',
+        data:{msg:'Problem loading a playlist', 'dataObj':dataObj})
+.then(
+    function successCallback(res) {
+        console.log(res.data);
+    },
+    function errorCallback(res) {
+        console.log(res);
+    }
+);
+```
+
+
+
 
 
 ___
