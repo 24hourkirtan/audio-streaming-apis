@@ -39,7 +39,7 @@ ___
 The repo does not contain the required packages to run the project.
 
 ```bash
-$ cd ~/audio-streaming-apis_v1.0.0-alpha.2
+$ cd /var/audio-streaming-apis_v1.0.0-alpha.2
 
 $ npm update
 ```
