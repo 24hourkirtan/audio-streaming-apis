@@ -202,14 +202,14 @@ ___
 
   <!-- LOGS ----------------------- -->
   <tr>
-    <td NOWRAP>POST /logs</td>
+    <td NOWRAP>GET /logs</td>
     <td>X</td>
     <td>X</td>
     <td>gets a list of log records for an authenticated user, includes sort and paging options</td>
   </tr>
 
   <tr>
-    <td NOWRAP>GET /logs</td>
+    <td NOWRAP>POST /logs</td>
     <td>X</td>
     <td></td>
     <td>creates a log entry</td>
