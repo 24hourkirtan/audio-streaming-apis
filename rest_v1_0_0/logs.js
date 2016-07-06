@@ -68,5 +68,26 @@ module.exports = {
             res.send(500, err);
             return next();
         });
+    },
+
+    create: function(req, res, next) {
+        res.setHeader('X-Version', '1.0.0');
+        var params = req.params;
+        co(function*() {
+              var col = db.conn.collection('logs');
+              var doc = yield col.insertOne(
+                    { dttm: new Date(),
+                      msg: params.msg,
+                      data:params.data
+                     }
+              );
+              assert.ok((doc.insertedCount == 1), 'the log entry was not created');
+              res.send(201, doc.ops[0]);
+              return next();
+        }).catch(function(err) {
+            db.insertLogs('ERROR: (logs.create) '+err);
+            res.send(500, err);
+            return next();
+        });
     }
 };

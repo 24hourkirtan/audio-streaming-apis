@@ -130,6 +130,8 @@ server.patch({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.modify)
 server.del({path: "/playlist/:_id", version: '1.0.0'}, playlists_1_0_0.delete);
 
 server.get({path: "/logs", version: '1.0.0'}, logs_1_0_0.getAll);
+server.post({path: "/logs", version: '1.0.0'}, logs_1_0_0.create);
+
 server.get({path: "/id3", version: '1.0.0'}, utils_1_0_0.getId3Tags);
 server.get({path: "/mongodb.indexes", version: '1.0.0'}, mongodb_1_0_0.getIndexes);
 
