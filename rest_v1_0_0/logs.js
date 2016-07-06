@@ -70,6 +70,15 @@ module.exports = {
         });
     },
 
+
+    /**
+     * Creates a new log record. The endpoint wants two inputs (msg:string, data:object).
+     * They are inserted as null if not present.
+     * @param  {Object}   req   request
+     * @param  {Object}   res   respone
+     * @param  {next}     next  restify route pattern
+     * @return {next}           restify route pattern
+     */
     create: function(req, res, next) {
         res.setHeader('X-Version', '1.0.0');
         var params = req.params;
