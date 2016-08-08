@@ -32,7 +32,7 @@ __[config.json](/index.html?md=pages_config.md)__ section for more information.
   "stage":{
     ...
     "port":443,
-    "address":"api.kirtan.io"
+    "address":"api-stage.kirtan.io"
 },
   "production":{
     ...
@@ -49,6 +49,7 @@ to download a valid JWT token to make secure endpoint calls.
 
 ```bash
 $ cd &lt;root-of-project>
+$ export SET NODE_ENV=stage
 $ npm test
 ```
 
