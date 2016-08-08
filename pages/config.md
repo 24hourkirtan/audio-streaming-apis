@@ -43,7 +43,7 @@ to run Unit Testing against.
     "jwt_secret":"secret",
     "jwt_appkey":"appkey",
     "port":443,
-    "address":"api.kirtan.io"
+    "address":"api-stage.kirtan.io"
   },
   "production":{
     "ssl_cert": "certs/server-cert.pem",
